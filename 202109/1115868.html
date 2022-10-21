@@ -1,0 +1,1413 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MySQL-基础, 戚中一">
+    <meta name="description" content="写在前面：本文主要对 MySQL的基础通识知识 进行简单介绍
+
+
+1. 简单介绍1.1 逻辑架构
+连接层：
+Connectors，提供与客户端的连接服务，主要包括连接处理、授权认证、安全方案等，引入线程池的概念，为通过安全认证的连接提供线程">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>MySQL-基础 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MySQL-基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-09-11
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-09-23
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要对 MySQL的基础通识知识 进行简单介绍</p>
+<span id="more"></span>
+
+<h1 id="1-简单介绍"><a href="#1-简单介绍" class="headerlink" title="1. 简单介绍"></a>1. 简单介绍</h1><h2 id="1-1-逻辑架构"><a href="#1-1-逻辑架构" class="headerlink" title="1.1 逻辑架构"></a>1.1 逻辑架构</h2><p><img src="https://qizhongyi.gitee.io/images/Data/DataBase/MySQL/Logic_framer.jpg" alt="Logic_framer"></p>
+<p><strong>连接层</strong>：</p>
+<p>Connectors，提供与客户端的连接服务，主要包括连接处理、授权认证、安全方案等，引入线程池的概念，为通过安全认证的连接提供线程</p>
+<p><strong>服务层</strong>：提供SQL接收接口（针对 select 语句会优先进行缓存查询），随后完成SQL的解析（形成解析数）和优化（索引、连接顺序等，形成优化后的解析数）及部分内置函数的执行</p>
+<ul>
+<li><p>Connection Management：连接池，进行连接管理</p>
+</li>
+<li><p>SQL Interface：SQL接口</p>
+</li>
+<li><p>Parser：解析器</p>
+</li>
+<li><p>Optimizer：优化器</p>
+</li>
+<li><p>Caches &amp; Buffers：缓存和缓冲</p>
+</li>
+<li><p>Management Service &amp; Utilities：</p>
+</li>
+</ul>
+<p><strong>存储引擎层</strong>：真正实现 MySQL 的数据存储和提取，较常用的是 MyISAM（5.5及之前默认） 和 InnoDB（5.5 之后默认，可进行配置）</p>
+<p>Pluggable Storage Engines(可拔插存储引擎)，插件式的存储引擎架构将查询处理、其他系统任务和数据存储提取相分离，可根据合适的业务场景选择哈市的存储引擎</p>
+<pre class="line-numbers language-none"><code class="language-none">show engines;                            -- 查看现在提供的存储引擎列表，Support中为default为当前默认的存储引擎
+show variables like &quot;%storage_engine%&quot;;  -- 查看当前默认提供的存储引擎<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>数据存储层</strong>：将数据存储在硬件设备上，并完成与存储引擎的交互</p>
+<p>File System(文件系统)</p>
+<h2 id="磁盘文件"><a href="#磁盘文件" class="headerlink" title="磁盘文件"></a>磁盘文件</h2><p>查看文件存放位置：show variables like ‘datadir’; 最多可以创建20亿个表，每个表最多1024个列，记录数没有明显限制（受到存储空间的限制）</p>
+<h2 id="1-2-表格类型"><a href="#1-2-表格类型" class="headerlink" title="1.2 表格类型"></a>1.2 表格类型</h2><h3 id="1-2-1-常见五种类型"><a href="#1-2-1-常见五种类型" class="headerlink" title="1.2.1 常见五种类型"></a>1.2.1 常见五种类型</h3><ul>
+<li><p>MyISAM</p>
+</li>
+<li><p>InnoDB</p>
+</li>
+<li><p>ISAM：简称为索引顺序访问方法，由 IBM 开发用于在磁带等辅助存储系统上存储和检索数据</p>
+</li>
+<li><p>Merge</p>
+</li>
+<li><p>Heap：内存表；存储于内存中，用于临时高速存储，存储引擎是memory；表结构存储在磁盘中，数据存储在内存中，服务器重启后，仅保留 heap 表结构；存储引擎 memory 比 myisam 快</p>
+</li>
+<li><p>ISAM：简称为索引顺序访问方法，由 IBM 开发用于在磁带等辅助存储系统上存储和检索数据</p>
+<p>表的大小通过 Mysql 配置变量 max_heap_table_size 来控制；不允许存储 BLOB 或 TEXT 数据类型；只能使用比较运算符 &lt;=&gt; ；4.1版本之前不支持 AUTO_INCREMENT ；索引不可为 NULL</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE &#96;tb_name&#96; (
+&#96;col_name&#96; datatype(long) 列属性选项
+) TYPE &#x3D; HEAP(5.2以前) &#x2F; engine &#x3D; memory(5.2以后)
+
+表结构定义与普通表一致，仅在后面申明 TYPE &#x3D; HEAP &#x2F; engine&#x3D;memory；添加主键、索引方式也与普通表一致<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-2-2-其他类型"><a href="#1-2-2-其他类型" class="headerlink" title="1.2.2 其他类型"></a>1.2.2 其他类型</h3><ul>
+<li>Federated：访问在远程数据库的表中的数据；在本地构建一个federated表来连接远程数据表，本地表的数据可以直接跟远程数据表同步；引擎里面是不真实存放数据的，所需要的数据都是连接到其他MySQL服务器上获取<br><strong>注意事项</strong>：<ol>
+<li>对本地虚拟表的结构修改，并不会修改远程表的结构 </li>
+<li>truncate 命令，会清除远程表数据 </li>
+<li>drop命令只会删除虚拟表，并不会删除远程表</li>
+<li>不支持 alter table 命令</li>
+<li>limit 操作运行速度较慢，读取所有满足条件的记录，再进行 limit 处理</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">install plugin federated soname &#39;ha_federated.so&#39;;  -- 安装federated引擎
+在my.cnf中加入一行federated；保存重启  -- 启动federated引擎
+
+CREATE TABLE tb_name (
+&#96;col_name&#96; datatype(long) 列属性选项
+) ENGINE &#x3D; FEDERATED CONNECTION &#x3D; &#39;mysql:&#x2F;&#x2F;username:password@ip:port&#x2F;db_name&#x2F;tb_name&#39;
+表名可以不一致<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>临时表：默认存储引擎是 myisam，表结构、数据都存储在内存中，服务器重启后，都将会丢失<pre class="line-numbers language-none"><code class="language-none">CREATE TEMPORARY TABLE &#96;tb_name&#96; (
+&#96;col_name&#96; datatype(long) 列属性选项
+) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>dual：伪表，不真实存在</li>
+</ul>
+<blockquote>
+<p>单表最大的存储空间是 65535TB，单列最大的存储空间4GB（仅 LONGBLOB、LONGTEXT 支持）</p>
+</blockquote>
+<h2 id="1-3-存储引擎"><a href="#1-3-存储引擎" class="headerlink" title="1.3 存储引擎"></a>1.3 存储引擎</h2><p><strong>存储引擎</strong>：文件系统的实现，数据、索引和其他对象的存储方式</p>
+<h3 id="1-3-1-MyISAM"><a href="#1-3-1-MyISAM" class="headerlink" title="1.3.1 MyISAM"></a>1.3.1 MyISAM</h3><p>不支持事务，但每次查询都是原子的，不支持外键<br>支持表级锁（对整表加锁）<br>按照记录插入顺序保存，存储表的总行数<br>一个MyISAM有三个文件：表结构文件（frm）、索引文件（myi）和数据文件（myd）；数据可被压缩，存储空间较小；跨平台转移时较方便，备份恢复时可单独对某个表进行操作<br>采用非聚簇索引，索引文件的数据域存储指向数据文件的指针，辅索引与主索引基本一致，但辅索引不用保证一致性</p>
+<h3 id="1-3-2-InnoDB"><a href="#1-3-2-InnoDB" class="headerlink" title="1.3.2 InnoDB"></a>1.3.2 InnoDB</h3><p>存储结构逻辑上可分为：<strong>表空间</strong>tablespace，<strong>段</strong>segment，<strong>区</strong>extent，<strong>页</strong>page，<strong>行</strong>row(一条记录)<br><img src="https://qizhongyi.gitee.io/images/Data/DataBase/MySQL/Data_Save_Structure.png" alt="Data_Save_Structure"></p>
+<p><strong>表空间</strong>：</p>
+<ul>
+<li>系统表空间：也叫共享表空间，关闭独占表空间后：innodb_file_per_table = ，所有的数据都会存储到ibdata1文件里面</li>
+<li>用户表空间：也叫独占表空间，开启独占表空间后：innodb_file_per_table = 1，每张表的数据都会存储到一个独立的ibd文件里面，文件名为tb_name.ibd，表大小受操作系统文件大小的限制，一般2G</li>
+<li>通用表空间</li>
+<li>临时表空间</li>
+<li>undo表空间</li>
+</ul>
+<p><strong>段</strong>：开启独占表空间后，会创建一个数据段(ibd文件)和索引段(frm文件)，段的空间大小随表的大小自动扩展，一个段至少会有一个区，段扩展的最小空间是区</p>
+<ul>
+<li>数据段：存储着索引树里的叶子结点的数据</li>
+<li>索引段：存储着索引树里的非叶子结点的数据</li>
+<li>回滚段</li>
+</ul>
+<p><strong>区</strong>：由64个连续的页组成，大小为1M = 64 * 16K(一个页的大小)，为保证区中页的连续性，扩展时会一次性申请4~5个区</p>
+<p><strong>页</strong>：大小为16k，一个数据页对应B+Tree的一个叶子节点；是MySQL InnoDB存储引擎内存和磁盘交互的最小单位，内存中有数据页和索引页</p>
+<ul>
+<li>支持ACID的事务，支持事物的四种隔离原则</li>
+<li>支持事务、行级锁及外键约束，支持写并发</li>
+</ul>
+<blockquote>
+<p>需要对 insert、delete 、update、for update 操作进行加锁<br>添加行级锁是针对索引进行加锁</p>
+</blockquote>
+<ul>
+<li>按主键大小有序插入，不存储总行数</li>
+<li>主键采用聚集索引，辅索引的数据域存储主键的值，此时主键尽量采用自增主键；建议使用自增主键，避免插入时大量调整 B+树 结构，影响效率</li>
+</ul>
+<h3 id="1-3-3-MEMORY"><a href="#1-3-3-MEMORY" class="headerlink" title="1.3.3 MEMORY"></a>1.3.3 MEMORY</h3><p>所有数据都存储在内存中，数据处理速度极快，安全性不高，容易丢失</p>
+<h3 id="1-3-4-比较"><a href="#1-3-4-比较" class="headerlink" title="1.3.4  比较"></a>1.3.4  比较</h3><table>
+<thead>
+<tr>
+<th align="left">Feature 特性</th>
+<th align="left">MyISAM</th>
+<th align="left">Memory</th>
+<th align="left">InnoDB</th>
+<th align="left">Archive</th>
+<th align="left">NDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">B-tree indexes <strong>B树索引</strong></td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Backup/point-in-time recovery (note 1) <strong>时间点恢复</strong></td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Cluster database support</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Clustered indexes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Compressed data <strong>数据压缩</strong></td>
+<td align="left">Yes (note 2)</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Data caches <strong>数据缓存</strong></td>
+<td align="left">No</td>
+<td align="left">N/A</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Encrypted data</td>
+<td align="left">Yes (note 3)</td>
+<td align="left">Yes (note 3)</td>
+<td align="left">Yes (note 4)</td>
+<td align="left">Yes (note 3)</td>
+<td align="left">Yes (note 3)</td>
+</tr>
+<tr>
+<td align="left">Foreign key support <strong>外键支持</strong></td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes (note 5)</td>
+</tr>
+<tr>
+<td align="left">Full-text search indexes <strong>全文索引</strong></td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes (note 6)</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Geospatial data type support</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Geospatial indexing support</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes (note 7)</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Hash indexes <strong>哈希索引</strong></td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No (note 8)</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Index caches <strong>索引缓存</strong></td>
+<td align="left">Yes</td>
+<td align="left">N/A</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Locking granularity <strong>锁粒度</strong></td>
+<td align="left">Table</td>
+<td align="left">Table</td>
+<td align="left">Row，适合高并发</td>
+<td align="left">Row</td>
+<td align="left">Row</td>
+</tr>
+<tr>
+<td align="left">MVCC</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">No</td>
+</tr>
+<tr>
+<td align="left">Replication support (note 1)</td>
+<td align="left">Yes</td>
+<td align="left">Limited</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Storage limits</td>
+<td align="left">256TB</td>
+<td align="left">RAM</td>
+<td align="left">64TB</td>
+<td align="left">None</td>
+<td align="left">384EB</td>
+</tr>
+<tr>
+<td align="left">T-tree indexes <strong>T树索引</strong></td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Transactions <strong>事务支持</strong></td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Update statistics for data dictionary</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+</tbody></table>
+<p>更多内容见<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.6/en/storage-engines.html"><font face = "微软雅黑" color = 1E90FF size = 5>官网: Chapter 15 Alternative Storage Engines</font></a></p>
+<p><strong>Notes:</strong></p>
+<ol>
+<li><p>Implemented in the server, rather than in the storage engine.  在服务器中实现，而不是在存储引擎中实现</p>
+</li>
+<li><p>Compressed MyISAM tables are supported only when using the compressed row format. Tables using the compressed row format with MyISAM are read only.  只有在使用压缩行格式时才支持压缩的MyISAM表。使用MyISAM压缩行格式的表是只读的。</p>
+</li>
+<li><p>Implemented in the server via encryption functions.  在服务器端通过加密功能实现。</p>
+</li>
+<li><p>Implemented in the server via encryption functions; In MySQL 5.7 and later, data-at-rest encryption is supported.  在服务器端通过加密功能实现；MySQL 5.7及以后版本支持数据静止加密。</p>
+</li>
+<li><p>Support for foreign keys is available in MySQL Cluster NDB 7.3 and later.  MySQL Cluster NDB 7.3及更高版本支持外键。</p>
+</li>
+<li><p>Support for FULLTEXT indexes is available in MySQL 5.6 and later.  在MySQL 5.6及更高版本中提供了对全文索引的支持。</p>
+</li>
+<li><p>Support for geospatial indexing is available in MySQL 5.7 and later.  MySQL 5.7及更高版本支持地理空间索引。</p>
+</li>
+<li><p>InnoDB utilizes hash indexes internally for its Adaptive Hash Index feature.  InnoDB在内部利用哈希索引实现自适应哈希索引特性。</p>
+</li>
+</ol>
+<p><strong>区别</strong>：</p>
+<ul>
+<li><p><strong>InnoDB 很多时候是行级锁，而 MyISAM 是表级锁，InnoDB 的并发高</strong></p>
+</li>
+<li><p><strong>InnoDB 支持事务，外键，数据完整性约束要强；MyISAM 不支持</strong></p>
+</li>
+<li><p>数据和索引的保存的文件不同：MyISAM 是分开保存，而 InnoDB 是保存到表空间</p>
+</li>
+<li><p>MyISAM  支持索引压缩，而 InnoDB 索引和数据是绑定保存不压缩，体积大</p>
+</li>
+<li><p>InnoDB 不支持 FULLTEXT 类型的索引(新版本的InnoDB 也支持)</p>
+</li>
+<li><p>InnoDB 中不保存表的具体行数，即执行select count(*) from table时，InnoDB要扫描一遍整个表来计算有多少行，但是MyISAM只要简单的读出保存好的行数即可。注意的是，当count(*)语句包含 where条件时，两种表的操作是一样的</p>
+</li>
+<li><p>对于AUTO_INCREMENT类型的字段，InnoDB 中必须包含只有该字段的索引，但是在MyISAM 表中，可以和其他字段一起建立联合索引</p>
+</li>
+<li><p>一个MyISAM表有三个文件：表结构文件、索引文件和数据文件；一个InnoDB存储引擎在一个文件空间（共享表空间，表大小不受操作系统限制，一个表可能分布在多个文件里），或多个文件空间中（设置为独立表空间，表大小受操作系统限制，一般为2G），受操作系统文件大小限制</p>
+</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202109/1115868.html">https://qizhongyi.gitee.io/202109/1115868.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202109/1525719.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="MySQL进阶-索引">
+                        
+                        <span class="card-title">MySQL进阶-索引</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录 MySQL索引 的相关基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BF%9B%E9%98%B6/" class="post-category">
+                                    进阶
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202109/0430301.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据指标管理-基础">
+                        
+                        <span class="card-title">数据指标管理-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录数据指标管理的相关基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">数据治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87/">
+                        <span class="chip bg-color">数据指标</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">265.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

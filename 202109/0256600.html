@@ -1,0 +1,1331 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="大数据实践-01阿里-数据管理, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录大数据实践-01阿里-数据管理的相关内容
+
+
+1. 元数据元数据：Metadata，元数据是关于数据的数据，记录了数据从产生到消费的全过程，主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及 E">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>大数据实践-01阿里-数据管理 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大数据实践-01阿里-数据管理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                <span class="chip bg-color">大数据</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%AE%9E%E8%B7%B5/" class="post-category">
+                                实践
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-09-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-01
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    31 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录大数据实践-01阿里-数据管理的相关内容</p>
+<span id="more"></span>
+
+<h1 id="1-元数据"><a href="#1-元数据" class="headerlink" title="1. 元数据"></a>1. 元数据</h1><p><strong>元数据</strong>：Metadata，元数据是关于数据的数据，记录了数据从产生到消费的全过程，主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及 ETL 的任务运行状态</p>
+<blockquote>
+<p>技术元数据：存储关于数据仓库系统技术细节的数据，用于开发和管理数据仓库使用的数据</p>
+<blockquote>
+<p><strong>分布式计算系统存储元数据</strong>：如 MaxCompute 表、列、分区等信息，表名、分区信息、责任人信息、文件大小、表类型，生命周期，以及列的字段名、字段类型、字段备注、是否是分区字段等信息<br><strong>分布式计算系统运行元数据</strong>： MaxCompute 上所有作业运行等信息，包括作业类型、实例名称、输入输出、 SQL 、运行参数、执行时间、最细粒度的 Fuxi Instance (MaxCompute MR 执行的最小单元）执行信息等；类似于 Hive 的 Job 日志<br><strong>数据开发平台中数据任务调度元数据</strong>：包括数据同步的输入输出表和字段，以及同步任务本身的节点信息：计算任务主要有输入输出、任务本身的节点信息 任务调度主要有任务的依赖类型、依赖关系等，以及不同类型调度任务的运行日志等<br><strong>数据质量和运维相关元数据</strong>：如任务监控、运维报警、数据质量、故障等信息，包括任务监控运行日志、告警配置及运行日志、故障信息等</p>
+</blockquote>
+<p>业务元数据：业务角度描述了数据仓库中的数据，提供了介于使用者和实际系统之间的语义层，使得不懂计算机技术的业务人员也能够“读懂”数据仓库中的数据</p>
+<blockquote>
+<p><strong>OneData 元数据</strong>：如维度及属性、业务过程、指标等的规范化定义，用于更好地管理和使用数据<br><strong>数据应用元数据</strong>：如数据报表、数据产品等的配置和运行元数据</p>
+</blockquote>
+</blockquote>
+<h2 id="1-1-统一元数据体系建设"><a href="#1-1-统一元数据体系建设" class="headerlink" title="1.1 统一元数据体系建设"></a>1.1 统一元数据体系建设</h2><p><img src="https://qizhongyi.gitee.io/images//Data/DataManage/Ali_Practice/0301_%E5%85%83%E6%95%B0%E6%8D%AE%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE.png" alt="0301_元数据体系建设"></p>
+<blockquote>
+<p>首先梳理清楚元仓底层数据，对元数据做分类，减少数据重复建设，保障数据的唯一性<br>丰富表和字段使用说明，方便使用和理解<br>根据元仓底层数据构建元仓中间层，依据 OneData 规范，建设元数据基础宽表,打通从数据产生到消费整个链路<br>基于元数据中间层，对外提供标准统一的元数据服务出口，保障元数据产出的质量</p>
+</blockquote>
+<h2 id="1-2-元数据应用"><a href="#1-2-元数据应用" class="headerlink" title="1.2 元数据应用"></a>1.2 元数据应用</h2><h3 id="1-2-1-Data-Profile"><a href="#1-2-1-Data-Profile" class="headerlink" title="1.2.1 Data Profile"></a>1.2.1 Data Profile</h3><p><strong>Data Profile</strong>：为纷繁复杂的数据建立一个脉络清晰的血缘图谱，通过图计算、标签传播算法等技术 ，系统化、自动化地对计算与存储平台上的数据进行打标、整理、归档；可以节约研发人员的时间成本，更直观地理解数据、利用数据，提升数据的研发效率</p>
+<blockquote>
+<p>基础标签：针对数据的存储情况、访问情况、安全等级等进行打标<br>数仓标签：针对数据的增量全量、是否可再生、数据的生命周期来进行标签化处理<br>业务标签：根据数据归属的主题域、产品线、业务类型为数据打上不同的标签<br>潜在标签：说明数据潜在的应用场景， 如社交、媒体、广告、电商、金融等</p>
+</blockquote>
+<h3 id="1-2-2-元数据门户"><a href="#1-2-2-元数据门户" class="headerlink" title="1.2.2 元数据门户"></a>1.2.2 元数据门户</h3><p><strong>元数据门户</strong>：一站式数据管理平台、一体化数据市场；包括前台和后台，前台为数据地图；后台产品为数据管理平台</p>
+<ul>
+<li><strong>数据地图</strong>：定位消费市场，服务于数据分析、数据开发、数据挖掘、算法工程师、数据运营等数据表的使用者和拥有者；实现检索数据、理解数据等找数据需求，拥有功能强大的血缘信息及影响分析；利用表使用说明、评价反馈 、表收藏及精品表机制，为用户浮现高质量、高保障的目标数据；</li>
+<li><strong>数据管理平台</strong>：定位于一站式数据管理，服务于个人开发者 BU 管理者、系统管理员等用户；提供个人和 BU 全局资产管理、成本管理和质量管理，实现安全管理等</li>
+</ul>
+<h3 id="1-2-3-应用链路分析"><a href="#1-2-3-应用链路分析" class="headerlink" title="1.2.3 应用链路分析"></a>1.2.3 应用链路分析</h3><p><strong>应用链路分析</strong>：通过应用链路分析，产出表级血缘、字段血缘和表的应用血缘；明确某个数据计算任务或表的重要程度、下游使用情况等</p>
+<ul>
+<li><strong>表级血缘</strong></li>
+</ul>
+<blockquote>
+<p>通过 MaxCompute 任务日志进行解析<br>根据任务依赖进行解析</p>
+</blockquote>
+<ul>
+<li><strong>表的应用血缘</strong>：依赖不同的应用，按照应用和物理表的配置关系，可以分为配置型和无配置型，主要用于影响分析、重要性分析、下线分析、链路分析、寻根溯源、故障排查等</li>
+</ul>
+<h3 id="1-2-4-数据建模"><a href="#1-2-4-数据建模" class="headerlink" title="1.2.4 数据建模"></a>1.2.4 数据建模</h3><p><strong>数据建模</strong>：通过元数据驱动的数据仓库模型建设，取代采用经验建模的方式；提高数据仓库建模的数据化指导，提升建模效率</p>
+<ul>
+<li><strong>使用的元数据</strong></li>
+</ul>
+<blockquote>
+<p>表的基础元数据，包括下游情况、查询次数、关联次数、聚合次数、产出时间等<br>表的关联关系元数据，包括关联表、关联类型、关联字段、关联次数等<br>表的字段的基础元数据，包括字段名称、字段注释、查询次数、关联次数、聚合次数、过滤次数等</p>
+</blockquote>
+<ul>
+<li><strong>使用元数据</strong></li>
+</ul>
+<blockquote>
+<p>基于下游使用中关联次数大于某个阔值的表或查询次数大于某个阐值的表等元数据信息，筛选用于数据模型建设的表<br>基于表的字段元数据，如字段中的时间字段、字段在下游使用中的过滤次数 ，选择业务过程标识字段<br>基于主从表的关联关系、关联次数，确定和主表关联的从表<br>基于主从表的字段使用情况，如字段的查询次数、过滤次数、关联次数、聚合次数等，确定进入目标模型的字段</p>
+</blockquote>
+<h3 id="1-2-5-驱动ETL开发"><a href="#1-2-5-驱动ETL开发" class="headerlink" title="1.2.5 驱动ETL开发"></a>1.2.5 驱动ETL开发</h3><p><strong>驱动 ETL 开发</strong>：通过元数据，指导 ETL 工作，提高 ETL 的效率</p>
+<h1 id="2-计算管理"><a href="#2-计算管理" class="headerlink" title="2. 计算管理"></a>2. 计算管理</h1><h2 id="2-1-系统优化"><a href="#2-1-系统优化" class="headerlink" title="2.1 系统优化"></a>2.1 系统优化</h2><h3 id="2-1-1-HBO"><a href="#2-1-1-HBO" class="headerlink" title="2.1.1 HBO"></a>2.1.1 HBO</h3><p><strong>HBO</strong>： History-Based Optimizer，基于历史的优化器，根据任务历史执行情况为任务分配更合理的资源，包括内存、 CPU 以及 Instance 个数，是对集群资源分配的 种优化；任务执行历史＋集群状态信息＋优化规则→更优的执行配置</p>
+<ul>
+<li><strong>背景</strong></li>
+</ul>
+<ol>
+<li>MaxCompute 原资源分配策略</li>
+</ol>
+<blockquote>
+<p>Map Task 任务最多允许99999个 Instance 实例，使用 Input_Table_Size / Map_Split_Size分配算法分配 Instance 实例；Reduce Task / Join Task 的最大任务数是1111个，主要依据父 Task 的 Instance 个数进行评估分配<br>Instance 处理的数据量远远没有达到预期；如果 Instance 处理的数据量很大，容易导致任务长尾；总结 ：在默认的 Instance 算法下，把处理数据量小的任务存在资源浪费，而处理数据量大的任务却资源不足</p>
+</blockquote>
+<ol start="2">
+<li>HBO 的提出：系统中存在大量的周期性调度的脚本（物理计划稳定），且输入比较稳定，对其进行优化会显著提升整个集群的计算资源的使用率</li>
+</ol>
+<ul>
+<li><strong>原理</strong><br><strong>前提</strong>：最近7天内任务代码没有发生变更且任务运行4次<br><strong>Instance 分配逻辑</strong>：基础资源估算值＋加权资源估算值<br><strong>CPU／内存分配逻辑</strong>：基础资源估算值＋加权资源估算值</li>
+</ul>
+<blockquote>
+<p>基础资源数量的逻辑</p>
+<blockquote>
+<p>对于 Map Task ，系统需要初始化不同的输入数据 ，根据期望的每个 Map 能处理的数据量，再结合用户提交任务的输入数据量，估算出用户提交的任务所需要的 Map 数量；采用分层的方式，提供平均每个 Map 能处理的数据量，避免集群的资源会被超大任务占有，保证集群上任务的整体吞吐量<br>对于 Reduce Task ，比较 Hive 使用 Map 输入数据量， MaxCompute 使用最近 7天 Reduce 对应 Map 的平均输出数据量作为 Reduce 的输入数据 ，用于计算 Instance 的数量</p>
+</blockquote>
+<p>加权资源数量的逻辑</p>
+<blockquote>
+<p>对于 Map Task ，系统需要初始化期望的每个 Map 能处理的数据量；通过该 Map 在最近一段时间内的平均处理速度与系统设定的期望值做比较，如果平均处理速度小于期望值，则按照同等比例对基础资源数量进行加权，估算出该 Map 的加权资源数量；<br>对于 Reduce Task ，系统需要初始化期望的每个 Reduce 能处理的数据量；通过该 Reduce 在最近一段时间内的平均处理速度与系统设定的期望值做比较，如果平均处理速度小于期望值，则按照同等比例对基础资源数量进行加权，估算出该 Reduce 的加权资源数量；</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>效果</strong></li>
+</ul>
+<ol>
+<li><strong>提高 CPU 利用率</strong>：通过适当降低每个 Instance CPU 资源数，集群利用率提升一倍，早上 4: 00 -7: 00 节省的 CPU 资源可以供6万个 Instance 并发使用</li>
+<li><strong>提高内存利用率</strong>：在保障并行度，同时又能提高执行效率的基础上，合理分配内存，早上 4: 00 - 7: 00 节省的内存资源可以供4万个 Instance 并发使用</li>
+<li><strong>提高 Instance 并发数</strong>：合理设置 Task Instance 个数， Instance 峰值并发数提升了 57%</li>
+<li><strong>降低执行时长</strong>：集群有 3700 台机器，任务数约 16 万个 ，开启 HBO 后总执行时长为 3884 小时，总执行时长减少 4472 小时</li>
+</ol>
+<ul>
+<li><strong>改进与优化</strong>：HBO 是基于执行历史来设置计划，日常数据量波动不大，工作良好；不能应对数据量暴涨的情况，如大促“双 ”和“双 12 ”期间，增加依据 Map 的数据量增长情况进行调整动态调整 Instance 数的功能</li>
+</ul>
+<h3 id="2-1-2-CBO"><a href="#2-1-2-CBO" class="headerlink" title="2.1.2 CBO"></a>2.1.2 CBO</h3><p><strong>CBO</strong>： Cost-Based Optimizer，基于代价的优化器，根据收集的统计信息来计算每种执行方式的代价，进而选择最优的执行方式</p>
+<ul>
+<li><strong>优化器原理</strong>：引入重新排序 Join (Join Reorder ）和自动 MapJoin (Auto MapJoin ）优化规则，基于  Volcano 模型的优化器会尽最大的搜索宽度来获取最优计划；Meta Manager （元数据）、 Statistics （统计信息）、 Rule Set （优化规则集）、 Volcano Planner Core（核心计划器）多个模块相互组合协调工作</li>
+</ul>
+<blockquote>
+<p><strong>Meta Manager</strong>： Meta 模块主要提供元数据信息，包括表的元数据、统计信息元数据等，优化器会根据元数据的 些信息进行优化；对于 Meta 的管理， MaxCompute 提供了 Meta Manager 与优化器进行交互；如表分区裁剪（ TableScan Part on Prunning）优化时， 需要通过 Meta 信息获取表的分区数据，然后根据过滤条件来裁剪分区<br><strong>Statistics</strong>：为优化器选择计划提供准确的统计信息；如表的 Count 值、列的 Distinct 值、 TopN 值等；优化器会根据 Join 的输入数据量（ Count 值）选择 Hash Join 或 Merge Join；优化器提供 UDF 来收集 Distinct 值、 TopN 等，Count 值等是由底层 Meta 直接提供<br><strong>Rule Set</strong>：优化规则是根据不同情况选择不同的优化点，然后由优化器根据代价模型（ Cost Model ）来选择优化规则；如工程合并规则(Project Merge Rule ）， 将临近的两个 Project 合并成一个 Project ；过滤条件下推规则（ Filter Push Down ），将过滤条件尽量下推，减少其他操作的数据量；规则被分为 Substitute Rule （优化肯定好的规则）、 Explore Rule （优化后需要考虑多种优化结果）、Build Rule （优化后的结果不能再次使用规则进行优化）；用户可以通过 set 等命令来控制所使用的规则<br><strong>Volcano Planner Core</strong>：会将所有信息（ Meta 信息、统计信息、规则）统一起来处理，然后根据代价模型的计算，获得最优计划</p>
+<blockquote>
+<p>代价模型：根据不同操作符计算不同的代价，如 Join、Project 等，然后计算出整个计划中最小代价的计划；由行数、 I/O 开销、 CPU 开销三个维度组成<br>工作原理：假设 Planner 的输入是一棵由 Compiler 解析好的计划树，简称 RelNode 树，每个节点简称 Re!Node</p>
+<blockquote>
+<ol>
+<li>Volcanno Planner 创建：将 Planner 在优化过程中要用到的信息传递给执行计划器，包括规则集，用户指定要使用的规划； Meta Provider ，每个ReINode Meta 计算；代价模型，计算每个 RelNode 的代价等</li>
+<li>Planner 优化</li>
+</ol>
+<blockquote>
+<p><strong>规则匹配</strong>（ Rule Match ）：是指 RelNode 满足规则的优化条件而建立的一种匹配关系；Planner 首先将整个 Re!Node 树的每一个 ReINode 注册到 Planner 内部，同时在注册过程中，会在规则集中找到与每个 Re!Node 匹配的规则，然后加入到规则应用（ Rule Apply ）的队列中；使用规则时从队列中取出<br><strong>规则应用</strong>（ Rule Apply ）：是指从规则队列（ Rule Queue ）中弹出（ Pop）一个匹配成功的规则进行优化；当获取到一个匹配的规则进行处理时，如果规则优化成功，则肯定会产生至少一个新的 Re!Node ；需要再次进行注册以及规则匹配操作，把与新产生的 Re!Node 匹配的规则加入到规则队列中，然后接着下次规则应用；Planner 会一直应用所有的规则，包括后来叠加的规则，直到不会有新的规则匹配到<br><strong>代价计算</strong>（ Cost Compute ）： 每当规则应用之后，如果规则优化成功，则会产生新的 ReINode ，过程中计算 RelNode 的代价</p>
+<blockquote>
+<p>如果不存在代价，或者 Child 的代价还没有估算（默认是最大值），则忽略<br>如果存在代价，则会将本身的代价和 Child （输入的所有RelNode ）的代价进行累加， 若小于 Best ，则认为优化后的 ReINode 是当前最优的；并且会对其 Parent 进行递归估算代价，即传播代价计算（ Propagate Calculate Cost ）</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>优化器新特性</strong></li>
+</ul>
+<ol>
+<li>重新排序 Join：将 Join 的所有不同输入进行一个全排列，然后找到代价最小的一个排列</li>
+<li>自动 MapJoin：Join 实现算法目前主要有 Merge Join MapJoin，MapJoin Merge Join 性能更优；自动 MapJoin 充分利用优化器的代价模型进行估算，获得更优的 MapJoin，代替用户指定 Hint 方式进行处理</li>
+</ol>
+<ul>
+<li><strong>优化器使用</strong>：提供 set 等命令支持用户自定义设置优化器规则黑白名单</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">set odps.optimizer.cbo.rule.filter.white &#x3D; pojr, hj;  &#x2F;&#x2F; 开启规则
+set odps.optimizer.cbo.rule.filter.black &#x3D; pojr, hj;  &#x2F;&#x2F; 关闭规则
+
+注：重新排序 Join 和自动 MapJoin ，对应的标记分别是 porj 和 hj<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>注意事项</strong>：Optimizer 提供谓词下推（ Predicate Push Down ）优化 ，尽量早地进行谓词过滤，以减少后续操作的数据量，提高性能</li>
+</ul>
+<ol>
+<li>UDF：不会任意下推带有用户意图的函数，是因为不同用户书写的函数含义不一样，不能一概而论</li>
+<li>不确定函数：对于不确定函数，优化器也不会任意下推；如 sample 函数</li>
+<li>隐式类型转换：应尽量避免 Jo in Key 存在隐式类型转换，如 String = Bigint 会转换为 ToDouble(String) = ToDouble(Bigint)，可能导致转换失败，报错或执行成功，结果与用户期望不一致</li>
+</ol>
+<h2 id="2-2-任务优化"><a href="#2-2-任务优化" class="headerlink" title="2.2 任务优化"></a>2.2 任务优化</h2><p><strong>运算细分步骤</strong>：SQL/MR → MaxCompute Instance → Fuxi Job → Fuxi Task → Fuxi Instance</p>
+<blockquote>
+<p>MaxCompute Instance：类似于 Hive Job 的概念<br>Fuxi Job：对于 MaxCompute Instance 生成一个或多个由 Fuxi Task 组成的有向无环图，即 Fuxi Job<br>Fuxi Task：主要包含三种类型，分别是 Map Reduce 和 Join 类似于 Hive 中 Task 的概念<br>Fuxi Instance：真正的计算单元，和 Hive 中的槽位（ slot ）对应</p>
+</blockquote>
+<h3 id="2-2-1-Map倾斜"><a href="#2-2-1-Map倾斜" class="headerlink" title="2.2.1 Map倾斜"></a>2.2.1 Map倾斜</h3><p><strong>背景</strong>：Map 端是 MR 任务的起始阶段， 主要将磁盘中的数据读人内存<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0302_Map%E7%AB%AF%E8%BF%87%E7%A8%8B%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="0302_Map端过程示意图"></p>
+<blockquote>
+<p>每个输入分片会由一个 Map Instance 来处理，在默认情况下，以 Pangu 文件系统的一个文件块的大小（默认为 256MB ）为一个分片；Map Instance 输出的结果会暂时放在 个环形内存缓冲区中，当该缓冲区快要溢出时会在本地文件系统中创建一个溢出文件 Write Dump；通过“ set odps.mapper.split.size=256 ”来调节 Map Instance 的个数，提高数据读入的效率，通过“ set odps.mapper.merge.limit.size=64 ”来控制 Map Instance 读取文件的个数<br>写人磁盘之前，线程首先根据 Reduce Instance 的个数划分分区，数据会根据 Key 值Hash 到不同的分区上，一个 Reduce Instance 对应一个分区的数据；Map 端也会做部分聚合操作，减少输入 Reduce 端的数据量；数据是根据 Hash 分配的可能会导致数据资源分配不均的问题</p>
+</blockquote>
+<p><strong>Map端长尾</strong>：读入数据的文件大小分布不均匀，UDF 函数性能、 Join 、聚合操作等，导致 Map Instance 读取并且处理的数据不均衡</p>
+<blockquote>
+<p>上游表文件的大小特别不均匀，并且小文件特别多，导致当前表Map 端读取的数据分布不均匀，引起长尾；可以通过设置“ set odps.sql.mapper.merge.limit.size=64 ”和“ set odps .sql.mapper.s plit.size=256”两个参数来调节<br>Map 端做聚合时，由于某些 Map Instance 读取文件的某个值特别多而引起长尾，主要是指 Count Distinct 操作；可以使用“ distribute by rand()”来打乱数据分布，使数据尽可能分布均匀</p>
+</blockquote>
+<h3 id="2-2-2-Join-倾斜"><a href="#2-2-2-Join-倾斜" class="headerlink" title="2.2.2 Join 倾斜"></a>2.2.2 Join 倾斜</h3><p><strong>Join操作</strong>：参与 Map 和 Reduce 的整个阶段；Join 执行阶段会将 Join Key 相同的数据分发到同一个执行 Instance 上处理，如果某个 Key 上的数据量比较大，会导致该 Instance 执行时间较长</p>
+<blockquote>
+<p>Join 的某路（从表：左外连接中的右表）输入比较小，可以采用 MapJoin ，避免分发引起长尾<br>Join 的每路输入都较大，且长尾是空值导致的，可以将空值处理成随机值，避免聚集<br>Join 的每路输入都较大，且长尾是热点值导致的，可以对热点值和非热点值分别进行处理，再合并数据</p>
+</blockquote>
+<p><strong>方案</strong></p>
+<ul>
+<li><strong>MapJoin 方案</strong>：Join 倾斜时，如果从表输入比较小，则可以采用 MapJoin 避免倾斜；MapJoin 的原理是将 Join 操作提前到 Map 端执行， 将小表读人内存，顺序扫描大表完成 Join；可以避免因为分发 key 不均匀导致数据倾斜；在 select 后面加上 /*+MAPJOIN (a) * / ，a代表小表的别名；默认小表大小不能超过 512MB，可以通过设置“ set odps.sql.mapjoin.memory.max=2048 ”加大内存，最大为 2048MB</li>
+<li><strong>Join 因为空值导致长尾</strong>：如果关联 key 为空值且数据量比较大，可以将空值处理成随机值；因为空值无法关联上，只是分发到一处，随机值既不会影响关联结果，也能很好地避免聚焦导致长尾</li>
+<li><strong>Join 因为热点值导致长尾</strong>：因为热点值导致的长尾，并且 Join 的输入比较大无法使用MapJoin，可以先将热点 key 取出，对于主表数据用热点 key 切分成热点数据和非热点数据两部分分别处理，最后合并</li>
+</ul>
+<h3 id="2-2-3-Reduce-倾斜"><a href="#2-2-3-Reduce-倾斜" class="headerlink" title="2.2.3 Reduce 倾斜"></a>2.2.3 Reduce 倾斜</h3><p><strong>Reduce</strong>：负责对 Map 端梳理后的有 key-value 键值对进行聚合，即进行 Count 、Sum、 Avg 等聚合操作，得到最终聚合的结果，Distinct 的执行原理是将需要去重的宇段以及 Group By 宇段联合作为 key 将数据分发到 Reduce 端</p>
+<blockquote>
+<p>对同一个表按照维度对不同的列进行 Count Distinct 操作，造成Map 端数据膨胀，从而使得下游的 Join 和 Reduce 出现链路上的长尾<br>Map 端直接做聚合时出现 key 值分布不均匀，造成 Reduce 端长尾<br>动态分区数过多时可能造成小文件过多，引起 Reduce 端长尾<br>多个 Distinct 同时出现在 SQL 代码中时，数据会被分发多次，不仅会造成数据膨胀多倍，还会把长尾现象放多倍</p>
+</blockquote>
+<h1 id="3-存储和成本管理"><a href="#3-存储和成本管理" class="headerlink" title="3. 存储和成本管理"></a>3. 存储和成本管理</h1><h2 id="3-1-数据压缩"><a href="#3-1-数据压缩" class="headerlink" title="3.1 数据压缩"></a>3.1 数据压缩</h2><p><strong>数据备份</strong>：为提高数据的可用性与性能 ，通常会将数据存储3份<br><strong>数据压缩</strong>：MaxCompute 中提供 archive 压缩方法，将数据保存为 RAID file 的形式，存储比由1:3 提高到 1:1.5；恢复数据块的时间将要比原来的方式更长，损失一定的读性能；应用于冷备数据与日志数据的压缩存储</p>
+<h2 id="3-2-数据重分布"><a href="#3-2-数据重分布" class="headerlink" title="3.2 数据重分布"></a>3.2 数据重分布</h2><p><strong>数据重分布</strong>：通过修改表的数据重分布，避免基于列存储导致的列热点，主要通过修改 distribute by 和 sort by 字段的方法进行数据重分布，一般筛选出、重分布效果高于 15% 表进行优化处理</p>
+<h2 id="3-3-存储治理项优化"><a href="#3-3-存储治理项优化" class="headerlink" title="3.3 存储治理项优化"></a>3.3 存储治理项优化</h2><p><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0303_%E5%AD%98%E5%82%A8%E6%B2%BB%E7%90%86%E9%A1%B9%E4%BC%98%E5%8C%96.png" alt="0303_存储治理项优化"><br><strong>存储优化治理项</strong>：未管理表、 空表、最近 62 天未访问表、数据无更新无任务表 、数据无更新有任务表、开发库数据大于 100GB 且无访问表、长周期表等<br><strong>存储治理项优化流程</strong>：现状分析、 问题诊断、管理优化、效果反馈闭环</p>
+<h2 id="3-4-生命周期管理"><a href="#3-4-生命周期管理" class="headerlink" title="3.4 生命周期管理"></a>3.4 生命周期管理</h2><h3 id="3-4-1-生命周期管理策略"><a href="#3-4-1-生命周期管理策略" class="headerlink" title="3.4.1 生命周期管理策略"></a>3.4.1 生命周期管理策略</h3><ol>
+<li><strong>周期性删除策略</strong>：周期性删除一定期限的失效数据</li>
+<li><strong>彻底删除策略</strong>：及时删除无用表数据或者 ETL 过程产生的临时数据，以及不需要保留的数据，包括相关元数据</li>
+<li><strong>永久保留策略</strong>：重要且不可恢复的底层数据和应用数据需要永久保留；如底层交易的增量数据</li>
+<li><strong>极限存储策略</strong>：超高压缩重复镜像数据，通过平台化配置手段实现透明访问；数据质量要求非常高，配置与维护成本比较高，分区有超过 5G 的镜像数据（如商品维表、用户维表）就使用极限存储</li>
+<li><strong>冷数据管理策略</strong>：冷数据管理是永久保留策略的扩展，将永久保留的数据迁移到冷数据中心永久保存，同时将 MaxCompute 中对应的数据删除</li>
+<li><strong>增量merge 表策略</strong>：增量同步与全量 merge 的方式，对应的 delta 增量表保留，默认保留 93 天；如交易增量数据，使用订单创建日期或者订单结束日期作为分区，同时将未完结订单放在最大分区；对于存储，一个订单在表里只保留一份；对于用户使用，通过分区条件就能查询某一段时间的数据</li>
+</ol>
+<h3 id="3-4-2-通用的生命周期管理矩阵"><a href="#3-4-2-通用的生命周期管理矩阵" class="headerlink" title="3.4.2 通用的生命周期管理矩阵"></a>3.4.2 通用的生命周期管理矩阵</h3><p><strong>历史数据等级划分</strong>：对历史数据进行重要等级划分，分为P0、P1、P2、P3 四个等级</p>
+<blockquote>
+<p>P0：非常重要的主题域数据和非常重要的应用数据，具有不可恢复性，如交易、日志、集团 KPI 数据、 IPO 关联表<br>P1：重要的业务数据和应用数据，具有不可恢复性，如重要业务产品数据<br>P2：重要的业务数据和应用数据，具有可恢复性，如交易 ETL 产生的中间过程数据<br>P3：不重要的业务数据和不重要的应用数据，具有可恢复性，如某些 SNS 产品报表</p>
+</blockquote>
+<p><strong>表类型划分</strong></p>
+<blockquote>
+<p>事件型流水表（增量表）：指数据无重复或者无主键数据，如日志<br>事件型镜像表（增量表）：指业务过程性数据，有主键，但是对于同样主键的属性会发生缓慢变化，如交易、订单状态与时间会根据业务发生变更<br>维表：包括维度与维度属性数据，如用户表、商品表<br>Merge 全量表：包括业务过程性数据或者维表数据，数据新增或者发生状态变更，对于同样主键的数据会保留多份，可根据主键进行 Merge 操作<br>ETL 临时表：ETL 处理过程中产生的临时表数据，不建议保留<br>TT 临时数据：TT 拉取的数据和 DbSync 产生的临时数据最终会流转到 ODS 层，作为原始数据保留下来；使得 TT&amp;DbSync 上游数据成为临时数据，不建议保留很长时间，默认保留 93 天<br>普通全量表：BI 全量拉取的小业务数据或者产品数据，根据历史数据等级确定保留策略</p>
+</blockquote>
+<h2 id="3-5-数据成本管理"><a href="#3-5-数据成本管理" class="headerlink" title="3.5 数据成本管理"></a>3.5 数据成本管理</h2><h3 id="3-5-1-数据成本计量"><a href="#3-5-1-数据成本计量" class="headerlink" title="3.5.1 数据成本计量"></a>3.5.1 数据成本计量</h3><p><strong>数据成本计量</strong>：分为自身的存储成本和计算成本；除了考虑自身的成本外，还要考虑对上游数据表的扫描带来的扫描成本</p>
+<blockquote>
+<p>存储成本是为了计量数据表消耗的存储资源<br>计算成本是为了计量数据计算过程中的 CPU 消耗<br>扫描成本是为了扫描上游数据表的 CPU 消耗</p>
+</blockquote>
+<h3 id="3-5-2-数据使用计费"><a href="#3-5-2-数据使用计费" class="headerlink" title="3.5.2 数据使用计费"></a>3.5.2 数据使用计费</h3><p><strong>数据使用计费</strong>：结合数据成本，分为计算付费、存储付费和扫描付费</p>
+<h1 id="4-数据质量"><a href="#4-数据质量" class="headerlink" title="4. 数据质量"></a>4. 数据质量</h1><h2 id="4-1-数据质量保障原则"><a href="#4-1-数据质量保障原则" class="headerlink" title="4.1 数据质量保障原则"></a>4.1 数据质量保障原则</h2><ol>
+<li><strong>完整性</strong>：指数据的记录和信息是否完整，是否存在缺失的情况；包括记录数据量的缺失和记录中某个字段信息的缺失，是数据质量最基础的保障</li>
+<li><strong>准确性</strong>：指数据中记录的信息和数据是否准确，是否 在异常或错误的信息</li>
+<li><strong>一致性</strong>：对于同一份数据，必须保证一致</li>
+<li><strong>及时性</strong>：描述数据及时产出的能力，希望当天就能够看到前一天的数据</li>
+</ol>
+<h2 id="4-2-数据质量万法概述"><a href="#4-2-数据质量万法概述" class="headerlink" title="4.2 数据质量万法概述"></a>4.2 数据质量万法概述</h2><h3 id="4-2-1-消费场景知晓"><a href="#4-2-1-消费场景知晓" class="headerlink" title="4.2.1 消费场景知晓"></a>4.2.1 消费场景知晓</h3><p><strong>消费场景知晓</strong>：通过数据资产等级和基于元数据的应用链路分析解决消费场景知晓的问题；根据应用的影响程度，确定资产等级；根据数据链路血缘，将资产等级上推至数据生产加工的各个环节，确定数据的不同处理方式</p>
+<ul>
+<li><strong>数据资产等级定义</strong></li>
+</ul>
+<blockquote>
+<p><strong>毁灭性质</strong>：即数据一旦出错，将会引起重大资产损失，面临重大收益损失，造成重大公关风险<br><strong>全局性质</strong>：即数据直接或者间接用于集团级业务和效果的评估、重要平台的运维、对外数据产品的透露、影响用户在阿里系网站的行为等<br><strong>局部性质</strong>：数据直接或间接用于内部一般数据产品或者运营／产品报告，如果出现问题会给事业部或业务线造成影响，或者造成工作效率损失<br><strong>一般性质</strong>：即数据主要用于小二的日常数据分析，出现问题几不会带来影响或者带来的影响极小<br><strong>未知性质</strong>：不能明确说出数据的应用场景，则标注为未知<br>毁灭性质标记 A1 等级，全局性质标记为 A2 等级，局部性质标记为 A3 等级，一般性质标记为 A4 等级，未知性质则标记为 Ax 等级</p>
+</blockquote>
+<ul>
+<li><strong>数据资产等级落地方法</strong>：借助元数据整合整个数据仓库所有表所服务的数据产品，根据数据产品的等级确定数据资产的等级；如生意参谋为 A2 等级的业务，对应这个导出表的资产等级就是 A2 ，所有加工这个表的上游链路上的所有表都将会打上 A2 资产等级的标签，同时会标注为生意参谋产品使用</li>
+</ul>
+<h3 id="4-2-2-数据生产加工各个环节卡点校验"><a href="#4-2-2-数据生产加工各个环节卡点校验" class="headerlink" title="4.2.2 数据生产加工各个环节卡点校验"></a>4.2.2 数据生产加工各个环节卡点校验</h3><p><strong>数据生产加工各个环节卡点校验</strong>：主要包括在线系统（OLTP）和离线系统（OLAP）数据生产加工各个环节的卡点校验</p>
+<ul>
+<li><strong>在线系统卡点校验</strong>：主要是指在在线业务系统的数据生成过程中进行的卡点校验</li>
+</ul>
+<blockquote>
+<p>发布平台工具根据资产等级的不同，当对应的业务系统变更时，包括数据变更和数据库表变更，如数据库扩容和表的DDL变化，决定是否将变更通知下游离线系统<br>对于高资产等级的业务， 当出现新业务数据时，是否纳入统计中，需要卡点审批</p>
+</blockquote>
+<ul>
+<li><strong>离线系统卡点校验</strong>：包括代码开发、测试、发布和历史或错误数据回刷等环节的卡点校验，针对数据资产等级的不同，对校验的要求有所不同</li>
+</ul>
+<blockquote>
+<p>代码提交时的卡点校验：通过代码扫描工具 SQLSCAN，针对每一次提交上线的代码进行扫描，将风险点提示出来<br>任务发布上线时的卡点校验：每一次变更都需要线下完成测试后再发布到线上环境中，线上测试通过后才算发布成功，测试包括 Code Review 和回归测试；发布上线后可以在线上做 Dry Run 测试或真实环境运行测试</p>
+</blockquote>
+<h3 id="4-2-3-风险点监控"><a href="#4-2-3-风险点监控" class="headerlink" title="4.2.3 风险点监控"></a>4.2.3 风险点监控</h3><p><strong>风险点监控</strong>：主要是针对在数据日常运行过程中可能出现的数据质量和 时效等问题进行监控，包括在线数据和离线数据的风险点监控</p>
+<ul>
+<li><strong>在线系统风险点监控</strong>：针对在线系统日常运行产出的数据进行业务规则的校验 ，以保证数据质量，其主要使用实时业务检测平台 BCP (Biz Check Platform ）</li>
+</ul>
+<blockquote>
+<p>用户在 BCP 平台进行数据源订阅，以获取需要校验的数据源<br>针对所订阅的数据源进行规则的编写，即校验的逻辑；只有规则通过，才认为这条记录正确<br>配置告警，针对不同的规则配置不同的告警形式</p>
+</blockquote>
+<ul>
+<li><strong>离线系统风险点监控</strong>：针对离线系统日常运行产出的数据进行数据质量监控和时效性监控，其中数据质量监控主要使用 DQC 时效性监控主要使用摩萨德</li>
+</ul>
+<blockquote>
+<p>数据准确性：使用 DQC 检查保障数据的准确性，DQC 任务也是运行 SQL 任务，嵌套在主任务中，检查点太多会影响整体的性能<br>数据及时性：以天作为时间间隔进行同步，一般从零点开始运行，需要保证重要的任务优先且正确产出</p>
+<blockquote>
+<p>任务优先级：先确定业务的资产等级，高等级业务配置高优先级<br>任务报警：高优先级任务出错或可能出现产出延迟，报警给到任务和业务 Owner</p>
+</blockquote>
+</blockquote>
+<p><strong>实践—摩萨德</strong>：离线任务的监控报警系统，根据离线任务的运行情况实时决策是否告警、 何时告 、告警方式、告警给谁等；提供甘特图的服务，针对业务的运行情况，提供一条关键路径 ，即完成业务的最慢任务链路图</p>
+<blockquote>
+<p><strong>强保障监控</strong>：是摩萨德的核心功能</p>
+<blockquote>
+<p>监控范围一一设置了强保障业务的任务及其上游所有的任务都会被监控<br>监控异常一一包括任务出错、任务变慢、预警业务延迟等<br>告警对象一一默认是任务 Owner ，也可以设置值班表到某个人<br>何时告警一一根据业务设置的预警时间判断何时告警<br>告警方式一一根据任务的重要紧急程度，支持电话、短信、旺旺、邮件告警</p>
+</blockquote>
+<p><strong>告警配置</strong>：用户可以根据自己的需要进行配置</p>
+<blockquote>
+<p>出错告警一一可根据应用、业务、任务三个监控对象进行出错告警配置，监控对象出错即告警给到人／Owner／值班表<br>完成告警一一可根据应用、业务、任务三个监控对象进行完成情况告警配置，监控对象完成即告警给到 Owner／值班表<br>未完成告警一一可根据应用、业务、任务三个监控对象进行未完成情况告警配置，监控对象未完成即告警给到人／Owner／值班表<br>周期性告警一一针对某个周期的小时任务，如果在某个时间未完成， 即告警给到人／Owner / 值班表<br>超时告警一 根据任务运行时长进行超时告警配置，任务运行超过指定时间即告警给到人 Owner／值班表</p>
+</blockquote>
+</blockquote>
+<h3 id="4-2-4-质量衡量"><a href="#4-2-4-质量衡量" class="headerlink" title="4.2.4 质量衡量"></a>4.2.4 质量衡量</h3><p><strong>质量衡量</strong>：既有事前的衡量，如 DQC 覆盖率；又有事后的衡量，主要用于眼进质量问题，确定质量问题原因、责任人、解决情况等，用于数据质量的复盘，避免类似事件再次发生</p>
+<blockquote>
+<p>数据质量起夜率：数据出现问题开发人员起夜进行处理的次数<br>数据质量事件：针对每一个数据质量问题，都记录成一个数据质量事件</p>
+<blockquote>
+<p>用来跟进数据质量问题的处理过程<br>用来归纳分析数据质量原因<br>根据数据质量原因来查缺补漏，针对类似问题给出后续预防方案</p>
+</blockquote>
+<p>数据质量故障体系：对于严重的数据质量事件，将升级为故障</p>
+<blockquote>
+<p>故障定义：识别出重要的业务数据，并注册到系统中，填写相关的业务情况，如技术负责人、业务负责人、数据应用场景、延迟或错误带来的影响、是否会发生资产损失等，完成后，会将这部分数据的任务挂到平台基线上，一旦延迟或错误即自动生成故障单，形成故障<br>故障等级：故障发生后，根据一定标准判断故障等级，如故障时长、客户投诉量、资金损失等，将故障按 p1~ p4 定级<br>故障处理：快速地识别故障原因，并迅速解决，消除影响<br>故障 Review：分析故障的原因、处理过程的复盘、形成后续解决的 Action ，并且都会以文字的形式详细记录，对故障的责任进行归属</p>
+</blockquote>
+</blockquote>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202109/0256600.html">https://qizhongyi.gitee.io/202109/0256600.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                    <span class="chip bg-color">大数据</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202109/0430301.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据指标管理-基础">
+                        
+                        <span class="card-title">数据指标管理-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录数据指标管理的相关基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-04
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">数据治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87/">
+                        <span class="chip bg-color">数据指标</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202109/0227125.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="大数据实践-01阿里-数据模型">
+                        
+                        <span class="card-title">大数据实践-01阿里-数据模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录大数据实践-01阿里-数据模型的相关内容
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9E%E8%B7%B5/" class="post-category">
+                                    实践
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">265.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
