@@ -369,14 +369,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    7 分
                 </div>
                 
 
@@ -402,7 +402,7 @@
                 <p>写在前面：本文主要记录 MongoDB使用基础 的相关基础知识</p>
 <span id="more"></span>
 
-<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>MongoDB</strong>：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 <strong>BSON</strong>（类似于 JSON 的 格式） 来存储数据；既可以存储比较复杂的数据类型，又相当的灵活；MongoDB 中的记录是一个文档，由字段和值对（fifield:value）组成；<strong>MongoDB是最像关系型数据库（MySQL）的非关系型数据库</strong></p>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>MongoDB</strong>：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 <strong>BSON</strong>（类似于 JSON 的 格式） 来存储数据；既可以存储比较复杂的数据类型，又相当的灵活；MongoDB 中的记录是一个文档，由字段和值对（fifield:value）组成；<strong>MongoDB是最像关系型数据库（MySQL）的非关系型数据库</strong>；<a target="_blank" rel="noopener" href="https://www.mongodb.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官网</font></a></p>
 <p><strong>BSON</strong>：Binary Serialized Document Format，是一种类json的一种二进制形式的存储格式，简称Binary JSON；支持内嵌的文档对象和数组对象，具备丰富的数据类型</p>
 <h2 id="1-1-应用场景"><a href="#1-1-应用场景" class="headerlink" title="1.1 应用场景"></a>1.1 应用场景</h2><p><strong>三高需求</strong>：高可用、高性能、高并发</p>
 <p>High performance：高并发</p>
@@ -457,7 +457,88 @@
 <p><strong>高扩展性</strong>：MongoDB提供水平可扩展性；分片将数据分布在一组集群的机器上；从3.4开始，MongoDB支持基于片键创建数据区域，在一个平衡的集群中，MongoDB将一个区域所覆盖的读写只定向到指定区域内的指定片</p>
 <p><strong>丰富的查询支持</strong>：MongoDB支持丰富的查询语言，支持读和写操作(CRUD)，比如数据聚合、文本搜索和地理空间查询等</p>
 <p><strong>其他特点</strong>：无模式（动态模式）、灵活的文档模型</p>
-<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h1><table>
+<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h1><h2 id="2-1-Windows安装"><a href="#2-1-Windows安装" class="headerlink" title="2.1 Windows安装"></a>2.1 Windows安装</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center#community"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，选择合适的版本进行下载安装</p>
+<ol>
+<li><p>将压缩包解压到一个目标目录中（自定义）</p>
+</li>
+<li><p>在解压目录中，手动建立一个目录用于存放数据文件，data/db；推荐与 bin 同级</p>
+</li>
+<li><p>启动服务：默认端口是27017</p>
+<ul>
+<li><p>命令启动：在 bin 目录中打开 cmd命令行提示符，输入命令：<strong>mongod –dbpath=..\data\db</strong></p>
+</li>
+<li><p>配置文件启动：在解压目录中新建 config 文件夹（与 bin 同级），该文件夹中新建配置文件 mongod.conf；更多配置参考：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/confifiguration-options/"><font face = "微软雅黑" color = 1E90FF size = 5>配置文件参考地址</font></a></p>
+<pre class="line-numbers language-none"><code class="language-none">storage:
+    # 设置数据文件路径，D:\02_Server\DBServer\mongodb-win32-x86_64-2008plus-ssl-4.0.1，需要修改为自己的路径
+    dbPath: D:\02_Server\DBServer\mongodb-win32-x86_64-2008plus-ssl-4.0.1\data
+
+启动：mongod --config ..&#x2F;config&#x2F;mongod.conf （在 bin 目录中打开 cmd命令行提示符，运行）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>远程连接：在命令行提示符运行：<strong>mongo –host=127.0.0.1 –port=27017</strong> 完成登录，可通过 <strong>mongo –help</strong> 查看帮助</p>
+</li>
+</ol>
+<h2 id="2-2-安装图形化界面-Compass"><a href="#2-2-安装图形化界面-Compass" class="headerlink" title="2.2 安装图形化界面-Compass"></a>2.2 安装图形化界面-Compass</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center/v2/compass?initial=true"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，选择合适的版本进行下载安装；如果是下载安装版，则按照步骤安装；如果是下载加压缩版，直接解压，执行里面的 MongoDBCompassCommunity.exe 文件即可</p>
+<p>连接：在打开的界面中，输入主机地址、端口等相关信息，点击连接；完成与本地 MongoDB 连接，以后操作可在 Compass 中进行</p>
+<h2 id="2-3-Linux安装"><a href="#2-3-Linux安装" class="headerlink" title="2.3 Linux安装"></a>2.3 Linux安装</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center#community"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，官网下载压缩包 mongod-linux-x86_64-x.x.x.tgz</p>
+</li>
+<li><p>上传压缩包到Linux中，解压到当前目录：tar -xvf mongodb-linux-x86_64-x.x.x.tgz</p>
+</li>
+<li><p>移动解压后的文件夹到指定的目录：mv mongodb-linux-x86_64-x.x.x /usr/local/mongodb</p>
+</li>
+<li><p>新建目录：用来存储数据和日志</p>
+<pre class="line-numbers language-none"><code class="language-none"># 数据存储目录
+mkdir -p &#x2F;mongodb&#x2F;single&#x2F;data&#x2F;db
+
+# 日志存储目录
+mkdir -p &#x2F;mongodb&#x2F;single&#x2F;log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>新建配置文件：vi /mongodb/single/mongod.conf</p>
+<pre class="line-numbers language-none"><code class="language-none"># 内容如下：
+systemLog:
+    # MongoDB发送所有日志输出的目标指定为文件
+    # The path of the log file to which mongod or mongos should send all diagnostic logging information
+    destination: file
+    # mongod或mongos应向其发送所有诊断日志记录信息的日志文件的路径
+    path: &quot;&#x2F;mongodb&#x2F;single&#x2F;log&#x2F;mongod.log&quot;
+    # 当mongos或mongod实例重新启动时，mongos或mongod会将新条目附加到现有日志文件的末尾。
+    logAppend: true
+storage:
+    # mongod实例存储其数据的目录。storage.dbPath设置仅适用于mongod。
+    # The directory where the mongod instance stores its data.Default Value is &quot;&#x2F;data&#x2F;db&quot;.
+    dbPath: &quot;&#x2F;mongodb&#x2F;single&#x2F;data&#x2F;db&quot;
+    journal:
+        # 启用或禁用持久性日志以确保数据文件保持有效和可恢复。
+        enabled: true
+processManagement:
+    # 启用在后台运行mongos或mongod进程的守护进程模式。
+    fork: true
+net:
+    # 服务实例绑定的IP，默认是localhost
+    bindIp: localhost,192.168.0.2
+    # bindIp
+    # 绑定的端口，默认是27017
+    port: 27017<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>启动MongoDB服务： /usr/local/mongodb/bin/mongod -f /mongodb/single/mongod.conf，如果启动失败，原因基本上就是配置文件</p>
+</li>
+<li><p>使用mongo命令和compass工具来连接测试</p>
+<pre class="line-numbers language-none"><code class="language-none"># 如果远程连接不上，需要配置防火墙放行，或直接关闭linux防火墙
+# 查看防火墙状态
+systemctl status firewalld
+
+# 临时关闭防火墙
+systemctl stop firewalld
+
+# 开机禁止启动防火墙
+systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>停止关闭服务</p>
+<pre class="line-numbers language-none"><code class="language-none"># 切换到admin库
+use admin
+
+# 关闭服务
+db.shutdownServer()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<table>
 <thead>
 <tr>
 <th><strong>数据类型</strong></th>
@@ -976,7 +1057,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">267.1k</span>
+                        class="white-color">267.9k</span>
             
             
             
