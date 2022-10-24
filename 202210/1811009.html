@@ -326,12 +326,12 @@
                                 <span class="chip bg-color">数据库</span>
                             </a>
                         
-                            <a href="/tags/NoSQL/">
-                                <span class="chip bg-color">NoSQL</span>
-                            </a>
-                        
                             <a href="/tags/ElasticSearch/">
                                 <span class="chip bg-color">ElasticSearch</span>
+                            </a>
+                        
+                            <a href="/tags/NoSQL/">
+                                <span class="chip bg-color">NoSQL</span>
                             </a>
                         
                     </div>
@@ -362,21 +362,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-20
+                    2022-10-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    16 分
                 </div>
                 
 
@@ -733,6 +733,23 @@ GET _analyze
 <li><p>重启ES，再次连接  Kibana</p>
 </li>
 </ol>
+<h2 id="4-2-集群"><a href="#4-2-集群" class="headerlink" title="4.2 集群"></a>4.2 集群</h2><p><strong>Cluster</strong>：代表一个集群，集群中有多个节点，其中有一个为主节点，可以通过选举产生</p>
+<p><strong>Shards</strong>：代表索引分片，es可以把一个完整的索引分成多个分片，分布到不同的节点上，构成分布式搜索；分片的数量只能在索引创建前指定，并且索引创建后不能更改</p>
+<ul>
+<li>每个分片本质上就是一个Lucene索引，会消耗相应的文件句柄，内存和CPU资源</li>
+</ul>
+<p><strong>Replicas</strong>：代表索引副本，es可以设置多个索引的副本；作用：一是提高系统的容错性，当某个节点某个分片损坏或丢失时可以从副本中恢复；二是提高es的查询效率，es会自动对搜索请求进行负载均衡</p>
+<p><strong>Recovery</strong>：代表数据恢复或叫数据重新分布，es在有节点加入或退出时会根据机器的负载对索引分片进行重新分配，挂掉的节点重新启动时也会进行数据恢复</p>
+<p>在单台ES服务器节点上，随着业务量的发展索引文件慢慢增多，会影响到效率和内存存储问题，将单个索引的分片到多个不同分布式物理机器上存储，从而可以实现高可用、容错性等</p>
+<p><strong>Master</strong>：node.master: true 节点可以作为主节点</p>
+<p><strong>DataNode</strong>：node.data: true 默认是数据节点</p>
+<p><strong>Coordinate node</strong>：协调节点：一个节点只作为接收请求、转发请求到其他节点、汇总各个节点返回数据等功能的节点；担任协调节点，需要将上两个配置设为false</p>
+<p><strong>脑裂问题</strong>：一个集群中只有一个A主节点，A主节点因为需要处理的东西太多或者网络过于繁忙，从而导致其他从节点ping不通A主节点，其他从节点就会认为A主节点不可用，就会重新选出一个新的主节点B；一段时间后一会正常了，这样就会出现两个主节点，导致一部分数据来源于A主节点，另外一部分数据来源于B主节点，出现数据不一致问题；可以通过 <strong>discovery.zen.minimum_master_nodes</strong> 参数（选举主节点时需要看到最少多少个具有master资格的活节点，才能进行选举）进行控制，推荐值是(N/2)+1，其中N是具有master资格的节点的数量</p>
+<h3 id="4-2-1-集群核心原理分析"><a href="#4-2-1-集群核心原理分析" class="headerlink" title="4.2.1 集群核心原理分析"></a>4.2.1 集群核心原理分析</h3><ol>
+<li>每个索引会被分成多个分片shards进行存储，默认创建索引是分配5个分片进行存储；每个分片都会分布式部署在多个不同的节点上进行部署，该分片成为primary shards；<strong>注意</strong>：索引的主分片primary shards定义好后，后面不能做修改</li>
+<li>为了实现高可用数据的高可用，主分片可以有对应的备分片replics shards，replic shards分片承载了负责容错、以及请求的负载均衡；<strong>注意</strong>：每一个主分片为了实现高可用，都会有自己对应的备分片，主分片对应的备分片不能存放同一台服务器上，主分片primary shards可以和其他replics shards存放在同一个node节点上</li>
+<li>documnet routing（数据路由）：当客户端发起创建document的时候，es需要确定这个document放在该index存放shard位置的过程；<strong>路由算法</strong>：shard = hash(routing) % number_of_primary_shards，如果number_of_primary_shards在查询的时候取余发生的变化，无法获取到该数据；<strong>注意</strong>：索引的主分片数量定义好后，不能被修改</li>
+</ol>
 
                 
             </div>
@@ -801,12 +818,12 @@ GET _analyze
                                     <span class="chip bg-color">数据库</span>
                                 </a>
                             
-                                <a href="/tags/NoSQL/">
-                                    <span class="chip bg-color">NoSQL</span>
-                                </a>
-                            
                                 <a href="/tags/ElasticSearch/">
                                     <span class="chip bg-color">ElasticSearch</span>
+                                </a>
+                            
+                                <a href="/tags/NoSQL/">
+                                    <span class="chip bg-color">NoSQL</span>
                                 </a>
                             
                         </div>
@@ -929,12 +946,12 @@ GET _analyze
                         <span class="chip bg-color">数据库</span>
                     </a>
                     
-                    <a href="/tags/MongoDB/">
-                        <span class="chip bg-color">MongoDB</span>
-                    </a>
-                    
                     <a href="/tags/NoSQL/">
                         <span class="chip bg-color">NoSQL</span>
+                    </a>
+                    
+                    <a href="/tags/MongoDB/">
+                        <span class="chip bg-color">MongoDB</span>
                     </a>
                     
                 </div>
@@ -1171,7 +1188,7 @@ GET _analyze
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">266.1k</span>
+                        class="white-color">267.1k</span>
             
             
             
