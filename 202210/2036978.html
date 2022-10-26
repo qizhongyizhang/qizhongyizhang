@@ -8,7 +8,7 @@
     <meta name="description" content="写在前面：本文主要记录 MongoDB使用基础 的相关基础知识
 
 
-1. 介绍MongoDB：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 BSON（类似于 JSON 的 格式） 来">
+1. 介绍MongoDB：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 BSON（类似于 JSON 的 格式，二进">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -362,21 +362,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-24
+                    2022-10-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    6.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    28 分
                 </div>
                 
 
@@ -402,7 +402,7 @@
                 <p>写在前面：本文主要记录 MongoDB使用基础 的相关基础知识</p>
 <span id="more"></span>
 
-<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>MongoDB</strong>：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 <strong>BSON</strong>（类似于 JSON 的 格式） 来存储数据；既可以存储比较复杂的数据类型，又相当的灵活；MongoDB 中的记录是一个文档，由字段和值对（fifield:value）组成；<strong>MongoDB是最像关系型数据库（MySQL）的非关系型数据库</strong>；<a target="_blank" rel="noopener" href="https://www.mongodb.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官网</font></a></p>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>MongoDB</strong>：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 <strong>BSON</strong>（类似于 JSON 的 格式，二进制的 JSON数据） 来存储数据；既可以存储比较复杂的数据类型，又相当的灵活；MongoDB 中的记录是一个文档，由字段和值对（fifield:value）组成；<strong>MongoDB是最像关系型数据库（MySQL）的非关系型数据库</strong>；<a target="_blank" rel="noopener" href="https://www.mongodb.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官网</font></a>，<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/mongo/"><font face = "微软雅黑" color = 1E90FF size = 5>官方文档</font></a>，<a target="_blank" rel="noopener" href="https://docs.mongoing.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官方中文文档</font></a>，<a target="_blank" rel="noopener" href="https://mongoing.com/"><font face = "微软雅黑" color = 1E90FF size = 5>中文社区</font></a></p>
 <p><strong>BSON</strong>：Binary Serialized Document Format，是一种类json的一种二进制形式的存储格式，简称Binary JSON；支持内嵌的文档对象和数组对象，具备丰富的数据类型</p>
 <h2 id="1-1-应用场景"><a href="#1-1-应用场景" class="headerlink" title="1.1 应用场景"></a>1.1 应用场景</h2><p><strong>三高需求</strong>：高可用、高性能、高并发</p>
 <p>High performance：高并发</p>
@@ -519,10 +519,27 @@ net:
     # bindIp
     # 绑定的端口，默认是27017
     port: 27017<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>启动MongoDB服务： /usr/local/mongodb/bin/mongod -f /mongodb/single/mongod.conf，如果启动失败，原因基本上就是配置文件</p>
-</li>
-<li><p>使用mongo命令和compass工具来连接测试</p>
-<pre class="line-numbers language-none"><code class="language-none"># 如果远程连接不上，需要配置防火墙放行，或直接关闭linux防火墙
+<li><p>启动MongoDB服务</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongodmongod --dbpath &#x2F;usr&#x2F;local&#x2F;var&#x2F;mongodb --logpath &#x2F;usr&#x2F;local&#x2F;var&#x2F;log&#x2F;mongodb&#x2F;mongo.log --fork
+# --fork 指定后台运行
+# 若要使用账号密码服务 需要在启动时加 --auth
+
+&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod --config &#x2F;usr&#x2F;local&#x2F;etc&#x2F;mongod.conf
+# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod 为 mongod 脚本所在位置，可在 &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin 目录下将命令简化为 mongod
+# 如果启动失败，检查配置文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用mongo命令和compass工具来连接测试登录</p>
+<pre class="line-numbers language-none"><code class="language-none">mongo   # 默认无密码登录
+
+# 密码登录
+method-1：
+mongo 127.0.0.1&#x2F;admin -u admin -p 123456
+
+method-2：
+1. mongo进入shell
+2. use admin
+3. db.auth(&#39;admin&#39;,&#39;123456&#39;)
+
+# 如果远程连接不上，需要配置防火墙放行，或直接关闭linux防火墙
 # 查看防火墙状态
 systemctl status firewalld
 
@@ -530,15 +547,18 @@ systemctl status firewalld
 systemctl stop firewalld
 
 # 开机禁止启动防火墙
-systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>停止关闭服务</p>
 <pre class="line-numbers language-none"><code class="language-none"># 切换到admin库
 use admin
 
 # 关闭服务
-db.shutdownServer()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+db.shutdownServer()
+
+# 退出
+exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-<table>
+<h1 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h1><h2 id="3-1-数据类型"><a href="#3-1-数据类型" class="headerlink" title="3.1  数据类型"></a>3.1  数据类型</h2><table>
 <thead>
 <tr>
 <th><strong>数据类型</strong></th>
@@ -617,6 +637,490 @@ db.shutdownServer()<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <td>BSON包括一个特殊类型，表示可能的最大值；shell中没有这个类型</td>
 </tr>
 </tbody></table>
+<h2 id="3-2-数据库操作"><a href="#3-2-数据库操作" class="headerlink" title="3.2 数据库操作"></a>3.2 数据库操作</h2><p><strong>数据库命名规范</strong>：</p>
+<ul>
+<li>不能是空字符串（””)</li>
+<li>不得含有’ ‘（空格)、.、$、/、\和\0 (空字符)</li>
+<li>应全部小写</li>
+<li>最多64字节</li>
+</ul>
+<p><strong>保留数据库</strong>：</p>
+<ul>
+<li><p><strong>admin</strong>： 类似于 root数据库；数据库内新增一个用户，用户会自动继承所有数据库的权限；一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器</p>
+</li>
+<li><p><strong>local</strong>：这个数据库永远不会被复制，用来存储限于本地单台服务器的任意集合</p>
+</li>
+<li><p><strong>confifig</strong>：当Mongo用于分片设置时，confifig数据库在内部使用，用于保存分片的相关信息</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">选择或创建数据库：use db_name ；如果数据库不存在则自动创建，存在则切换当前数据库，默认的数据库为 test
+显示当前数据库：db
+
+查看所有数据库：show databases &#x2F; dbs
+
+删除数据库：db.dropDatabase() ；主要用来删除已经持久化的数据库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-3-集合操作"><a href="#3-3-集合操作" class="headerlink" title="3.3 集合操作"></a>3.3 集合操作</h2><p><strong>集合</strong>：类似于关系型数据库中的表；既可以显示创建，也可以隐式创建；在 MongoDB 中，集合只有在内容插入后才会创建；即：<strong>创建集合(数据表)后要再插入一个文档(记录)，集合才会真正创建</strong></p>
+<p><strong>集合的命名规范</strong>：</p>
+<ul>
+<li>集合名不能是空字符串””</li>
+<li>集合名不能含有\0字符（空字符)，这个字符表示集合名的结尾</li>
+<li>集合名不能以”system.”开头，这是为系统集合保留的前缀</li>
+<li>用户创建的集合名字不能含有保留字符 $：只有访问系统创建的集合时，才能在名字里出现$；某些系统生成的集合中包含该字符，会导致有些驱动程序支持在集合名里面包含保留字符</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">显示创建集合：db.createCollection(collection_name)
+
+查看当前库中的表：show collections &#x2F; tables
+
+删除集合：成功删除选定集合，drop() 方法返回 true
+db.collection_name.drop()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-文档操作"><a href="#3-4-文档操作" class="headerlink" title="3.4 文档操作"></a>3.4 文档操作</h2><p><strong>文档</strong>：document，类似于关系型数据库的记录；数据结构和 JSON 基本一样，在集合中以 BSON 格式存储</p>
+<p><strong>文档键命名规范</strong>：</p>
+<ul>
+<li>键不能含有\0 (空字符)，这个字符用来表示键的结尾</li>
+<li>.和$有特别的意义，只有在特定环境下才能使用</li>
+<li>以下划线”_”开头的键是保留的(非严格要求)</li>
+</ul>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>文档中的键/值对是有序的</li>
+<li>文档中的值不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)</li>
+<li>MongoDB区分类型和大小写</li>
+<li>MongoDB的文档不能有重复的键</li>
+<li>文档的键是字符串；除了少数例外情况，键可以使用任意UTF-8字符</li>
+</ol>
+<h3 id="3-4-1-文档插入"><a href="#3-4-1-文档插入" class="headerlink" title="3.4.1 文档插入"></a>3.4.1 文档插入</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.insert(      # collection_name 不存在时，会隐式的创建集合
+    &lt;document or array of documents&gt;,
+    &#123;
+        writeConcern: &lt;document&gt;,
+        ordered: &lt;boolean&gt;
+    &#125;
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.insertMany(
+    [&lt;document 1&gt; , &lt;document 2&gt;, ... ],  # 可批量插入多个文档，不同文档通过 &#123;&#125; 包裹，英文, 分隔 
+    &#123;
+        writeConcern: &lt;document&gt;,
+        ordered: &lt;boolean&gt;
+    &#125;
+)
+
+注：批量插入时，如果某条数据插入失败，将会终止插入；已经插入成功的数据不会回滚<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document</td>
+<td>document or array</td>
+<td>要插入到集合中的文档或文档数组（(json格式）</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>document</td>
+<td>可选参数；表示写监测点的文档，忽略使用默认的写监测点监测写问题；如果在事务中运行，则不要显式设置操作的写监测点</td>
+</tr>
+<tr>
+<td>ordered</td>
+<td>boolean</td>
+<td>可选参数；如果为真，则按顺序插入数组中的文档，如果其中一个文档出现错误，MongoDB将返回而不处理数组中的其余文档。如果为假，则执行无序插入，如果其中一个文档出现错误，则继续处理</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.insert(         # comment集合如果不存在，则会隐式创建
+    &#123;
+        # 插入的数据没有指定 _id ，会自动生成主键值，其类型是ObjectID类型
+        &quot;articleid&quot;:&quot;100000&quot;,
+        &quot;content&quot;:&quot;今天天气真好，阳光明媚&quot;,
+        &quot;userid&quot;:&quot;1001&quot;,
+        &quot;nickname&quot;:&quot;Rose&quot;,
+        &quot;createdatetime&quot;:new Date(),    # 插入当前日期使用 new Date()
+        &quot;likenum&quot;:NumberInt(10),        # 默认为double类型；必须使用函数NumberInt(num)存储整数
+        &quot;state&quot;:null                    # 某字段没值，可以赋值为null；或不写该字段
+    &#125;
+);
+
+返回 WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;) 则说明插入成功
+
+db.comment.insertMany([
+    &#123;
+        &quot;_id&quot;:&quot;1&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我们不应该把清晨浪费在手机上，健康很重要，一杯温水幸福你我他。&quot;,
+        &quot;userid&quot;:&quot;1002&quot;,
+        &quot;nickname&quot;:&quot;相忘于江湖&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-05T22:08:15.522Z&quot;),
+        &quot;likenum&quot;:NumberInt(1000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;2&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我夏天空腹喝凉开水，冬天喝温开水&quot;,
+        &quot;userid&quot;:&quot;1005&quot;,
+        &quot;nickname&quot;:&quot;伊人憔悴&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-05T23:58:51.485Z&quot;),
+        &quot;likenum&quot;:NumberInt(888),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;3&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我一直喝凉开水，冬天夏天都喝。&quot;,
+        &quot;userid&quot;:&quot;1004&quot;,
+        &quot;nickname&quot;:&quot;杰克船长&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T01:05:06.321Z&quot;),
+        &quot;likenum&quot;:NumberInt(666),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;4&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;专家说不能空腹吃饭，影响健康。&quot;,
+        &quot;userid&quot;:&quot;1003&quot;,
+        &quot;nickname&quot;:&quot;凯撒&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T08:18:35.288Z&quot;),
+        &quot;likenum&quot;:NumberInt(2000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;5&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;研究表明，刚烧开的水千万不能喝，因为烫嘴。&quot;,
+        &quot;userid&quot;:&quot;1003&quot;,
+        &quot;nickname&quot;:&quot;凯撒&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T11:01:02.521Z&quot;),
+        &quot;likenum&quot;:NumberInt(3000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;
+]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-4-2-文档删除"><a href="#3-4-2-文档删除" class="headerlink" title="3.4.2 文档删除"></a>3.4.2 文档删除</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.remove(condition)
+
+db.comment.remove(&#123;&#125;)    # 删除 comment 的所有文档
+db.comment.remove(&#123;&quot;articleid&quot;:&quot;100000&quot;&#125;)   # 删除 comment 中 &quot;articleid&quot;&#x3D;&quot;100000&quot; 的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-4-3-文档修改"><a href="#3-4-3-文档修改" class="headerlink" title="3.4.3 文档修改"></a>3.4.3 文档修改</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.update(
+    &lt;query&gt;,
+    &lt;update&gt;,
+    &#123;
+        upsert: &lt;boolean&gt;,
+        multi: &lt;boolean&gt;,
+        writeConcern: &lt;document&gt;,
+        collation: &lt;document&gt;,
+        arrayFilters: [ &lt;filterdocument1&gt;, ... ],
+        hint: &lt;document|string&gt; &#x2F;&#x2F; Available starting in MongoDB 4.2
+    &#125;
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>document</td>
+<td>更新的选择条件：类似sql update 查询内 where 后面的 condition，可以使用与 fifind() 方法中相同的查询选择器；在3.0版中：当使用 upsert:true 执行 update() 时，如果查询使用点表示法在_id字段上指定条件，则MongoDB将拒绝插入新文档</td>
+</tr>
+<tr>
+<td>update</td>
+<td>document or pipeline</td>
+<td>要应用的修改；该值可以是：包含更新运算符表达式的文档，或仅包含：对的替换文档</td>
+</tr>
+<tr>
+<td>upsert</td>
+<td>boolean</td>
+<td>可选参数；设置为true，则在没有与查询条件匹配的文档时创建新文档；默认值为false，如果找不到匹配项，则不会插入新文档</td>
+</tr>
+<tr>
+<td>multi</td>
+<td>boolean</td>
+<td>可选参数；设置为true，则更新符合查询条件的多个文档；默认值为false，则更新一个文档</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>document</td>
+<td>可选参数；表示写问题的文档，抛出异常的级别</td>
+</tr>
+<tr>
+<td>collation</td>
+<td>document</td>
+<td>可选参数；指定要用于操作的校对规则；校对规则允许用户为字符串比较指定特定于语言的规则，具有以下语法：<br />校对规则:{<br/>    区域设置:,<br/>    caseLevel:,<br/>    caseFirst:,<br/>    强度:,<br/>    numericordering:,<br/>    替代:,<br/>    最大变量:,<br/>    向后:<br/>}<br />指定校对规则时，区域设置字段是必需的；所有其他校对规则字段都是可选；如果未指定校对规则，集合具有默认校对规则（请参见db.createCollection()），则该操作将使用为集合指定的校对规则；如果没有为集合或操作指定校对规则，MongoDB将使用以前版本中使用的简单二进制比较进行字符串比较；不能为一个操作指定多个校对规则；例如：不能为每个字段指定不同的校对规则，或者如果使用排序执行查找，则不能将一个校对规则用于查找，另一个校对规则用于排序</td>
+</tr>
+<tr>
+<td>arrayFilters</td>
+<td>array</td>
+<td>可选参数；一个筛选文档数组，用于确定要为数组字段上的更新操作修改的数组元素</td>
+</tr>
+<tr>
+<td>hint</td>
+<td>document or string</td>
+<td>可选参数；指定用于支持查询谓词的索引的文档或字符串，该选项可以采用索引规范文档或索引名称字符串；如果指定的索引不存在，则说明操作错误</td>
+</tr>
+</tbody></table>
+<p><strong>列修改</strong>：</p>
+<pre class="line-numbers language-none"><code class="language-none">$unset：删除列
+$rename：重命名列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>覆盖修改</strong>：文档内除了likenum字段其它字段都变为空</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;1&quot;&#125;,&#123;likenum:NumberInt(1001)&#125;)  # 修改_id为1的记录，点赞量为1001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>局部修改</strong>：使用修改器$set来实现，仅修改需要修改的字段</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;2&quot;&#125;,&#123;$set:&#123;likenum:NumberInt(889)&#125;&#125;)  # 修改_id为2的记录，浏览量为889<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>批量修改</strong>：默认只修改第一条数据，通过 <strong>multi:true</strong> 实现批量修改</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; 默认只修改第一条数据
+db.comment.update(&#123;userid:&quot;1003&quot;&#125;,&#123;$set:&#123;nickname:&quot;凯撒大帝&quot;&#125;&#125;)
+
+&#x2F;&#x2F; 修改所有符合条件的数据
+db.comment.update(&#123;userid:&quot;1003&quot;&#125;,&#123;$set:&#123;nickname:&quot;凯撒大帝&quot;&#125;&#125;,&#123;multi:true&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>运算修改</strong>：实现对某列值在原有值的基础上进行增加或减少，使用 <strong>$inc 运算符</strong>来实现</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;3&quot;&#125;,&#123;$inc:&#123;likenum:NumberInt(1)&#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="3-4-4-文档查询"><a href="#3-4-4-文档查询" class="headerlink" title="3.4.4 文档查询"></a>3.4.4 文档查询</h3><h4 id="3-4-4-1-普通查询"><a href="#3-4-4-1-普通查询" class="headerlink" title="3.4.4.1 普通查询"></a>3.4.4.1 普通查询</h4><pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&lt;query&gt;, [projection])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>document</td>
+<td>可选参数；使用查询运算符指定选择筛选器，若要返回集合中的所有文档，请省略此参数或传递空文档( {} )</td>
+</tr>
+<tr>
+<td>projection</td>
+<td>document</td>
+<td>可选参数；指定要在与查询筛选器匹配的文档中返回的字段（投影），若要返回匹配文档中的所有字段，省略此参数</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.find()        # 默认查询所有列
+db.comment.find(&#123;&#125;)
+
+db.comment.find(&#123;userid:&#39;1003&#39;&#125;)     # 在find()中添加 json格式参数，实现条件查询
+db.comment.findOne(&#123;userid:&#39;1003&#39;&#125;)  # 只返回一条符合条件的记录
+db.comment.find(&#123;userid:&quot;1003&quot;&#125;,&#123;userid:1,nickname:1&#125;)  # 查询结果只返回 _id、userid、nickname；默认会返回 _id
+db.comment.find(&#123;userid:&quot;1003&quot;&#125;,&#123;userid:1,nickname:1,_id:0&#125;)  # 查询结果只返回 userid、nickname<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>统计查询</strong>：使用 count() 方法</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.count(query, options)
+
+query：查询选择条件
+options：可选参数，用于修改计数的额外选项
+
+db.comment.count()  # 统计所有记录数，默认返回符合条件的全部记录条数
+db.comment.count(&#123;userid:&quot;1003&quot;&#125;)  # 统计userid为1003的记录条数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>分页查询</strong>：使用 limit() 方法来读取指定数量的数据，使用 skip() 方法来跳过指定数量的数据</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find().limit(NUMBER).skip(NUMBER)
+
+limit：返回结果(TopN)，默认值20
+skip：跳过的记录条数，默认值是0
+
+db.comment.find().skip(2).limit(2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>排序查询</strong>：使用 sort() 方法对数据进行排序，使用 1(升序) 和 -1(降序) 来指定排序方式</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find().sort(&#123;KEY:1&#125;)
+
+db.comment.find().sort(&#123;userid:-1,likenum:1&#125;)  # 对userid降序排列，并对点赞量进行升序排列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>skip(), limilt(), sort() 三个一起执行时，执行的顺序是 **sort() -&gt; skip() -&gt; limit()**，和命令编写顺序无关</li>
+</ul>
+<p><strong>比较查询</strong>：gt、lt、gte、lte、ne</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$gt:value&#125;&#125;)   # 大于: field &gt; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$lt:value&#125;&#125;)   # 小于: field &lt; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$gte:value&#125;&#125;)  # 大于等于: field &gt;&#x3D; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$lte:value&#125;&#125;)  # 小于等于: field &lt;&#x3D; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$ne:value&#125;&#125;)   # 不等于: field !&#x3D; value
+
+db.comment.find(&#123;likenum:&#123;$gt:NumberInt(700)&#125;&#125;)  # 查询评论点赞数量大于700的记录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>包含查询</strong>：使用 $in操作符 和 $nin操作符实现包含不包含</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$in:[value]&#125;&#125;)
+
+db.comment.find(&#123;userid:&#123;$in:[&quot;1003&quot;,&quot;1004&quot;]&#125;&#125;)    # 查询评论的集合中userid字段包含1003或1004的文档
+db.comment.find(&#123;userid:&#123;$nin:[&quot;1003&quot;,&quot;1004&quot;]&#125;&#125;)   # 查询评论集合中userid字段不包含1003和1004的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>模糊查询</strong>：通过 <strong>正则表达式</strong> 的方式实现，更多内容可查看 <a href="https://qizhongyi.gitee.io/202206/2446563.html"><font face = "微软雅黑" color = 1E90FF size = 5><strong>正则表达式</strong></font></a></p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;field_name:&#x2F;正则表达式&#x2F;&#125;)
+
+db.comment.find(&#123;content:&#x2F;开水&#x2F;&#125;)    # 查询评论内容包含“开水”的所有文档
+db.comment.find(&#123;content:&#x2F;^专家&#x2F;&#125;)   # 查询评论的内容中以“专家”开头<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>条件逻辑连接查询</strong>：通过 $and 、$or 操作符实现</p>
+<pre class="line-numbers language-none"><code class="language-none">$and:[ &#123; &#125;,&#123; &#125;,&#123; &#125; ]
+$or:[ &#123; &#125;,&#123; &#125;,&#123; &#125; ]
+
+db.comment.find(&#123;$and:[&#123;likenum:&#123;$gte:NumberInt(700)&#125;&#125;,&#123;likenum:&#123;$lt:NumberInt(2000)&#125;&#125;]&#125;)  # 查询评论集合中likenum大于等于700 并且小于2000的文档
+
+db.comment.find(&#123;$or:[ &#123;userid:&quot;1003&quot;&#125; ,&#123;likenum:&#123;$lt:1000&#125; &#125;]&#125;)  # 查询评论集合中userid为1003，或者点赞数小于1000的文档记录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>执行计划</strong>：通常使用执行计划（解释计划、Explain Plan）来查看查询情况，分析查询性能</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(query,options).explain(options)
+# &quot;stage&quot; : &quot;COLLSCAN&quot;：表示全集合扫描，性能较差
+# &quot;stage&quot; : &quot;IXSCAN&quot;：表示基于索引扫描，性能较好
+
+db.comment.find(&#123;userid:&quot;1013&quot;&#125;).explain()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3-4-4-2-聚合查询"><a href="#3-4-4-2-聚合查询" class="headerlink" title="3.4.4.2 聚合查询"></a>3.4.4.2 聚合查询</h4><pre class="line-numbers language-none"><code class="language-none">db.collection_name.aggregate([
+	&#123;管道:&#123;表达式&#125;&#125;
+	....
+])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>常用管道</strong>：</p>
+<ul>
+<li>$group：将集合中的文档分组，用于统计结果</li>
+<li>$match：过滤数据，只要输出符合条件的文档</li>
+<li>$sort：聚合数据进一步排序</li>
+<li>$skip：跳过指定文档数</li>
+<li>$limit：限制集合数据返回文档数</li>
+</ul>
+<p><strong>常用表达式</strong>：</p>
+<ul>
+<li>$sum：总和；$sum:1同count表示统计</li>
+<li>$avg：平均</li>
+<li>$min：最小值</li>
+<li>$max：最大值</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none"># 统计点赞人数
+db.comment.aggregate([
+	&#123;
+		$group:&#123;	
+			_id:&quot;$userid&quot;,
+			res:&#123;$sum:1&#125;
+	    &#125;
+	&#125;
+])
+
+# 统计点赞总数
+db.comment.aggregate([
+	&#123;
+		$group:&#123;	
+			_id:&quot;$likenum&quot;,
+			res:&#123;$sum:likenum&#125;
+	    &#125;
+	&#125;
+])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-常用命令"><a href="#3-5-常用命令" class="headerlink" title="3.5  常用命令"></a>3.5  常用命令</h2><pre class="line-numbers language-none"><code class="language-none">选择切换数据库：use articledb
+插入数据：db.comment.insert(&#123;bson数据&#125;)
+查询所有数据：db.comment.find();
+条件查询数据：db.comment.find(&#123;条件&#125;)
+查询符合条件的第一条记录：db.comment.findOne(&#123;条件&#125;)
+查询符合条件的前几条记录：db.comment.find(&#123;条件&#125;).limit(条数)
+查询符合条件的跳过的记录：db.comment.find(&#123;条件&#125;).skip(条数)
+修改数据：db.comment.update(&#123;条件&#125;,&#123;修改后的数据&#125;) 或db.comment.update(&#123;条件&#125;,&#123;$set:&#123;要修改部分的字段:数据&#125;)
+修改数据并自增某字段值：db.comment.update(&#123;条件&#125;,&#123;$inc:&#123;自增的字段:步进值&#125;&#125;)
+删除数据：db.comment.remove(&#123;条件&#125;)
+统计查询：db.comment.count(&#123;条件&#125;)
+模糊查询：db.comment.find(&#123;字段名:&#x2F;正则表达式&#x2F;&#125;)
+条件比较运算：db.comment.find(&#123;字段名:&#123;$gt:值&#125;&#125;)
+包含查询：db.comment.find(&#123;字段名:&#123;$in:[值1，值2]&#125;&#125;)或db.comment.find(&#123;字段名:&#123;$nin:[值1，值2]&#125;&#125;)
+条件连接查询：db.comment.find(&#123;$and:[&#123;条件1&#125;,&#123;条件2&#125;]&#125;)或db.comment.find(&#123;$or:[&#123;条件1&#125;,&#123;条件2&#125;]&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-索引"><a href="#4-索引" class="headerlink" title="4.  索引"></a>4.  索引</h1><p><strong>索引</strong>：支持在MongoDB中高效地执行查询，MongoDB索引使用B树数据结构中的 <strong>B-Tree</strong>；详细内容查看 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/indexes/"><font face = "微软雅黑" color = 1E90FF size = 5>索引官网</font></a></p>
+<p><strong>分类</strong>：</p>
+<ul>
+<li><strong>单字段索引</strong>：Single Field Index，用户定义在文档的单个字段上的升序 / 降序索引；对于单个字段索引和排序操作，索引键的排序顺序并不重要，MongoDB支持在任何方向上遍历索引</li>
+<li><strong>复合索引</strong>：Compound Index，支持用户在多个字段定义索引；复合索引中列出的字段顺序具有重要意义：复合索引由 { userid: 1, score: -1 } 组成，则索引首先按userid正序排序，然后在每个userid的值内，再在按score倒序排序</li>
+<li><strong>地理空间索引</strong>：Geospatial Index，通过 <strong>平面几何的二维索引和球面几何的二维球面索引</strong> 实现对地理空间坐标数据的有效查询</li>
+<li><strong>文本索引</strong>：Text Indexes，支持在集合中搜索字符串内容</li>
+<li><strong>哈希索引</strong>：Hashed Indexes，支持基于散列的分片，对字段值的散列进行索引；索引在其范围内的值分布更加随机，但只支持相等匹配，不支持基于范围的查询</li>
+</ul>
+<h2 id="4-1-创建"><a href="#4-1-创建" class="headerlink" title="4.1 创建"></a>4.1 创建</h2><pre class="line-numbers language-none"><code class="language-none">db.collection_name.createIndex(keys, options)   # 在 3.0.0 版本前创建索引方法为 db.collection_name.ensureIndex()，以后的版本还能用，推荐使用createIndex()
+
+keys：包含字段和值对的文档，其中字段是索引键，值描述该字段的索引类型
+options：可选参数；包含一组控制索引创建的选项的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>options 参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>background</td>
+<td>Boolean</td>
+<td>建索引过程会阻塞其它数据库操作，background参数可指定以后台方式创建索引；默认值为 false</td>
+</tr>
+<tr>
+<td>unique</td>
+<td>Boolean</td>
+<td>是否建立唯一索引；默认值为 false</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>索引名称；如未指定，MongoDB的通过连接索引的字段名和排序顺序生成一个索引名称</td>
+</tr>
+<tr>
+<td>dropDups</td>
+<td>Boolean</td>
+<td>在建立唯一索引时是否删除重复记录，3.0+版本已废弃；默认值为 false</td>
+</tr>
+<tr>
+<td>sparse</td>
+<td>Boolean</td>
+<td>对文档中不存在的字段数据不启用索引，如果设置为true，在索引字段中不会查询出不包含对应字段的文档；默认值为 false</td>
+</tr>
+<tr>
+<td>expireAfterSeconds</td>
+<td>integer</td>
+<td>设定集合的生存时间，指定一个以秒为单位的数值，完成 TTL设定</td>
+</tr>
+<tr>
+<td>v</td>
+<td>index version</td>
+<td>索引的版本号，默认的索引版本取决于mongod创建索引时运行的版本</td>
+</tr>
+<tr>
+<td>weights</td>
+<td>document</td>
+<td>索引权重值，表示该索引相对于其他索引字段的得分权重；数值在 1 到 99999 之间</td>
+</tr>
+<tr>
+<td>default_language</td>
+<td>string</td>
+<td>对于文本索引，决定停用词及词干和词器的规则的列表； 默认为英语</td>
+</tr>
+<tr>
+<td>language_override</td>
+<td>string</td>
+<td>对于文本索引，指定包含在文档中的字段名，语言覆盖默认的language，默认值为 language</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.createIndex(&#123;userid:1&#125;)  # 对 userid 字段建立升序索引
+db.comment.createIndex(&#123;userid:1,nickname:-1&#125;)  # 对 userid 和 nickname 建立复合索引：userid升序，nickname降序
+db.comment.createIndex(&#123;userid:1,nickname:-1&#125;,&#123;name:&quot;idx_comp_id_nn&quot;&#125;)  # 指定索引名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-删除"><a href="#4-2-删除" class="headerlink" title="4.2 删除"></a>4.2 删除</h2><pre class="line-numbers language-none"><code class="language-none"># 删除单个索引
+db.collection_name.dropIndex(idx_name)
+
+db.comment.dropIndex(&#123;userid:1&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 删除所有索引
+db.collection.dropIndexes()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-查看"><a href="#4-3-查看" class="headerlink" title="4.3 查看"></a>4.3 查看</h2><pre class="line-numbers language-none"><code class="language-none">db.collection_name.getIndexes()  # 返回一个集合中的所有索引的数组；默认有 _id 唯一索引(值不能重复)，默认索引名称为 _id_，不能在_id字段上删除此索引<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 
                 
             </div>
@@ -1057,7 +1561,7 @@ db.shutdownServer()<span aria-hidden="true" class="line-numbers-rows"><span></sp
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">267.9k</span>
+                        class="white-color">273.1k</span>
             
             
             
