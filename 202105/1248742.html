@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-23
+                    2022-11-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    9 分
                 </div>
                 
 
@@ -461,16 +461,16 @@
  <pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local&#x2F;mysql   进入安装目录
 scripts&#x2F;mysql_install_db --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data --user&#x3D;mysql，配置数据库和数据表存储位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 <li><p>启动：在/usr/local/mysql/下运行</p>
-<blockquote>
-<p>注：启动mysql服务时，会按照/etc/my.cnf——“$basedir/my.cnf”搜索mysql的配置文件，新版MySQL的默认位置是：/usr/local/mysql/my.cnf。为防止干扰可将/etc/的文件名修改：mv /etc/my.cnf /etc/my.cnf.bak</p>
+<p> <strong>注</strong>：启动mysql服务时，会按照/etc/my.cnf——“$basedir/my.cnf”搜索mysql的配置文件，新版MySQL的默认位置是：/usr/local/mysql/my.cnf。为防止干扰可将/etc/的文件名修改：mv /etc/my.cnf /etc/my.cnf.bak</p>
 <ul>
 <li>复制mysql服务到init.d目录下：cp support-files/mysql.server /etc/init.d/mysql</li>
 <li>设置mysql服务开机自启动：chkconfig mysql on</li>
 <li>启动mysql：service mysql start</li>
 </ul>
-<p>设置开机自启动：chkconfig mysql on ；查看是否设置成功：chkconfig –list|grep mysql  或者 ntsysv 开机自启动的服务前面的中括号内会有 * 星号标识</p>
-</blockquote>
 </li>
+</ol>
+<p>设置开机自启动：chkconfig mysql on ；查看是否设置成功：chkconfig –list|grep mysql  或者 ntsysv 开机自启动的服务前面的中括号内会有 * 星号标识</p>
+<ol start="7">
 <li><p>登录：./mysql -u root -p，回车即可进入，默认密码为空</p>
 </li>
 <li><p>设置密码：MySQL 默认安装完成会创建一个无密码的 root 用户，为保证数据安全，需要设置密码</p>
@@ -576,17 +576,39 @@ collation-server &#x3D; utf8_general_ci
 no-auto-research
 default-character-set &#x3D; utf8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="3-4-远程连接"><a href="#3-4-远程连接" class="headerlink" title="3.4 远程连接"></a>3.4 远程连接</h2><pre class="line-numbers language-none"><code class="language-none">grant all privileges on dbname.tbname to &#39;username&#39;@&#39;loginip&#39; identified by &#39;password&#39; with grant option;
+<h2 id="3-4-远程连接"><a href="#3-4-远程连接" class="headerlink" title="3.4 远程连接"></a>3.4 远程连接</h2><p><strong>注</strong>：允许远程链接具有风险，慎用；一般新建一个账户，专门用于远程；需要及时回收权限 revoke</p>
+<ol start="0">
+<li><p>使用 root 账户登录：默认 mysql 仅有 root 具有授权权限</p>
+</li>
+<li><p>创建账户：创建好账户后，会在 mysql 内部的 mysql.user 表中新增一条记录</p>
+</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">CREATE USER &#39;yuancheng&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;
+-- %：表示允许所有IP地址使用这个账号登陆<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-all privileges：表示所有权限（insert、delete、update、select、create、drop、alter等）
-dbname：表示数据库名，\* 表示所有数据库
-tbname：表示数据表名，\* 表示所有数据表
-username：表示用户名
-loginip：表示允许远程IP地址，% 表示所有IP地址
-password：表示登录密码，为空表示不需要密码登录
-with grant option：表示允许级联授权
+<ol start="2">
+<li>验证账号：</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">select user,grant_priv,host from mysql.user;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-设置好了之后需要刷新权限：flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>授权远程连接：</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">grant all privileges on dbname.tbname to &#39;username&#39;@&#39;loginip&#39; [identified by &#39;password&#39; with grant option];
+grant all privileges on *.* to &#39;yuancheng&#39;@&#39;%&#39;;    -- 表示所有 ip 通过 yuancheng 账户访问所有数据库的所有表
+
+-- all privileges：表示所有权限（insert、delete、update、select、create、drop、alter等）
+-- dbname：表示数据库名，\* 表示所有数据库
+-- tbname：表示数据表名，\* 表示所有数据表
+-- username：表示用户名
+-- loginip：表示允许远程IP地址，% 表示所有IP地址
+-- password：表示登录密码，为空表示不需要密码登录；可以省略
+-- with grant option：表示允许级联授权<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>刷新权限：</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">flush privileges;  -- 使授权内容立即生效<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h1 id="4-知识查阅"><a href="#4-知识查阅" class="headerlink" title="4. 知识查阅"></a>4. 知识查阅</h1><h2 id="4-1-网站资讯"><a href="#4-1-网站资讯" class="headerlink" title="4.1 网站资讯"></a>4.1 网站资讯</h2><p><strong>官方网站</strong>：<a target="_blank" rel="noopener" href="https://www.mysql.com/"><font face = "微软雅黑" color = 1E90FF size = 5>英文</font></a>、<a target="_blank" rel="noopener" href="https://www.mysql.com/cn/"><font face = "微软雅黑" color = 1E90FF size = 5>中文</font></a>、<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/"><font face = "微软雅黑" color = 1E90FF size = 5>官方文档</font></a></p>
 <p>进入官网 -&gt; 点击 Document / 文档 -&gt; 按下如所示，点击右下角，可以得到不同版本的接口文档说明</p>
@@ -1016,7 +1038,7 @@ with grant option：表示允许级联授权
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">273.1k</span>
+                        class="white-color">273.5k</span>
             
             
             

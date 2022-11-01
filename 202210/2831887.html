@@ -4,12 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Python基础-IO编程, 戚中一">
-    <meta name="description" content="写在前面：本文主要记录Python的IO编程的相关知识
+    <meta name="keywords" content="知识图谱-基础, 戚中一">
+    <meta name="description" content="写在前面：本文主要记-知识图谱-的相关基础知识
 
 
-1. IO编程IO编程：IO在计算机中指Input/Output，也就是输入和输出；从磁盘读取文件到内存，就只有Input操作；把数据写到磁盘文件里，就只是一个Output操作
-o">
+1. 介绍知识图谱：利用 图结构 进行建模、识别和推断事物之间的复杂关联关系和沉淀领域知识，是一种结构化的知识表现形式；实现认知智能的重要基石，可用于搜索引擎、智能问答、语言语义理解、大数">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@ o">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Python基础-IO编程 | 戚中一</title>
+    <title>知识图谱-基础 | 戚中一</title>
     <link rel="icon" type="image/jpeg" href="/logo.jpg">
     
 
@@ -294,12 +293,12 @@ o">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Python基础-IO编程</h1>
+                    <h1 class="description center-align post-title">知识图谱-基础</h1>
                 </div>
             </div>
         </div>
@@ -323,8 +322,8 @@ o">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                <span class="chip bg-color">知识图谱</span>
                             </a>
                         
                     </div>
@@ -348,28 +347,28 @@ o">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-23
+                    2022-10-28
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-18
+                    2022-10-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    114
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    1 分
                 </div>
                 
 
@@ -392,226 +391,10 @@ o">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>写在前面：本文主要记录Python的IO编程的相关知识</p>
+                <p>写在前面：本文主要记-知识图谱-的相关基础知识</p>
 <span id="more"></span>
 
-<h1 id="1-IO编程"><a href="#1-IO编程" class="headerlink" title="1. IO编程"></a>1. IO编程</h1><p><strong>IO编程</strong>：IO在计算机中指Input/Output，也就是输入和输出；从磁盘读取文件到内存，就只有Input操作；把数据写到磁盘文件里，就只是一个Output操作</p>
-<p><strong>os模块</strong>：操作文件和目录的函数一部分放在 os 模块中，一部分放在 os.path 模块中</p>
-<p>操作文件的流程：1、打开文件；2、读写文件；3、关闭文件</p>
-<h2 id="1-1-打开文件"><a href="#1-1-打开文件" class="headerlink" title="1.1 打开文件"></a>1.1 打开文件</h2><p><strong>打开文件</strong>：使用Python内置的 open() 函数，可以以读文件的模式打开一个文件对象</p>
-<p><strong>open</strong>(file_name, mode=’r’, buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</p>
-<ul>
-<li><strong>file_name</strong>：文件名，允许通过绝对路径和相对路径指定文件；区分大小写</li>
-<li><strong>mode</strong>：文件打开方式；打开时，文件指针指向文件开始位置</li>
-</ul>
-<blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">Character</th>
-<th align="left">Meaning</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">r</td>
-<td align="left">只读，open for reading (default，默认)</td>
-</tr>
-<tr>
-<td align="center">w</td>
-<td align="left">清空写，open for writing, truncating the file first</td>
-</tr>
-<tr>
-<td align="center">x</td>
-<td align="left">新建写，如果已存在则失败；open for exclusive creation, failing if the file already exists</td>
-</tr>
-<tr>
-<td align="center">a</td>
-<td align="left">追加写，open for writing, appending to the end of the file if it exists</td>
-</tr>
-<tr>
-<td align="center">b</td>
-<td align="left">以二进制方式读写，binary mode；主要用于图片、视频、音频等</td>
-</tr>
-<tr>
-<td align="center">t</td>
-<td align="left">以文本方式读写，默认为t；text mode (default)</td>
-</tr>
-<tr>
-<td align="center">+</td>
-<td align="left">追加功能：r+ 给r增加写功能，w+ 给写增加读功能；open for updating (reading and writing)，会频繁操作文件指针（不建议）</td>
-</tr>
-</tbody></table>
-<p>组合：r+、w+、a+、x+；rb、wb、ab、xb；rt、at、wt、xt</p>
-</blockquote>
-<ul>
-<li><strong>encoding</strong>：字符编码，’utf-8’、’gbk’ 、’ascii’等</li>
-<li><strong>errors</strong>：对待错误的方式</li>
-</ul>
-<blockquote>
-<p><strong>strict</strong>：存在编码错误时抛出ValueError异常；默认值None具有相同的效果<br><strong>ignore</strong>：忽略错误；忽略编码错误可能会导致数据丢失<br><strong>replace</strong>：将错误编码内容替换为指定内容</p>
-</blockquote>
-<ul>
-<li>其他：不常用，buffering：设置缓冲区大小</li>
-</ul>
-<h2 id="1-3-读写文件"><a href="#1-3-读写文件" class="headerlink" title="1.3 读写文件"></a>1.3 读写文件</h2><ul>
-<li>读：f_name.read()：通过文件对象调用 read() 方法实现，文件指针标记读取数据开始位置，一次性将整个文件读取到内存</li>
-<li>按行读：f_name.readline()：每次只读一行，文件指针会移动到下一行；可配合循环读取文件；readlines()读取整个文件，返回一个列表，元素是每一行的内容</li>
-<li>写：f_name.write()：通过文件对象调用 write() 方法实现</li>
-<li>移动指针：f_name.seek() ，将指针移动到文件的指定位置</li>
-<li>返回位置：f_name.tell() ，以整数形式返回当前的文件位置</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">import os
-
-f &#x3D; open(&#39;C:&#x2F;Users&#x2F;tanhh&#x2F;Desktop&#x2F;Gitee&#x2F;Resource&#x2F;python_self&#x2F;test.txt&#39;, &#39;r&#39;)     # 如果文件不存在，会抛出一个IOError(FileNotFoundError)的错误
-# f &#x3D; open(&#39;f_path&#x2F;test.jpg&#39;, &#39;rb&#39;)  # 以二进制形式打开文件，常用于图片、视频、音频等
-result &#x3D; f.read()                # 调用read()方法可以一次读取文件的全部内容
-print(result)
-
-# result &#x3D; read(size)            # 按照一定大小读取
-# for line in f.readlines():     # 按行读取
-#     print(line.strip())        # 把末尾的&#39;\n&#39;删掉
-
-f.close()                        # 关闭文件；文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也有限<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none"># 文件读写时都有可能产生IOError，一旦出错，后面的f.close()就不会调用；可以使用try ... finally来实现无论是否出错都能正确地关闭文件
-try:
-    f &#x3D; open(&#39;&#x2F;path&#x2F;to&#x2F;file&#39;, &#39;r&#39;)
-    print(f.read())
-finally:
-    if f:
-        f.close()
-
-# method-2：简化写法，可以更容易地清理打开的⽂件
-with open(&#39;C:&#x2F;Users&#x2F;tanhh&#x2F;Desktop&#x2F;Gitee&#x2F;Resource&#x2F;python_self&#x2F;test.txt&#39;, &#39;r&#39;) as f:
-    print(f.read())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-4-关闭文件"><a href="#1-4-关闭文件" class="headerlink" title="1.4 关闭文件"></a>1.4 关闭文件</h2><ul>
-<li>关闭：f_name.close()：方法执行后，指针移动到文件末尾；如果忘记关闭文件，会造成系统资源的消耗，还会影响后续对文件的访问</li>
-<li>closed ：判断文件是否关闭，如果是则返回 True</li>
-</ul>
-<h2 id="1-5-StringIO"><a href="#1-5-StringIO" class="headerlink" title="1.5 StringIO"></a>1.5 StringIO</h2><p><strong>StringIO</strong>：在内存中读写str</p>
-<pre class="line-numbers language-none"><code class="language-none">from io import StringIO
-f &#x3D; StringIO()
-f.write(&#39;hello&#39;)       # 返回写入的字符数
-f.write(&#39; world!&#39;)
-
-print(f.getvalue())    # getvalue()方法用于获得写入后的str<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>读取StringIO</strong>：可以用一个str初始化StringIO，然后像读文件一样读取</p>
-<pre class="line-numbers language-none"><code class="language-none">from io import StringIO
-f &#x3D; StringIO(&#39;Hello!\nHi!\nGoodbye!&#39;)
-while True:
-    s &#x3D; f.readline()
-    if s &#x3D;&#x3D; &#39;&#39;:
-        break
-    print(s.strip())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-6-BytesIO"><a href="#1-6-BytesIO" class="headerlink" title="1.6 BytesIO"></a>1.6 BytesIO</h2><p><strong>BytesIO</strong>：在内存中操作二进制数据</p>
-<pre class="line-numbers language-none"><code class="language-none">from io import BytesIO
-f &#x3D; BytesIO()
-f.write(&#39;中文&#39;.encode(&#39;utf-8&#39;))
-
-print(f.getvalue())                    # 返回二进制
-print(f.getvalue().decode(&#39;utf-8&#39;))    # 解码返回中文<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>读取BytesIO</strong>：与 StringIO 类似</p>
-<pre class="line-numbers language-none"><code class="language-none">from io import BytesIO
-f &#x3D; BytesIO(b&#39;\xe4\xb8\xad\xe6\x96\x87&#39;)
-f.read()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-7-操作文件和目录"><a href="#1-7-操作文件和目录" class="headerlink" title="1.7 操作文件和目录"></a>1.7 操作文件和目录</h2><pre class="line-numbers language-none"><code class="language-none">import os
-
-print(os.name)        # 如果是posix，说明系统是Linux、Unix或Mac OS X；如果是nt，就是Windows系统
-
-# print(os.uname())   # uname()函数在Windows上不提供；os模块的某些函数与操作系统相关
-
-print(os.environ)     # 查看系统环境变量，返回字典
-print(os.environ.get(&#39;Path&#39;))   # 查看具体环境变量的值
-print(os.path.abspath(&#39;.&#39;))     # 查看当前目录的绝对路径
-
-print(os.path.join(&#39;&#x2F;Users&#x2F;michael&#39;, &#39;testdir&#39;))   # 在某个目录下创建一个新目录，把新目录的完整路径表示出来（把两个路径合成一个，返回字符串）；在Linux&#x2F;Unix&#x2F;Mac下，os.path.join()返回：part-1&#x2F;part-2；而Windows下会返回：part-1\part-2
-print(os.path.split(&#39;C:&#x2F;Users&#x2F;tanhh&#x2F;Desktop&#x2F;Gitee&#x2F;Resource&#x2F;python_self&#x2F;test.txt&#39;))        # 拆分路径，返回字符串和文件名（包括扩展名）元组
-print(os.path.splitext(&#39;C:&#x2F;Users&#x2F;tanhh&#x2F;Desktop&#x2F;Gitee&#x2F;Resource&#x2F;python_self&#x2F;test.txt&#39;))     # 拆分文件扩展名，返回文件名（包括路径）和文件扩展名元组
-
-os.mkdir(&#39;.&#x2F;testdir&#39;)              # 然后创建一个目录
-os.listdir(&#39;.&#x2F;testdir&#39;)            # 查看目录内容，返回列表
-os.chdir(&#39;target_dir_name&#39;)        # 切换工作目录
-os.rmdir(&#39;.&#x2F;testdir&#39;)              # 删掉一个目录
-
-os.rename(&#39;test.txt&#39;, &#39;test.py&#39;)   # 对文件重命名
-os.remove(&#39;test.py&#39;)               # 删掉文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none">import os
-
-print([x for x in os.listdir(&#39;.&#39;) if os.path.isdir(x)])            # 获取当前文件夹下的所有文件夹名称
-print([x for x in os.listdir(&#39;.&#39;) if os.path.isfile(x) and os.path.splitext(x)[1]&#x3D;&#x3D;&#39;.py&#39;])            # 获取当前文件夹下的所有 .py文件的文件名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none"># 在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，并打印出相对路径
-import os
-
-dir_list &#x3D; [x for x in os.listdir(&#39;.&#39;) if os.path.isdir(x)]
-
-file_list &#x3D; []
-relative_path_list &#x3D; []
-for x in dir_list:
-    for y in os.listdir(x):
-        if os.path.splitext(y)[1]&#x3D;&#x3D;&#39;.py&#39;:
-            file_list.append(y)
-            relative_path_list.append(os.path.join(&#39;.&#39;, x, y))
-
-print(file_list)
-print(relative_path_list)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="1-8-序列化"><a href="#1-8-序列化" class="headerlink" title="1.8 序列化"></a>1.8 序列化</h2><p><strong>序列化</strong>：把变量从内存中变成可存储或传输的过程，在Python中叫 <strong>pickling</strong> ，在其他语言中被称为serialization，marshalling，flattening等；序列化之后，可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上<br><strong>反序列化</strong>：把变量内容从序列化的对象重新读到内存里</p>
-<pre class="line-numbers language-none"><code class="language-none">import pickle                  # 实现序列化
-d &#x3D; dict(name&#x3D;&#39;Bob&#39;, age&#x3D;20, score&#x3D;88)
-print(pickle.dumps(d))         # 把任意对象序列化成一个bytes，然后把这个bytes写入文件
-
-f &#x3D; open(&#39;test.txt&#39;, &#39;wb&#39;)
-pickle.dump(d, f)              # 直接把对象序列化后写入一个file-like Object
-f.close()
-
-d_result_loads &#x3D; pickle.loads(b&#39;\x80\x04\x95$\x00\x00\x00\x00\x00\x00\x00&#125;\x94(\x8c\x04name\x94\x8c\x03Bob\x94\x8c\x03age\x94K\x14\x8c\x05score\x94KXu.&#39;)     # 反序列化出对象
-print(d_result_loads)
-
-f &#x3D; open(&#39;test.txt&#39;, &#39;rb&#39;)
-d_result &#x3D; pickle.load(f)      # 从一个file-like Object中直接反序列化出对象
-f.close()
-print(d_result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>如果要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，如XML、JSON</strong>，推荐使用 JSON ，JSON表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输；并且比XML更快，可以直接在Web页面中读取</p>
-<pre class="line-numbers language-none"><code class="language-none">import json
-d &#x3D; dict(name&#x3D;&#39;Bob&#39;, age&#x3D;20, score&#x3D;88)
-print(json.dumps(d))             # dumps() 返回一个str，内容是标准的JSON；dump() 直接把JSON写入一个file-like Object
-
-json_str &#x3D; &#39;&#123;&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;&#125;&#39;
-print(json.loads(json_str))      # loads() 把JSON的字符串反序列化，load() 从file-like Object中读取字符串并反序列化<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none">import json
-
-class Student(object):
-    def __init__(self, name, age, score):
-        self.name &#x3D; name
-        self.age &#x3D; age
-        self.score &#x3D; score
-
-def student2dict(std):              # 为Student专门写一个转换函数，将Student转换成可序列化的JSON对象
-    return &#123;
-        &#39;name&#39;: std.name,
-        &#39;age&#39;: std.age,
-        &#39;score&#39;: std.score
-    &#125;
-
-s &#x3D; Student(&#39;Bob&#39;, 20, 88)
-print(json.dumps(s, default&#x3D;student2dict))    # 可选参数default就是把任意一个对象变成一个可序列为JSON的对象
-# print(json.dumps(s, default&#x3D;lambda obj: obj.__dict__))    # 通常class的实例都有一个__dict__属性，它就是一个dict，用来存储实例变量
-
-def dict2student(d):
-    return Student(d[&#39;name&#39;], d[&#39;age&#39;], d[&#39;score&#39;])
-
-json_str &#x3D; &#39;&#123;&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;&#125;&#39;
-print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>知识图谱</strong>：利用 <strong>图结构</strong> 进行建模、识别和推断事物之间的复杂关联关系和沉淀领域知识，是一种结构化的知识表现形式；实现认知智能的重要基石，可用于搜索引擎、智能问答、语言语义理解、大数据决策分析、智能物联等领域</p>
 
                 
             </div>
@@ -638,7 +421,7 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://qizhongyi.gitee.io/202206/2351064.html">https://qizhongyi.gitee.io/202206/2351064.html</a>
+                    <a href="https://qizhongyi.gitee.io/202210/2831887.html">https://qizhongyi.gitee.io/202210/2831887.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -676,8 +459,8 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Python/">
-                                    <span class="chip bg-color">Python</span>
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                    <span class="chip bg-color">知识图谱</span>
                                 </a>
                             
                         </div>
@@ -758,29 +541,30 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/202206/24891.html">
+                <a href="/202210/2831887.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Python基础-进程和线程">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="知识图谱-基础">
                         
-                        <span class="card-title">Python基础-进程和线程</span>
+                        <span class="card-title">知识图谱-基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写在前面：本文主要记录Python的IO编程的相关知识
+                            写在前面：本文主要记-知识图谱-的相关基础知识
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -793,11 +577,12 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
                     </a>
                     
                 </div>
@@ -811,24 +596,24 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/202206/2024645.html">
+                <a href="/202210/2036978.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Python基础-面向对象编程">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="MongoDB-基础">
                         
-                        <span class="card-title">Python基础-面向对象编程</span>
+                        <span class="card-title">MongoDB-基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写在前面：本文主要记录Python的面向对象编程基础知识
+                            写在前面：本文主要记录 MongoDB使用基础 的相关基础知识
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-20
                             </span>
                         <span class="publish-author">
                             
@@ -845,8 +630,16 @@ print(json.loads(json_str, object_hook&#x3D;dict2student))<span aria-hidden="tru
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/NoSQL/">
+                        <span class="chip bg-color">NoSQL</span>
+                    </a>
+                    
+                    <a href="/tags/MongoDB/">
+                        <span class="chip bg-color">MongoDB</span>
                     </a>
                     
                 </div>
