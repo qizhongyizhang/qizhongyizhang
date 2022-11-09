@@ -1,0 +1,1296 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="数据质量管理-基础, 戚中一">
+    <meta name="description" content="写在前面：本文主要介绍数据质量管理相关的基础内容
+
+
+1. 数据质量管理数据质量管理：包括规划和实施质量管理技术，测量、评估和提高企业内数据的适用性，提高数据对业务和管理的满意度，是一项持续地任务
+1.1 业务目标提高组织数据价值和数据利用">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>数据质量管理-基础 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">数据质量管理-基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                                <span class="chip bg-color">数据管理</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                                <span class="chip bg-color">数据治理</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/">
+                                <span class="chip bg-color">数据质量</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-08-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-30
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    16 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要介绍数据质量管理相关的基础内容</p>
+<span id="more"></span>
+
+<h1 id="1-数据质量管理"><a href="#1-数据质量管理" class="headerlink" title="1. 数据质量管理"></a>1. 数据质量管理</h1><p><strong>数据质量管理</strong>：包括规划和实施质量管理技术，测量、评估和提高企业内数据的适用性，提高数据对业务和管理的满意度，是一项持续地任务</p>
+<h2 id="1-1-业务目标"><a href="#1-1-业务目标" class="headerlink" title="1.1 业务目标"></a>1.1 业务目标</h2><p>提高组织数据价值和数据利用的机会、降低低质量数据导致的风险和成本、提高组织效率和生产力、保护和提升组织的声誉、定义数据质量控制的标准和规范</p>
+<h2 id="1-2-原则"><a href="#1-2-原则" class="headerlink" title="1.2 原则"></a>1.2 原则</h2><p><strong>重要认知</strong>：结合对企业和用户的重视程度和数据不正确的风险水平确定数据重要性，确定数据改进顺序<br><strong>周期管理</strong>：数据质量管理覆盖从产生采集到处置的全数据生命周期，包括系统内部和系统之间的数据流转<br><strong>预防为主</strong>：数据质量反感的重点应放在预防数据错误和降低数据可用性的情形<br><strong>根因修正</strong>：优化数据流程和系统设计，从根本上解决数据质量问题<br><strong>治理促进</strong>：数据治理活动和数据质量管理活动二者相互促进<br><strong>标准驱动</strong>：用可测量的标准和期望定义可量化的数据质量需求<br><strong>客观一致测量</strong>：数据质量水平需要得到客观一致的测量<br><strong>嵌入业务流程</strong>：在各个业务流程中实时数据标准<br><strong>系统强制执行</strong>：系统必须强制执行数据质量要求<br><strong>关联服务水平</strong>：数据质量报告和问题应纳入服务水平协议（SLA）</p>
+<p><strong>早预防、早发现、早恢复</strong></p>
+<h2 id="1-3-管理环节"><a href="#1-3-管理环节" class="headerlink" title="1.3 管理环节"></a>1.3 管理环节</h2><ol>
+<li>制定考核指标（管理层面）</li>
+<li>选择管理对象（业务层面）</li>
+<li>制定管理规则（管理+业务）</li>
+<li>作业执行管理规则，形成指令分析报告（技术层面）</li>
+<li>处理错误数据（技术+业务）</li>
+<li>持续改善机制（技术+管理）</li>
+</ol>
+<h1 id="2-数据质量"><a href="#2-数据质量" class="headerlink" title="2. 数据质量"></a>2. 数据质量</h1><h2 id="2-1-数据质量维度"><a href="#2-1-数据质量维度" class="headerlink" title="2.1 数据质量维度"></a>2.1 数据质量维度</h2><h3 id="2-1-1-管理内容"><a href="#2-1-1-管理内容" class="headerlink" title="2.1.1 管理内容"></a>2.1.1 管理内容</h3><p>数据内容及背景分析、数据结构及路径分析、数据成分及业务规则合规分析、数据间的关系及相关资源分配、识别数据转换机制、建立数据有效性及准确性规则、检验数据间的依赖性</p>
+<p><strong>Strong-Wang 框架</strong>：</p>
+<ul>
+<li><strong>内在数据质量</strong>：准确性、客观性、可信度、信誉度</li>
+<li><strong>场景数据质量</strong>：增值性、关联性、及时性、完整性、适量性</li>
+<li><strong>表达数据质量</strong>：可解释性、易理解性、表达一致性、简洁性</li>
+<li><strong>访问数据质量</strong>：可访问性、访问安全性</li>
+</ul>
+<p><strong>Larry English</strong>：《<em>Improving Data Warehouse and Bussiness Information Quality</em>》——《改善数据仓库和业务信息质量》</p>
+<ul>
+<li><strong>固有质量特性</strong>：定义一致、值域完备、有效性或业务规则一致、数据源准确、反映实时准确、精确、非冗余、冗余或分布数据的等效、冗余或分布数据的并发性</li>
+<li><strong>实用质量特性</strong>：可访问性、及时性、语境清晰性、可用性、多源数据的可整合性、适当性或事实完整性</li>
+</ul>
+<p><strong>DAMA UK</strong>：</p>
+<ul>
+<li><strong>完备性</strong>：存储数据量与潜在数据量的百分比</li>
+<li><strong>唯一性</strong>：在满足对象识别基础上不应多次记录实体实例</li>
+<li><strong>及时性</strong>：数据从要求的时间点起代表现实的程度</li>
+<li><strong>有效性</strong>：数据符合其定义的语法（格式、类型、范围等）</li>
+<li><strong>准确性</strong>：数据正确的描述现实世界对象或事件的程度</li>
+<li><strong>一致性</strong>：比较事务多种表述与定义的差异</li>
+</ul>
+<h3 id="2-1-2-常用评估内容"><a href="#2-1-2-常用评估内容" class="headerlink" title="2.1.2 常用评估内容"></a>2.1.2 常用评估内容</h3><p><strong>完整性</strong>：数据是否存在缺失记录或缺失字段，字段非空<br><strong>规范性</strong>：对数据标准、数据模型、业务规则、元数据和参考数据进行完整性、质量及归档的度量<br><strong>一致性</strong>：保证数据内容在信息含义上一致<br><strong>准确性</strong>：考察数据内容的正确性、如时间逻辑、字典取值、业务计算逻辑等<br><strong>唯一性</strong>：在满足业务需求下不允许重复同时也解决了数据不一致的潜在可能<br><strong>关联性</strong>：关联数据的缺失或未建立索引</p>
+<p><strong>及时性</strong>：数据的最近更新时间</p>
+<h2 id="2-2-数据质量低下的原因"><a href="#2-2-数据质量低下的原因" class="headerlink" title="2.2 数据质量低下的原因"></a>2.2 数据质量低下的原因</h2><p><strong>领导力问题</strong>：领导员工缺乏意识、缺乏领导力和管理能力</p>
+<p><strong>数据输入问题</strong>：人员操作问题、数据输入接口问题、业务系统变更(包括表结构变更、源数据格式异常)</p>
+<p><strong>数据处理问题</strong>：有关数据源的错误假设（如：错误或变更、系统文档不完整或过时、知识转移不够充分等）、过时的业务规则、变更的数据结构</p>
+<p><strong>系统设计问题</strong></p>
+<blockquote>
+<p>未能执行参照完整性、唯一性约束</p>
+<blockquote>
+<p>产生破坏唯一性约束的重复数据<br>既可以包含、又可以排除在某些报表中的孤儿数据，导致同样的计算生成多个值<br>由于参照完整性要求以还原或更改，无法升级<br>由于丢失的数据被分配为默认值二导致数据准确性降低</p>
+</blockquote>
+<p>编码不准确和分歧<br>缺少有效的审核纠错机制<br>数据模型不准确，各系统数据交换标准不一<br>字段重载<br>时间数据不匹配<br>主数据管理薄弱，应用程序缺乏全面校验流程<br>数据复制</p>
+<blockquote>
+<p>单源-多个本地实例<br>多源-单一本地实例</p>
+</blockquote>
+</blockquote>
+<h3 id="2-2-1-常见脏数据"><a href="#2-2-1-常见脏数据" class="headerlink" title="2.2.1 常见脏数据"></a>2.2.1 常见脏数据</h3><p><strong>缺失值</strong>：确定缺失值范围，根据字段的重要性和缺失率指定不同的清洗策略(重要缺多——重新取数，重要缺少——算法填充或业务逻辑填充等，不重要缺多——考虑删除或统一置数，为零、平均数、中位数、众数等，不重要缺少——统一置数)<br><strong>异常值</strong>：即离群点：去重、不合理的值(修正、删除、缺失值处理)、矛盾内容(业务判断、删除、重构)<br><strong>格式内容不一致</strong>：统一时间、日期、数值单位、语言、半全角等，数据出现不规范内容，如首尾空格、异常标点等，数据错列等<br><strong>内容未知的值</strong><br><strong>无效值</strong></p>
+<h2 id="2-3-数据质量管理方法"><a href="#2-3-数据质量管理方法" class="headerlink" title="2.3 数据质量管理方法"></a>2.3 数据质量管理方法</h2><ol>
+<li><p><strong>数据清理</strong>：通过数据转换使数据符合数据标准和域规则</p>
+<blockquote>
+<p>实施控制以防止数据输入错误<br>纠正源系统中的数据<br>改进数据录入的业务流程</p>
+</blockquote>
+</li>
+<li><p><strong>数据增强</strong>：给数据集添加属性以提高其质量和可用性的过程</p>
+<blockquote>
+<p>时间戳<br>审计数据：记录血缘<br>参考词汇表<br>语境信息：添加位置、环境或访问方法等上下文语境信息<br>地理信息<br>人口统计信息<br>心理信息：按特定行为、习惯或偏好对目标人群进行细分的数据<br>评估信息：针对资产评估、库存和销售数据等使用数据增强</p>
+</blockquote>
+</li>
+<li><p><strong>数据解析和格式化</strong>：使用预先确定的规则来解释其内容或值的分析过程</p>
+</li>
+<li><p><strong>数据转换与标准化</strong>：通过触发数据规则将数据转换为目标体系结构可读取的格式</p>
+</li>
+<li><p><strong>关联与统一服务</strong>：结合实际业务规则关联多个业务系统，确定权威数据，形成统一视图</p>
+</li>
+</ol>
+<h3 id="2-3-1-改进流程控制"><a href="#2-3-1-改进流程控制" class="headerlink" title="2.3.1 改进流程控制"></a>2.3.1 改进流程控制</h3><p><strong>戴明环</strong>：PDCA （计划-执行-检查-行动）</p>
+<ul>
+<li>计划阶段（Plan）：数据质量团队评估已知问题的范围、影响和优先级，并评估解决这些问题的备选方案</li>
+<li>执行阶段（Do）：数据质量团队解决引起问题的根本原因，并作出对持续监控数据的计划</li>
+<li>检查阶段（Check）：积极监控按要求测量的数据质量</li>
+<li>处理阶段（Act）：处理解决新出现的数据质量问题</li>
+</ul>
+<h2 id="2-4-数据质量管理过程"><a href="#2-4-数据质量管理过程" class="headerlink" title="2.4 数据质量管理过程"></a>2.4 数据质量管理过程</h2><h3 id="2-4-1-定义高质量数据"><a href="#2-4-1-定义高质量数据" class="headerlink" title="2.4.1 定义高质量数据"></a>2.4.1 定义高质量数据</h3><p>了解业务战略和目标、与利益相关方面谈，以识别痛点、风险和业务驱动因素、通过资料收集和其他剖析形式直接评估数据、记录业务流程中的数据依赖关系、记录业务流程中的技术架构和系统支持</p>
+<h3 id="2-4-2-定义数据质量战略"><a href="#2-4-2-定义数据质量战略" class="headerlink" title="2.4.2 定义数据质量战略"></a>2.4.2 定义数据质量战略</h3><p>了解并优先考虑业务需求、确定满足业务需求的关键数据、根据业务需求定义业务规则和数据质量标准、根据预期评估数据、分享调查结果，并从利益相关方获得反馈、优先处理和管理问题、确定并优先考虑改进机会、测量、监控和报告数据质量、管理通过数据质量流程生成的元数据、将数据质量控制集成到业务和技术流程中</p>
+<h3 id="2-4-3-识别关键数据和业务规则"><a href="#2-4-3-识别关键数据和业务规则" class="headerlink" title="2.4.3 识别关键数据和业务规则"></a>2.4.3 识别关键数据和业务规则</h3><ul>
+<li><p><strong>关键数据</strong><br>监管报告、财务报告、商业政策、持续经营、商业战略（尤其是差异化竞争战略）</p>
+</li>
+<li><p><strong>业务规则类型</strong></p>
+</li>
+</ul>
+<p><strong>定义一致性</strong>：确认对数据定义的理解相同，并在整个组织过程中得到实现和正确的使用<br><strong>记录完整性</strong>：定义数值缺失的情况是否可接受的规则<br><strong>格式符合性</strong>：按指定模式分配给数据元素的值，如设置电话号码格式的标准<br><strong>值域匹配性</strong>：指定数据元素的赋值需包含在某数据值域的枚举值中<br><strong>范围一致性</strong>：数据元素赋值必须在定义的数字、词典或时间范围内<br><strong>映射一致性</strong>：表示分配给数据元素的值，必须映射到其他等效对应值域中选择的值<br><strong>一致性规则</strong>：指根据某些属性的实际值，在两个或多个属性之间关系的条件判定<br><strong>准确性验证</strong>：将数据值与记录系统或其他来源中的对应值进行比较，以验证是否匹配<br><strong>及时性验证</strong>：表明与数据可访问性和可用性预期相关特征的规则</p>
+<h3 id="2-4-4-执行初始数据质量评估"><a href="#2-4-4-执行初始数据质量评估" class="headerlink" title="2.4.4 执行初始数据质量评估"></a>2.4.4 执行初始数据质量评估</h3><ol>
+<li><p>定义评估目标，推动工作进展</p>
+</li>
+<li><p>确定需要评估的数据，重点放在某个特定的数据集或特定数据质量问题上</p>
+</li>
+<li><p>识别数据的用途和使用者</p>
+</li>
+<li><p>利用评估的数据识别已知风险，包括数据问题对组织过程的潜在影响</p>
+</li>
+<li><p>根据已知和建议的规则检查数据</p>
+</li>
+<li><p>记录不一致的级别和问题类型</p>
+</li>
+<li><p>根据初步发现进行深入分析，以便</p>
+<blockquote>
+<p>量化结果<br>根据业务影响优化问题<br>提出关于数据问题根本原因假设</p>
+</blockquote>
+</li>
+<li><p>与数据管理专员、领域专家和数据消费者会面，确认问题优先级</p>
+</li>
+<li><p>实用调查结果作为规划的基础</p>
+<blockquote>
+<p>找到问题的根本原因解决问题<br>控制改进处理流程，防止问题重复发生<br>持续控制和汇报</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="2-4-5-识别改进方向并确认优先排序"><a href="#2-4-5-识别改进方向并确认优先排序" class="headerlink" title="2.4.5 识别改进方向并确认优先排序"></a>2.4.5 识别改进方向并确认优先排序</h3><p>通过对交大数据及进行全面的数据分析，了解现有问题；与利益相关方沟通数据影响问题，并跟踪分析其业务影响；结合数据分析人员和利益相关方的讨论排定最终优先顺序</p>
+<h3 id="2-4-6-定义数据质量改进目标"><a href="#2-4-6-定义数据质量改进目标" class="headerlink" title="2.4.6 定义数据质量改进目标"></a>2.4.6 定义数据质量改进目标</h3><p>受影响数据的关键性（重要性排序）；受影响的数据量；数据的龄期；受问题影响的业务流程数量和类型；受问题影响的消费者、客户、供应商或员工数量；与问题相关的风险；纠正根本原因的成本；潜在的工作成本</p>
+<h3 id="2-4-7-开发和部署数据质量操作"><a href="#2-4-7-开发和部署数据质量操作" class="headerlink" title="2.4.7 开发和部署数据质量操作"></a>2.4.7 开发和部署数据质量操作</h3><ol>
+<li><p><strong>管理数据质量规则</strong></p>
+<blockquote>
+<p>记录一致性：建立记录规则的标准和模板<br>根据数据质量维度定义：质量维度有助于了解正在测算的内容<br>与业务影响挂钩：数据质量标准和规则应该与组织业务成功直接关联，不应采取与业务流程无关的度量<br>数据分析支持：数据质量分析人员应该根据数据测试规则，而不应猜测规则，规则显示数据存在的问题<br>由领域专家确认：规则的目的是描述数据形态，由主题专家确认或解释数据分析结果，产生知识<br>所有数据消费者都可以访问：所有数据消费者都应该能够访问记录的规则，以方便更好地了解数据</p>
+</blockquote>
+</li>
+<li><p><strong>测量和监控数据质量</strong>：向数据消费者通报质量水平、管理业务或技术流程，改变引入的变更风险</p>
+</li>
+<li><p><strong>制定管理数据问题的操作过程</strong></p>
+<ul>
+<li><strong>诊断问题</strong>：身缠数据质量事件的症状，跟踪相关数据的血缘，确定问题及其来源，并查明问题根本原因<blockquote>
+<p>在适当的信息处理流程下查看数据问题，并隔离出现缺陷过程的位置<br>评估环境变化导致错误的可能性<br>评估其他过程导致数据质量问题的可能性<br>评估外部数据影像数据质量问题的可能性</p>
+</blockquote>
+</li>
+<li><strong>制定补救方案</strong><blockquote>
+<p>纠正非技术性根本原因，如缺乏培训、缺乏领导支持、责任所有权不明等<br>修改系统以消除技术类根本原因<br>制定控制措施以防止问题发生<br>引入额外的检查和检测<br>直接修正有缺陷的数据<br>基于变更的成本和影响对比更正后的数据价值分析，不采取任何操作</p>
+</blockquote>
+</li>
+<li><strong>解决问题</strong><blockquote>
+<p>评估替代方案的相对成本和优点<br>推荐计划中的一个备选方案<br>提供开发和实施该解决方案的计划<br>实施该解决方案</p>
+</blockquote>
+</li>
+<li><strong>跟踪解决方案</strong><blockquote>
+<p>标准化数据质量问题和活动：定义相关概念的标准词汇表，用于简化分类和报告，简化衡量问题和活动的数量、确定系统和参与者之间的模式和相互依赖关系以及报告数据质量活动的总体影响<br>提供数据问题的分配过程：操作过程指导分析人员将数据质量事件分配给个人进行诊断，并提供解决方案<br>管理问题升级过程：根据问题的影响、持续时间或紧急程度制定明确的升级机制，明确规定数据质量服务级别协议中的升级顺序<br>管理数据质量解决方案工作流：数据质量服务水平协议规定了监控、控制和解决的目标，定义了操作工作流的集合</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>**制定数据质量服务水平协议(SLA)**：规定了组织对每个系统中数据质量问题进行响应和补救的期望</p>
+<blockquote>
+<p>协议涵盖的数据元素<br>与数据缺陷相关的业务影响<br>与每个数据元素相关的数据质量指标<br>从每个已确定指标的数据元素出发，识别数据价值链上每个应用程序系统中的质量期望<br>测量这些期望的方法<br>每次测量的可接受性阈值，如超出阈值，应及时通知数据管理专员<br>预期解决或补救问题的时间和截止日期<br>升级策略，以及可能的奖励和惩罚</p>
+</blockquote>
+</li>
+<li><p><strong>编写数据质量报告</strong></p>
+<blockquote>
+<p>数据质量评分卡<br>数据质量趋势<br>服务水平协议指标<br>数据质量问题管理<br>数据质量团队与治理政策的一致性<br>IT 和业务团队对数据质量政策的一致性<br>改善项目带来的积极影响</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="2-5-数据治理下的数据质量工作"><a href="#2-5-数据治理下的数据质量工作" class="headerlink" title="2.5 数据治理下的数据质量工作"></a>2.5 数据治理下的数据质量工作</h2><p>设定优先级；确定和协调有权参加各种数据质量相关决定和相关活动的人；制定和维护数据质量标准；报告企业范围内数据质量的相关测量；提供有助于员工参与的指导；建立知识共享的沟通机制；制定和应用数据质量和合规政策；监控和报告绩效；共享数据质量报告检查结果，以提高认识、确定改进机会，并就改进达成共识；解决变化和冲突，提供方向性指导</p>
+<h2 id="2-6-数据质量问题预防"><a href="#2-6-数据质量问题预防" class="headerlink" title="2.6 数据质量问题预防"></a>2.6 数据质量问题预防</h2><ol>
+<li><p>建立数据输入控制</p>
+</li>
+<li><p>培训数据生产者</p>
+<blockquote>
+<p>导致数据问题的常见原因<br>组织数据生态系统中的关系<br>糟糕数据造成的后果<br>持续改进的必要性<br>要推动数据语言化，阐述数据对组织战略与成功、监管报告和客户满意度的影响</p>
+</blockquote>
+</li>
+<li><p>定义和执行规则</p>
+</li>
+<li><p>要求数据供应商提供高质量数据</p>
+</li>
+<li><p>实施数据治理和管理制度</p>
+</li>
+<li><p>指定正式的变更控制</p>
+</li>
+</ol>
+<h2 id="2-7-数据质量问题纠正"><a href="#2-7-数据质量问题纠正" class="headerlink" title="2.7 数据质量问题纠正"></a>2.7 数据质量问题纠正</h2><ul>
+<li><strong>自动纠正</strong>：基于规则的标准化、规范化和更正，修改后的值在没有人工干预的情况下自动获取、生成和提交，需要具有定义良好的标准、普遍接受的规则和已知的错误模式等</li>
+<li><strong>人工检查纠正</strong>：使用自动工具矫正和纠正数据，人工检查后将纠正持久化存储</li>
+<li><strong>人工修正</strong>：通过人工按照数据质量规则处理变更</li>
+</ul>
+<h2 id="2-8-度量指标"><a href="#2-8-度量指标" class="headerlink" title="2.8 度量指标"></a>2.8 度量指标</h2><ul>
+<li><p>投资回报：关于改进工作的成本和改进数据质量好处的声明</p>
+</li>
+<li><p>质量水平：一个数据集内或多个数据集间的错误或不满足甚至违反需求情况的数量和比率</p>
+</li>
+<li><p>数据质量趋势：随时间推移，针对阈值和目标的质量改进，或个阶段的质量事件</p>
+</li>
+<li><p>数据问题管理指标</p>
+<blockquote>
+<p>按数据质量指标对问题分类与计数<br>各业务职能部门及其问题状态<br>按优先级和严重程度对问题排序<br>解决问题的时间</p>
+</blockquote>
+</li>
+<li><p>服务水平一致性：包括负责人员在内的组织单位对数据质量评估项目干预过程的一致性</p>
+</li>
+<li><p>数据质量计划示意图：现状和扩展路线图</p>
+</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202108/2860861.html">https://qizhongyi.gitee.io/202108/2860861.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                                    <span class="chip bg-color">数据管理</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                                    <span class="chip bg-color">数据治理</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/">
+                                    <span class="chip bg-color">数据质量</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202108/2939064.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="数据管控战略-基础">
+                        
+                        <span class="card-title">数据管控战略-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要介绍数据管控战略相关的基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">数据治理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202108/2719375.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="元数据管理-基础">
+                        
+                        <span class="card-title">元数据管理-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录 元数据管理 的相关基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">数据治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%83%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">元数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

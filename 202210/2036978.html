@@ -1,0 +1,1818 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MongoDB-基础, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录 MongoDB使用基础 的相关基础知识
+
+
+1. 介绍MongoDB：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 BSON（类似于 JSON 的 格式，二进">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>MongoDB-基础 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MongoDB-基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                            <a href="/tags/NoSQL/">
+                                <span class="chip bg-color">NoSQL</span>
+                            </a>
+                        
+                            <a href="/tags/MongoDB/">
+                                <span class="chip bg-color">MongoDB</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-11-09
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    28 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录 MongoDB使用基础 的相关基础知识</p>
+<span id="more"></span>
+
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p><strong>MongoDB</strong>：是一个基于分布式文件存储的、开源、高性能、无模式的 Nosql数据库；支持的数据结构非常松散，可以通过 <strong>BSON</strong>（类似于 JSON 的 格式，二进制的 JSON数据） 来存储数据；既可以存储比较复杂的数据类型，又相当的灵活；MongoDB 中的记录是一个文档，由字段和值对（fifield:value）组成；<strong>MongoDB是最像关系型数据库（MySQL）的非关系型数据库</strong>；<a target="_blank" rel="noopener" href="https://www.mongodb.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官网</font></a>，<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/mongo/"><font face = "微软雅黑" color = 1E90FF size = 5>官方文档</font></a>，<a target="_blank" rel="noopener" href="https://docs.mongoing.com/"><font face = "微软雅黑" color = 1E90FF size = 5>官方中文文档</font></a>，<a target="_blank" rel="noopener" href="https://mongoing.com/"><font face = "微软雅黑" color = 1E90FF size = 5>中文社区</font></a></p>
+<p><strong>BSON</strong>：Binary Serialized Document Format，是一种类json的一种二进制形式的存储格式，简称Binary JSON；支持内嵌的文档对象和数组对象，具备丰富的数据类型</p>
+<h2 id="1-1-应用场景"><a href="#1-1-应用场景" class="headerlink" title="1.1 应用场景"></a>1.1 应用场景</h2><p><strong>三高需求</strong>：高可用、高性能、高并发</p>
+<p>High performance：高并发</p>
+<p>Huge Storage：高性能</p>
+<p>High Scalability &amp; High Availability：高可扩展性和高可用</p>
+<h2 id="1-2-区别"><a href="#1-2-区别" class="headerlink" title="1.2 区别"></a>1.2 区别</h2><table>
+<thead>
+<tr>
+<th><strong>SQL术语/概念</strong></th>
+<th><strong>MongoDB术语/概念</strong></th>
+<th><strong>解释说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>fifield</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td>嵌入文档</td>
+<td>表连接；MongoDB不支持表连接；通过嵌入式文档来替代多表连接</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键；MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody></table>
+<h2 id="1-3-特点"><a href="#1-3-特点" class="headerlink" title="1.3 特点"></a>1.3 特点</h2><p><strong>高性能</strong>：MongoDB提供高性能的数据持久性；对嵌入式数据模型的支持减少了数据库系统上的I/O活动；索引支持更快的查询，并且可以包含来自嵌入式文档和数组的键（文本索引解决搜索的需求、TTL索引解决历史数据自动过期的需求、地理位置索引可用于构建各种 O2O 应用）；mmapv1、wiredtiger、mongorocks（rocksdb）、in-memory 等多引擎支持满足多种场景，Gridfs解决文件存储</p>
+<p><strong>高可用性</strong>：MongoDB的复制工具称为副本集（replica set），提供自动故障转移和数据冗余</p>
+<p><strong>高扩展性</strong>：MongoDB提供水平可扩展性；分片将数据分布在一组集群的机器上；从3.4开始，MongoDB支持基于片键创建数据区域，在一个平衡的集群中，MongoDB将一个区域所覆盖的读写只定向到指定区域内的指定片</p>
+<p><strong>丰富的查询支持</strong>：MongoDB支持丰富的查询语言，支持读和写操作(CRUD)，比如数据聚合、文本搜索和地理空间查询等</p>
+<p><strong>其他特点</strong>：无模式（动态模式）、灵活的文档模型</p>
+<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h1><h2 id="2-1-Windows安装"><a href="#2-1-Windows安装" class="headerlink" title="2.1 Windows安装"></a>2.1 Windows安装</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center#community"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，选择合适的版本进行下载安装</p>
+<ol>
+<li><p>将压缩包解压到一个目标目录中（自定义）</p>
+</li>
+<li><p>在解压目录中，手动建立一个目录用于存放数据文件，data/db；推荐与 bin 同级</p>
+</li>
+<li><p>启动服务：默认端口是27017</p>
+<ul>
+<li><p>命令启动：在 bin 目录中打开 cmd命令行提示符，输入命令：<strong>mongod –dbpath=..\data\db</strong></p>
+</li>
+<li><p>配置文件启动：在解压目录中新建 config 文件夹（与 bin 同级），该文件夹中新建配置文件 mongod.conf；更多配置参考：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/confifiguration-options/"><font face = "微软雅黑" color = 1E90FF size = 5>配置文件参考地址</font></a></p>
+<pre class="line-numbers language-none"><code class="language-none">storage:
+    # 设置数据文件路径，D:\02_Server\DBServer\mongodb-win32-x86_64-2008plus-ssl-4.0.1，需要修改为自己的路径
+    dbPath: D:\02_Server\DBServer\mongodb-win32-x86_64-2008plus-ssl-4.0.1\data
+
+启动：mongod --config ..&#x2F;config&#x2F;mongod.conf （在 bin 目录中打开 cmd命令行提示符，运行）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>远程连接：在命令行提示符运行：<strong>mongo –host=127.0.0.1 –port=27017</strong> 完成登录，可通过 <strong>mongo –help</strong> 查看帮助</p>
+</li>
+</ol>
+<h2 id="2-2-安装图形化界面-Compass"><a href="#2-2-安装图形化界面-Compass" class="headerlink" title="2.2 安装图形化界面-Compass"></a>2.2 安装图形化界面-Compass</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center/v2/compass?initial=true"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，选择合适的版本进行下载安装；如果是下载安装版，则按照步骤安装；如果是下载加压缩版，直接解压，执行里面的 MongoDBCompassCommunity.exe 文件即可</p>
+<p>连接：在打开的界面中，输入主机地址、端口等相关信息，点击连接；完成与本地 MongoDB 连接，以后操作可在 Compass 中进行</p>
+<h2 id="2-3-Linux安装"><a href="#2-3-Linux安装" class="headerlink" title="2.3 Linux安装"></a>2.3 Linux安装</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center#community"><font face = "微软雅黑" color = 1E90FF size = 5>下载地址</font></a>，官网下载压缩包 mongod-linux-x86_64-x.x.x.tgz</p>
+</li>
+<li><p>上传压缩包到Linux中，解压到当前目录：tar -xvf mongodb-linux-x86_64-x.x.x.tgz</p>
+</li>
+<li><p>移动解压后的文件夹到指定的目录：mv mongodb-linux-x86_64-x.x.x /usr/local/mongodb</p>
+</li>
+<li><p>新建目录：用来存储数据和日志</p>
+<pre class="line-numbers language-none"><code class="language-none"># 数据存储目录
+mkdir -p &#x2F;mongodb&#x2F;single&#x2F;data&#x2F;db
+
+# 日志存储目录
+mkdir -p &#x2F;mongodb&#x2F;single&#x2F;log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>新建配置文件：vi /mongodb/single/mongod.conf</p>
+<pre class="line-numbers language-none"><code class="language-none"># 内容如下：
+systemLog:
+    # MongoDB发送所有日志输出的目标指定为文件
+    # The path of the log file to which mongod or mongos should send all diagnostic logging information
+    destination: file
+    # mongod或mongos应向其发送所有诊断日志记录信息的日志文件的路径
+    path: &quot;&#x2F;mongodb&#x2F;single&#x2F;log&#x2F;mongod.log&quot;
+    # 当mongos或mongod实例重新启动时，mongos或mongod会将新条目附加到现有日志文件的末尾。
+    logAppend: true
+storage:
+    # mongod实例存储其数据的目录。storage.dbPath设置仅适用于mongod。
+    # The directory where the mongod instance stores its data.Default Value is &quot;&#x2F;data&#x2F;db&quot;.
+    dbPath: &quot;&#x2F;mongodb&#x2F;single&#x2F;data&#x2F;db&quot;
+    journal:
+        # 启用或禁用持久性日志以确保数据文件保持有效和可恢复。
+        enabled: true
+processManagement:
+    # 启用在后台运行mongos或mongod进程的守护进程模式。
+    fork: true
+net:
+    # 服务实例绑定的IP，默认是localhost
+    bindIp: localhost,192.168.0.2
+    # bindIp
+    # 绑定的端口，默认是27017
+    port: 27017<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>启动MongoDB服务</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongodmongod --dbpath &#x2F;usr&#x2F;local&#x2F;var&#x2F;mongodb --logpath &#x2F;usr&#x2F;local&#x2F;var&#x2F;log&#x2F;mongodb&#x2F;mongo.log --fork
+# --fork 指定后台运行
+# 若要使用账号密码服务 需要在启动时加 --auth
+
+&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod --config &#x2F;usr&#x2F;local&#x2F;etc&#x2F;mongod.conf
+# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod 为 mongod 脚本所在位置，可在 &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin 目录下将命令简化为 mongod
+# 如果启动失败，检查配置文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用mongo命令和compass工具来连接测试登录</p>
+<pre class="line-numbers language-none"><code class="language-none">mongo   # 默认无密码登录
+
+# 密码登录
+method-1：
+mongo 127.0.0.1&#x2F;admin -u admin -p 123456
+
+method-2：
+1. mongo进入shell
+2. use admin
+3. db.auth(&#39;admin&#39;,&#39;123456&#39;)
+
+# 如果远程连接不上，需要配置防火墙放行，或直接关闭linux防火墙
+# 查看防火墙状态
+systemctl status firewalld
+
+# 临时关闭防火墙
+systemctl stop firewalld
+
+# 开机禁止启动防火墙
+systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>停止关闭服务</p>
+<pre class="line-numbers language-none"><code class="language-none"># 切换到admin库
+use admin
+
+# 关闭服务
+db.shutdownServer()
+
+# 退出
+exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h1 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h1><h2 id="3-1-数据类型"><a href="#3-1-数据类型" class="headerlink" title="3.1  数据类型"></a>3.1  数据类型</h2><table>
+<thead>
+<tr>
+<th><strong>数据类型</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串</td>
+<td>UTF-8字符串都可表示为字符串类型的数据</td>
+<td>{“x” : “foobar”}</td>
+</tr>
+<tr>
+<td>对象id</td>
+<td>对象id是文档的12字节的唯一 ID</td>
+<td>{“X” :ObjectId() }</td>
+</tr>
+<tr>
+<td>布尔值</td>
+<td>真或者假：true或者false</td>
+<td>{“x”:true}+</td>
+</tr>
+<tr>
+<td>数组</td>
+<td>值的集合或者列表可以表示成数组</td>
+<td>{“x” ： [“a”, “b”, “c”]}</td>
+</tr>
+<tr>
+<td>32位整数</td>
+<td>类型不可用；JavaScript仅支持64位浮点数，所以32位整数会被自动转换</td>
+<td>shell是不支持该类型的，shell中默认会转换成64位浮点数</td>
+</tr>
+<tr>
+<td>64位整数</td>
+<td>不支持；shell会使用一个特殊的内嵌文档来显示64位整数</td>
+<td>shell是不支持该类型的，shell中默认会转换成64位浮点数</td>
+</tr>
+<tr>
+<td>64位浮点数</td>
+<td>shell中的数字就是这一种类型</td>
+<td>{“x”：3.14159，”y”：3}</td>
+</tr>
+<tr>
+<td>null</td>
+<td>表示空值或者未定义的对象</td>
+<td>{“x”:null}</td>
+</tr>
+<tr>
+<td>undefifined</td>
+<td>文档中也可以使用未定义类型</td>
+<td>{“x”:undefifined}</td>
+</tr>
+<tr>
+<td>符号</td>
+<td>shell不支持，shell会将数据库中的符号类型的数据自动转换成字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>正则表达式</td>
+<td>文档中可以包含正则表达式，采用JavaScript的正则表达式语法</td>
+<td>{“x” ： /foobar/i}</td>
+</tr>
+<tr>
+<td>代码</td>
+<td>文档中还可以包含JavaScript代码</td>
+<td>{“x” ： function() { /* …… */ }}</td>
+</tr>
+<tr>
+<td>二进制数据</td>
+<td>二进制数据可以由任意字节的串组成，不过shell中无法使用</td>
+<td></td>
+</tr>
+<tr>
+<td>最大值/最小值</td>
+<td></td>
+<td>BSON包括一个特殊类型，表示可能的最大值；shell中没有这个类型</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-数据库操作"><a href="#3-2-数据库操作" class="headerlink" title="3.2 数据库操作"></a>3.2 数据库操作</h2><p><strong>数据库命名规范</strong>：</p>
+<ul>
+<li>不能是空字符串（””)</li>
+<li>不得含有’ ‘（空格)、.、$、/、\和\0 (空字符)</li>
+<li>应全部小写</li>
+<li>最多64字节</li>
+</ul>
+<p><strong>保留数据库</strong>：</p>
+<ul>
+<li><p><strong>admin</strong>： 类似于 root数据库；数据库内新增一个用户，用户会自动继承所有数据库的权限；一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器</p>
+</li>
+<li><p><strong>local</strong>：这个数据库永远不会被复制，用来存储限于本地单台服务器的任意集合</p>
+</li>
+<li><p><strong>confifig</strong>：当Mongo用于分片设置时，confifig数据库在内部使用，用于保存分片的相关信息</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">选择或创建数据库：use db_name ；如果数据库不存在则自动创建，存在则切换当前数据库，默认的数据库为 test
+显示当前数据库：db
+
+查看所有数据库：show databases &#x2F; dbs
+
+删除数据库：db.dropDatabase() ；主要用来删除已经持久化的数据库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-3-集合操作"><a href="#3-3-集合操作" class="headerlink" title="3.3 集合操作"></a>3.3 集合操作</h2><p><strong>集合</strong>：类似于关系型数据库中的表；既可以显示创建，也可以隐式创建；在 MongoDB 中，集合只有在内容插入后才会创建；即：<strong>创建集合(数据表)后要再插入一个文档(记录)，集合才会真正创建</strong></p>
+<p><strong>集合的命名规范</strong>：</p>
+<ul>
+<li>集合名不能是空字符串””</li>
+<li>集合名不能含有\0字符（空字符)，这个字符表示集合名的结尾</li>
+<li>集合名不能以”system.”开头，这是为系统集合保留的前缀</li>
+<li>用户创建的集合名字不能含有保留字符 $：只有访问系统创建的集合时，才能在名字里出现$；某些系统生成的集合中包含该字符，会导致有些驱动程序支持在集合名里面包含保留字符</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">显示创建集合：db.createCollection(collection_name)
+
+查看当前库中的表：show collections &#x2F; tables
+
+删除集合：成功删除选定集合，drop() 方法返回 true
+db.collection_name.drop()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-4-文档操作"><a href="#3-4-文档操作" class="headerlink" title="3.4 文档操作"></a>3.4 文档操作</h2><p><strong>文档</strong>：document，类似于关系型数据库的记录；数据结构和 JSON 基本一样，在集合中以 BSON 格式存储</p>
+<p><strong>文档键命名规范</strong>：</p>
+<ul>
+<li>键不能含有\0 (空字符)，这个字符用来表示键的结尾</li>
+<li>.和$有特别的意义，只有在特定环境下才能使用</li>
+<li>以下划线”_”开头的键是保留的(非严格要求)</li>
+</ul>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>文档中的键/值对是有序的</li>
+<li>文档中的值不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)</li>
+<li>MongoDB区分类型和大小写</li>
+<li>MongoDB的文档不能有重复的键</li>
+<li>文档的键是字符串；除了少数例外情况，键可以使用任意UTF-8字符</li>
+</ol>
+<h3 id="3-4-1-文档插入"><a href="#3-4-1-文档插入" class="headerlink" title="3.4.1 文档插入"></a>3.4.1 文档插入</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.insert(      # collection_name 不存在时，会隐式的创建集合
+    &lt;document or array of documents&gt;,
+    &#123;
+        writeConcern: &lt;document&gt;,
+        ordered: &lt;boolean&gt;
+    &#125;
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.insertMany(
+    [&lt;document 1&gt; , &lt;document 2&gt;, ... ],  # 可批量插入多个文档，不同文档通过 &#123;&#125; 包裹，英文, 分隔 
+    &#123;
+        writeConcern: &lt;document&gt;,
+        ordered: &lt;boolean&gt;
+    &#125;
+)
+
+注：批量插入时，如果某条数据插入失败，将会终止插入；已经插入成功的数据不会回滚<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document</td>
+<td>document or array</td>
+<td>要插入到集合中的文档或文档数组（(json格式）</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>document</td>
+<td>可选参数；表示写监测点的文档，忽略使用默认的写监测点监测写问题；如果在事务中运行，则不要显式设置操作的写监测点</td>
+</tr>
+<tr>
+<td>ordered</td>
+<td>boolean</td>
+<td>可选参数；如果为真，则按顺序插入数组中的文档，如果其中一个文档出现错误，MongoDB将返回而不处理数组中的其余文档。如果为假，则执行无序插入，如果其中一个文档出现错误，则继续处理</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.insert(         # comment集合如果不存在，则会隐式创建
+    &#123;
+        # 插入的数据没有指定 _id ，会自动生成主键值，其类型是ObjectID类型
+        &quot;articleid&quot;:&quot;100000&quot;,
+        &quot;content&quot;:&quot;今天天气真好，阳光明媚&quot;,
+        &quot;userid&quot;:&quot;1001&quot;,
+        &quot;nickname&quot;:&quot;Rose&quot;,
+        &quot;createdatetime&quot;:new Date(),    # 插入当前日期使用 new Date()
+        &quot;likenum&quot;:NumberInt(10),        # 默认为double类型；必须使用函数NumberInt(num)存储整数
+        &quot;state&quot;:null                    # 某字段没值，可以赋值为null；或不写该字段
+    &#125;
+);
+
+返回 WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;) 则说明插入成功
+
+db.comment.insertMany([
+    &#123;
+        &quot;_id&quot;:&quot;1&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我们不应该把清晨浪费在手机上，健康很重要，一杯温水幸福你我他。&quot;,
+        &quot;userid&quot;:&quot;1002&quot;,
+        &quot;nickname&quot;:&quot;相忘于江湖&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-05T22:08:15.522Z&quot;),
+        &quot;likenum&quot;:NumberInt(1000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;2&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我夏天空腹喝凉开水，冬天喝温开水&quot;,
+        &quot;userid&quot;:&quot;1005&quot;,
+        &quot;nickname&quot;:&quot;伊人憔悴&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-05T23:58:51.485Z&quot;),
+        &quot;likenum&quot;:NumberInt(888),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;3&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;我一直喝凉开水，冬天夏天都喝。&quot;,
+        &quot;userid&quot;:&quot;1004&quot;,
+        &quot;nickname&quot;:&quot;杰克船长&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T01:05:06.321Z&quot;),
+        &quot;likenum&quot;:NumberInt(666),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;4&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;专家说不能空腹吃饭，影响健康。&quot;,
+        &quot;userid&quot;:&quot;1003&quot;,
+        &quot;nickname&quot;:&quot;凯撒&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T08:18:35.288Z&quot;),
+        &quot;likenum&quot;:NumberInt(2000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;,
+    &#123;
+        &quot;_id&quot;:&quot;5&quot;,
+        &quot;articleid&quot;:&quot;100001&quot;,
+        &quot;content&quot;:&quot;研究表明，刚烧开的水千万不能喝，因为烫嘴。&quot;,
+        &quot;userid&quot;:&quot;1003&quot;,
+        &quot;nickname&quot;:&quot;凯撒&quot;,
+        &quot;createdatetime&quot;:new Date(&quot;2019-08-06T11:01:02.521Z&quot;),
+        &quot;likenum&quot;:NumberInt(3000),
+        &quot;state&quot;:&quot;1&quot;
+    &#125;
+]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-4-2-文档删除"><a href="#3-4-2-文档删除" class="headerlink" title="3.4.2 文档删除"></a>3.4.2 文档删除</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.remove(condition)
+
+db.comment.remove(&#123;&#125;)    # 删除 comment 的所有文档
+db.comment.remove(&#123;&quot;articleid&quot;:&quot;100000&quot;&#125;)   # 删除 comment 中 &quot;articleid&quot;&#x3D;&quot;100000&quot; 的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-4-3-文档修改"><a href="#3-4-3-文档修改" class="headerlink" title="3.4.3 文档修改"></a>3.4.3 文档修改</h3><pre class="line-numbers language-none"><code class="language-none">db.collection_name.update(
+    &lt;query&gt;,
+    &lt;update&gt;,
+    &#123;
+        upsert: &lt;boolean&gt;,
+        multi: &lt;boolean&gt;,
+        writeConcern: &lt;document&gt;,
+        collation: &lt;document&gt;,
+        arrayFilters: [ &lt;filterdocument1&gt;, ... ],
+        hint: &lt;document|string&gt; &#x2F;&#x2F; Available starting in MongoDB 4.2
+    &#125;
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>document</td>
+<td>更新的选择条件：类似sql update 查询内 where 后面的 condition，可以使用与 fifind() 方法中相同的查询选择器；在3.0版中：当使用 upsert:true 执行 update() 时，如果查询使用点表示法在_id字段上指定条件，则MongoDB将拒绝插入新文档</td>
+</tr>
+<tr>
+<td>update</td>
+<td>document or pipeline</td>
+<td>要应用的修改；该值可以是：包含更新运算符表达式的文档，或仅包含：对的替换文档</td>
+</tr>
+<tr>
+<td>upsert</td>
+<td>boolean</td>
+<td>可选参数；设置为true，则在没有与查询条件匹配的文档时创建新文档；默认值为false，如果找不到匹配项，则不会插入新文档</td>
+</tr>
+<tr>
+<td>multi</td>
+<td>boolean</td>
+<td>可选参数；设置为true，则更新符合查询条件的多个文档；默认值为false，则更新一个文档</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>document</td>
+<td>可选参数；表示写问题的文档，抛出异常的级别</td>
+</tr>
+<tr>
+<td>collation</td>
+<td>document</td>
+<td>可选参数；指定要用于操作的校对规则；校对规则允许用户为字符串比较指定特定于语言的规则，具有以下语法：<br />校对规则:{<br/>    区域设置:,<br/>    caseLevel:,<br/>    caseFirst:,<br/>    强度:,<br/>    numericordering:,<br/>    替代:,<br/>    最大变量:,<br/>    向后:<br/>}<br />指定校对规则时，区域设置字段是必需的；所有其他校对规则字段都是可选；如果未指定校对规则，集合具有默认校对规则（请参见db.createCollection()），则该操作将使用为集合指定的校对规则；如果没有为集合或操作指定校对规则，MongoDB将使用以前版本中使用的简单二进制比较进行字符串比较；不能为一个操作指定多个校对规则；例如：不能为每个字段指定不同的校对规则，或者如果使用排序执行查找，则不能将一个校对规则用于查找，另一个校对规则用于排序</td>
+</tr>
+<tr>
+<td>arrayFilters</td>
+<td>array</td>
+<td>可选参数；一个筛选文档数组，用于确定要为数组字段上的更新操作修改的数组元素</td>
+</tr>
+<tr>
+<td>hint</td>
+<td>document or string</td>
+<td>可选参数；指定用于支持查询谓词的索引的文档或字符串，该选项可以采用索引规范文档或索引名称字符串；如果指定的索引不存在，则说明操作错误</td>
+</tr>
+</tbody></table>
+<p><strong>列修改</strong>：</p>
+<pre class="line-numbers language-none"><code class="language-none">$unset：删除列
+$rename：重命名列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>覆盖修改</strong>：文档内除了likenum字段其它字段都变为空</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;1&quot;&#125;,&#123;likenum:NumberInt(1001)&#125;)  # 修改_id为1的记录，点赞量为1001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>局部修改</strong>：使用修改器$set来实现，仅修改需要修改的字段</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;2&quot;&#125;,&#123;$set:&#123;likenum:NumberInt(889)&#125;&#125;)  # 修改_id为2的记录，浏览量为889<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>批量修改</strong>：默认只修改第一条数据，通过 <strong>multi:true</strong> 实现批量修改</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; 默认只修改第一条数据
+db.comment.update(&#123;userid:&quot;1003&quot;&#125;,&#123;$set:&#123;nickname:&quot;凯撒大帝&quot;&#125;&#125;)
+
+&#x2F;&#x2F; 修改所有符合条件的数据
+db.comment.update(&#123;userid:&quot;1003&quot;&#125;,&#123;$set:&#123;nickname:&quot;凯撒大帝&quot;&#125;&#125;,&#123;multi:true&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>运算修改</strong>：实现对某列值在原有值的基础上进行增加或减少，使用 <strong>$inc 运算符</strong>来实现</p>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.update(&#123;_id:&quot;3&quot;&#125;,&#123;$inc:&#123;likenum:NumberInt(1)&#125;&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="3-4-4-文档查询"><a href="#3-4-4-文档查询" class="headerlink" title="3.4.4 文档查询"></a>3.4.4 文档查询</h3><h4 id="3-4-4-1-普通查询"><a href="#3-4-4-1-普通查询" class="headerlink" title="3.4.4.1 普通查询"></a>3.4.4.1 普通查询</h4><pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&lt;query&gt;, [projection])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>document</td>
+<td>可选参数；使用查询运算符指定选择筛选器，若要返回集合中的所有文档，请省略此参数或传递空文档( {} )</td>
+</tr>
+<tr>
+<td>projection</td>
+<td>document</td>
+<td>可选参数；指定要在与查询筛选器匹配的文档中返回的字段（投影），若要返回匹配文档中的所有字段，省略此参数</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.find()        # 默认查询所有列
+db.comment.find(&#123;&#125;)
+
+db.comment.find(&#123;userid:&#39;1003&#39;&#125;)     # 在find()中添加 json格式参数，实现条件查询
+db.comment.findOne(&#123;userid:&#39;1003&#39;&#125;)  # 只返回一条符合条件的记录
+db.comment.find(&#123;userid:&quot;1003&quot;&#125;,&#123;userid:1,nickname:1&#125;)  # 查询结果只返回 _id、userid、nickname；默认会返回 _id
+db.comment.find(&#123;userid:&quot;1003&quot;&#125;,&#123;userid:1,nickname:1,_id:0&#125;)  # 查询结果只返回 userid、nickname<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>统计查询</strong>：使用 count() 方法</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.count(query, options)
+
+query：查询选择条件
+options：可选参数，用于修改计数的额外选项
+
+db.comment.count()  # 统计所有记录数，默认返回符合条件的全部记录条数
+db.comment.count(&#123;userid:&quot;1003&quot;&#125;)  # 统计userid为1003的记录条数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>分页查询</strong>：使用 limit() 方法来读取指定数量的数据，使用 skip() 方法来跳过指定数量的数据</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find().limit(NUMBER).skip(NUMBER)
+
+limit：返回结果(TopN)，默认值20
+skip：跳过的记录条数，默认值是0
+
+db.comment.find().skip(2).limit(2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>排序查询</strong>：使用 sort() 方法对数据进行排序，使用 1(升序) 和 -1(降序) 来指定排序方式</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find().sort(&#123;KEY:1&#125;)
+
+db.comment.find().sort(&#123;userid:-1,likenum:1&#125;)  # 对userid降序排列，并对点赞量进行升序排列<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>skip(), limilt(), sort() 三个一起执行时，执行的顺序是 **sort() -&gt; skip() -&gt; limit()**，和命令编写顺序无关</li>
+</ul>
+<p><strong>比较查询</strong>：gt、lt、gte、lte、ne</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$gt:value&#125;&#125;)   # 大于: field &gt; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$lt:value&#125;&#125;)   # 小于: field &lt; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$gte:value&#125;&#125;)  # 大于等于: field &gt;&#x3D; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$lte:value&#125;&#125;)  # 小于等于: field &lt;&#x3D; value
+db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$ne:value&#125;&#125;)   # 不等于: field !&#x3D; value
+
+db.comment.find(&#123;likenum:&#123;$gt:NumberInt(700)&#125;&#125;)  # 查询评论点赞数量大于700的记录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>包含查询</strong>：使用 $in操作符 和 $nin操作符实现包含不包含</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;&quot;field_name&quot;:&#123;$in:[value]&#125;&#125;)
+
+db.comment.find(&#123;userid:&#123;$in:[&quot;1003&quot;,&quot;1004&quot;]&#125;&#125;)    # 查询评论的集合中userid字段包含1003或1004的文档
+db.comment.find(&#123;userid:&#123;$nin:[&quot;1003&quot;,&quot;1004&quot;]&#125;&#125;)   # 查询评论集合中userid字段不包含1003和1004的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>模糊查询</strong>：通过 <strong>正则表达式</strong> 的方式实现，更多内容可查看 <a href="https://qizhongyi.gitee.io/202206/2446563.html"><font face = "微软雅黑" color = 1E90FF size = 5><strong>正则表达式</strong></font></a></p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(&#123;field_name:&#x2F;正则表达式&#x2F;&#125;)
+
+db.comment.find(&#123;content:&#x2F;开水&#x2F;&#125;)    # 查询评论内容包含“开水”的所有文档
+db.comment.find(&#123;content:&#x2F;^专家&#x2F;&#125;)   # 查询评论的内容中以“专家”开头<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>条件逻辑连接查询</strong>：通过 $and 、$or 操作符实现</p>
+<pre class="line-numbers language-none"><code class="language-none">$and:[ &#123; &#125;,&#123; &#125;,&#123; &#125; ]
+$or:[ &#123; &#125;,&#123; &#125;,&#123; &#125; ]
+
+db.comment.find(&#123;$and:[&#123;likenum:&#123;$gte:NumberInt(700)&#125;&#125;,&#123;likenum:&#123;$lt:NumberInt(2000)&#125;&#125;]&#125;)  # 查询评论集合中likenum大于等于700 并且小于2000的文档
+
+db.comment.find(&#123;$or:[ &#123;userid:&quot;1003&quot;&#125; ,&#123;likenum:&#123;$lt:1000&#125; &#125;]&#125;)  # 查询评论集合中userid为1003，或者点赞数小于1000的文档记录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>执行计划</strong>：通常使用执行计划（解释计划、Explain Plan）来查看查询情况，分析查询性能</p>
+<pre class="line-numbers language-none"><code class="language-none">db.collection_name.find(query,options).explain(options)
+# &quot;stage&quot; : &quot;COLLSCAN&quot;：表示全集合扫描，性能较差
+# &quot;stage&quot; : &quot;IXSCAN&quot;：表示基于索引扫描，性能较好
+
+db.comment.find(&#123;userid:&quot;1013&quot;&#125;).explain()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3-4-4-2-聚合查询"><a href="#3-4-4-2-聚合查询" class="headerlink" title="3.4.4.2 聚合查询"></a>3.4.4.2 聚合查询</h4><pre class="line-numbers language-none"><code class="language-none">db.collection_name.aggregate([
+	&#123;管道:&#123;表达式&#125;&#125;
+	....
+])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>常用管道</strong>：</p>
+<ul>
+<li>$group：将集合中的文档分组，用于统计结果</li>
+<li>$match：过滤数据，只要输出符合条件的文档</li>
+<li>$sort：聚合数据进一步排序</li>
+<li>$skip：跳过指定文档数</li>
+<li>$limit：限制集合数据返回文档数</li>
+</ul>
+<p><strong>常用表达式</strong>：</p>
+<ul>
+<li>$sum：总和；$sum:1同count表示统计</li>
+<li>$avg：平均</li>
+<li>$min：最小值</li>
+<li>$max：最大值</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none"># 统计点赞人数
+db.comment.aggregate([
+	&#123;
+		$group:&#123;	
+			_id:&quot;$userid&quot;,
+			res:&#123;$sum:1&#125;
+	    &#125;
+	&#125;
+])
+
+# 统计点赞总数
+db.comment.aggregate([
+	&#123;
+		$group:&#123;	
+			_id:&quot;$likenum&quot;,
+			res:&#123;$sum:likenum&#125;
+	    &#125;
+	&#125;
+])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-5-常用命令"><a href="#3-5-常用命令" class="headerlink" title="3.5  常用命令"></a>3.5  常用命令</h2><pre class="line-numbers language-none"><code class="language-none">选择切换数据库：use articledb
+插入数据：db.comment.insert(&#123;bson数据&#125;)
+查询所有数据：db.comment.find();
+条件查询数据：db.comment.find(&#123;条件&#125;)
+查询符合条件的第一条记录：db.comment.findOne(&#123;条件&#125;)
+查询符合条件的前几条记录：db.comment.find(&#123;条件&#125;).limit(条数)
+查询符合条件的跳过的记录：db.comment.find(&#123;条件&#125;).skip(条数)
+修改数据：db.comment.update(&#123;条件&#125;,&#123;修改后的数据&#125;) 或db.comment.update(&#123;条件&#125;,&#123;$set:&#123;要修改部分的字段:数据&#125;)
+修改数据并自增某字段值：db.comment.update(&#123;条件&#125;,&#123;$inc:&#123;自增的字段:步进值&#125;&#125;)
+删除数据：db.comment.remove(&#123;条件&#125;)
+统计查询：db.comment.count(&#123;条件&#125;)
+模糊查询：db.comment.find(&#123;字段名:&#x2F;正则表达式&#x2F;&#125;)
+条件比较运算：db.comment.find(&#123;字段名:&#123;$gt:值&#125;&#125;)
+包含查询：db.comment.find(&#123;字段名:&#123;$in:[值1，值2]&#125;&#125;)或db.comment.find(&#123;字段名:&#123;$nin:[值1，值2]&#125;&#125;)
+条件连接查询：db.comment.find(&#123;$and:[&#123;条件1&#125;,&#123;条件2&#125;]&#125;)或db.comment.find(&#123;$or:[&#123;条件1&#125;,&#123;条件2&#125;]&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="4-索引"><a href="#4-索引" class="headerlink" title="4.  索引"></a>4.  索引</h1><p><strong>索引</strong>：支持在MongoDB中高效地执行查询，MongoDB索引使用B树数据结构中的 <strong>B-Tree</strong>；详细内容查看 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/indexes/"><font face = "微软雅黑" color = 1E90FF size = 5>索引官网</font></a></p>
+<p><strong>分类</strong>：</p>
+<ul>
+<li><strong>单字段索引</strong>：Single Field Index，用户定义在文档的单个字段上的升序 / 降序索引；对于单个字段索引和排序操作，索引键的排序顺序并不重要，MongoDB支持在任何方向上遍历索引</li>
+<li><strong>复合索引</strong>：Compound Index，支持用户在多个字段定义索引；复合索引中列出的字段顺序具有重要意义：复合索引由 { userid: 1, score: -1 } 组成，则索引首先按userid正序排序，然后在每个userid的值内，再在按score倒序排序</li>
+<li><strong>地理空间索引</strong>：Geospatial Index，通过 <strong>平面几何的二维索引和球面几何的二维球面索引</strong> 实现对地理空间坐标数据的有效查询</li>
+<li><strong>文本索引</strong>：Text Indexes，支持在集合中搜索字符串内容</li>
+<li><strong>哈希索引</strong>：Hashed Indexes，支持基于散列的分片，对字段值的散列进行索引；索引在其范围内的值分布更加随机，但只支持相等匹配，不支持基于范围的查询</li>
+</ul>
+<h2 id="4-1-创建"><a href="#4-1-创建" class="headerlink" title="4.1 创建"></a>4.1 创建</h2><pre class="line-numbers language-none"><code class="language-none">db.collection_name.createIndex(keys, options)   # 在 3.0.0 版本前创建索引方法为 db.collection_name.ensureIndex()，以后的版本还能用，推荐使用createIndex()
+
+keys：包含字段和值对的文档，其中字段是索引键，值描述该字段的索引类型
+options：可选参数；包含一组控制索引创建的选项的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>options 参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>background</td>
+<td>Boolean</td>
+<td>建索引过程会阻塞其它数据库操作，background参数可指定以后台方式创建索引；默认值为 false</td>
+</tr>
+<tr>
+<td>unique</td>
+<td>Boolean</td>
+<td>是否建立唯一索引；默认值为 false</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>索引名称；如未指定，MongoDB的通过连接索引的字段名和排序顺序生成一个索引名称</td>
+</tr>
+<tr>
+<td>dropDups</td>
+<td>Boolean</td>
+<td>在建立唯一索引时是否删除重复记录，3.0+版本已废弃；默认值为 false</td>
+</tr>
+<tr>
+<td>sparse</td>
+<td>Boolean</td>
+<td>对文档中不存在的字段数据不启用索引，如果设置为true，在索引字段中不会查询出不包含对应字段的文档；默认值为 false</td>
+</tr>
+<tr>
+<td>expireAfterSeconds</td>
+<td>integer</td>
+<td>设定集合的生存时间，指定一个以秒为单位的数值，完成 TTL设定</td>
+</tr>
+<tr>
+<td>v</td>
+<td>index version</td>
+<td>索引的版本号，默认的索引版本取决于mongod创建索引时运行的版本</td>
+</tr>
+<tr>
+<td>weights</td>
+<td>document</td>
+<td>索引权重值，表示该索引相对于其他索引字段的得分权重；数值在 1 到 99999 之间</td>
+</tr>
+<tr>
+<td>default_language</td>
+<td>string</td>
+<td>对于文本索引，决定停用词及词干和词器的规则的列表； 默认为英语</td>
+</tr>
+<tr>
+<td>language_override</td>
+<td>string</td>
+<td>对于文本索引，指定包含在文档中的字段名，语言覆盖默认的language，默认值为 language</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">db.comment.createIndex(&#123;userid:1&#125;)  # 对 userid 字段建立升序索引
+db.comment.createIndex(&#123;userid:1,nickname:-1&#125;)  # 对 userid 和 nickname 建立复合索引：userid升序，nickname降序
+db.comment.createIndex(&#123;userid:1,nickname:-1&#125;,&#123;name:&quot;idx_comp_id_nn&quot;&#125;)  # 指定索引名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-2-删除"><a href="#4-2-删除" class="headerlink" title="4.2 删除"></a>4.2 删除</h2><pre class="line-numbers language-none"><code class="language-none"># 删除单个索引
+db.collection_name.dropIndex(idx_name)
+
+db.comment.dropIndex(&#123;userid:1&#125;)   # 安装索引定义规则删除，也可以按照名称删除<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 删除所有索引
+db.collection.dropIndexes()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="4-3-查看"><a href="#4-3-查看" class="headerlink" title="4.3 查看"></a>4.3 查看</h2><pre class="line-numbers language-none"><code class="language-none">db.collection_name.getIndexes()  # 返回一个集合中的所有索引的数组；默认有 _id 唯一索引(值不能重复)，默认索引名称为 _id_，不能在_id字段上删除此索引<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202210/2036978.html">https://qizhongyi.gitee.io/202210/2036978.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
+                                <a href="/tags/NoSQL/">
+                                    <span class="chip bg-color">NoSQL</span>
+                                </a>
+                            
+                                <a href="/tags/MongoDB/">
+                                    <span class="chip bg-color">MongoDB</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202210/2831887.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="知识图谱-基础">
+                        
+                        <span class="card-title">知识图谱-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记-知识图谱-的相关基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202210/1811009.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="ElasticSearch-基础">
+                        
+                        <span class="card-title">ElasticSearch-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录 ElasticSearch使用基础 的相关基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/ElasticSearch/">
+                        <span class="chip bg-color">ElasticSearch</span>
+                    </a>
+                    
+                    <a href="/tags/NoSQL/">
+                        <span class="chip bg-color">NoSQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

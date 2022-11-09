@@ -1,0 +1,1184 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Excel-常见操作指令, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录 Office-Excel常见操作指令 的相关基础内容
+
+
+1. 简介1.1 发展历程1978年由DanBricklin和BobFrankston创建世界上第一款电子表格——VisiCalc；
+1983年，Lotus公">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Excel-常见操作指令 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Excel-常见操作指令</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Tools/">
+                                <span class="chip bg-color">Tools</span>
+                            </a>
+                        
+                            <a href="/tags/office/">
+                                <span class="chip bg-color">office</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/" class="post-category">
+                                常见操作指令
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-16
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-10-20
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    11 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录 Office-Excel常见操作指令 的相关基础内容</p>
+<span id="more"></span>
+
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-发展历程"><a href="#1-1-发展历程" class="headerlink" title="1.1 发展历程"></a>1.1 发展历程</h2><p>1978年由DanBricklin和BobFrankston创建世界上第一款电子表格——VisiCalc；</p>
+<p>1983年，Lotus公司开发的一款成功的电子表格——Lotus 1-2-3；</p>
+<p>1982年：微软推出第一款电子制表软件-Multiplan，败给了Lotus 1-2-3；</p>
+<p>1985年：微软推出Excel for Mac；1987年：推出 Excel 2 for Windows；绑定系统，打败Lotus 1-2-3；随后收购Lotus公司</p>
+<p>1993年：推出 Excel 5， Excel被捆绑进Microsoft Office中，Excel开始支持VBA；</p>
+<p>1997年：推出 Excel 97，也称 Excel 8，Excel97是Office97中一个重要程序；通用叫法 97-03 版，文件后缀为 xls；03及以后文件后缀为 xlsx；xlsm（带宏的文件），<strong>本文操作以 97-03 版 为准</strong></p>
+<h2 id="1-2-基本构成"><a href="#1-2-基本构成" class="headerlink" title="1.2 基本构成"></a>1.2 基本构成</h2><p><strong>工作簿</strong>：Excel文件又称为工作簿，由多个 sheet 组成；每个 sheet 包含功能区和操作区</p>
+<p><strong>功能区</strong>：由 <strong>文件</strong>、<strong>开始</strong>、<strong>插入</strong>、<strong>页面布局</strong>、<strong>公式</strong>、<strong>数据</strong>、<strong>审阅</strong>、<strong>视图</strong> 和 <strong>开发工具</strong> 等功能选项卡组成</p>
+<p><strong>操作区</strong>：由 1048576(行) * 16384(XFD，列) 的二维表格组成</p>
+<h1 id="2-文件"><a href="#2-文件" class="headerlink" title="2. 文件"></a>2. 文件</h1><h2 id="2-6-选项"><a href="#2-6-选项" class="headerlink" title="2.6 选项"></a>2.6 选项</h2><h3 id="2-6-6-高级"><a href="#2-6-6-高级" class="headerlink" title="2.6.6 高级"></a>2.6.6 高级</h3><p><strong>自定义列表</strong>：点击 文件菜单栏 -&gt; 选择高级 -&gt; 向下滑动找到 编辑自定义列表(位置较下，需要滑动久一点)点击，调出 自定义序列 对话框 -&gt; 对话框左侧选择新序列 -&gt; 右侧输入需要加入的序列列表(序列值通过英文逗号 , 隔开，或者通过换行隔开) -&gt; 点击添加 -&gt; 点击确定，完成新下拉列表的添加；（<strong>修改</strong>：在 自定义序列 对话框左侧选择需要修改的序列 -&gt; 右侧对序列值进行修改 -&gt; 点击添加 -&gt; 点击确定，默认序列不支持修改；<strong>删除</strong>：在 自定义序列 对话框左侧选择需要删除的序列 -&gt; 点击删除 -&gt; 点击确定）</p>
+<h1 id="3-开始"><a href="#3-开始" class="headerlink" title="3. 开始"></a>3. 开始</h1><h2 id="3-1-剪贴板"><a href="#3-1-剪贴板" class="headerlink" title="3.1 剪贴板"></a>3.1 剪贴板</h2><h3 id="3-1-1-粘贴-选择性粘贴"><a href="#3-1-1-粘贴-选择性粘贴" class="headerlink" title="3.1.1 粘贴-选择性粘贴"></a>3.1.1 粘贴-选择性粘贴</h3><p><strong>选择性粘贴打开方式</strong>：</p>
+<ol>
+<li>点击 开始菜单栏 -&gt; 点击 粘贴下拉框(最左侧) -&gt; 选择 选择性粘贴，调出 选择性粘贴 对话框；</li>
+<li>选择需要进行粘贴的单元格，点击鼠标右键，在出现的下拉列表中点击  选择性粘贴，调出 选择性粘贴 对话框</li>
+</ol>
+<p><strong>选择性粘贴-普通粘贴</strong>：点击 开始菜单栏 -&gt; 点击 粘贴下拉框 -&gt; 选择 选择性粘贴，调出 选择性粘贴 对话框 -&gt; 选择 粘贴 中合适的粘贴方式；支持跳过空单元格进行粘贴</p>
+<p><strong>选择性粘贴-运算粘贴</strong>：点击 开始菜单栏 -&gt; 点击 粘贴下拉框 -&gt; 选择 选择性粘贴，调出 选择性粘贴 对话框 -&gt; 选择 运算 中合适的粘贴方式；包括 加、减、乘、除（先复制进行运算的基数，再选择需要进行运算的数据，调出 选择性粘贴 的对话框，选择运算方式，点击确定即可得到结果）</p>
+<h2 id="3-7-编辑"><a href="#3-7-编辑" class="headerlink" title="3.7 编辑"></a>3.7 编辑</h2><h3 id="3-7-2-填充"><a href="#3-7-2-填充" class="headerlink" title="3.7.2 填充"></a>3.7.2 填充</h3><p><strong>注</strong>：填充需要现在填充的开始单元格位置输入填充的起始值</p>
+<ul>
+<li><strong>序列填充</strong>：选中填充的开始单元格位置 -&gt; 点击 开始菜单栏 -&gt; 点击 填充下拉选项卡，选择序列 -&gt; 选择填充方向(行、列)、序列类型(等差、等比等)、填充步长和终止值</li>
+</ul>
+<h3 id="3-7-4-排序与筛选"><a href="#3-7-4-排序与筛选" class="headerlink" title="3.7.4 排序与筛选"></a>3.7.4 排序与筛选</h3><ul>
+<li><strong>单列排序</strong>：选择进行排序的列 -&gt; 点击 开始菜单栏 -&gt; 点击 排序和筛选下拉框 -&gt; 选择排序方式</li>
+<li><strong>多列排序</strong>：点击 开始菜单栏 -&gt; 点击 排序和筛选下拉框 -&gt; 选择自定义排序 -&gt; 在弹出的对话框中选择排序关键字和排序方式，可通过添加条件选择排序的次关键字和排序方式</li>
+</ul>
+<h3 id="3-7-5-查找和选择"><a href="#3-7-5-查找和选择" class="headerlink" title="3.7.5 查找和选择"></a>3.7.5 查找和选择</h3><ul>
+<li><strong>查找</strong>：点击 开始菜单栏 -&gt; 点击 查找和替换(最右侧) -&gt; 在下拉框中选择 查找 -&gt; 在调出的查找对话框中点击选项，进行查找内容限定（内容、单元格格式）、范围限定（工作簿、工作表）、方式限定（按行、按列）等 -&gt; 点击查找全部或查找下一个；<strong>快捷键操作</strong>：Ctrl + F -&gt; 进行查找限定 -&gt; 点击查找全部或查找下一个；默认会保留上一次查找限定</li>
+<li><strong>替换</strong>：点击 开始菜单栏 -&gt; 点击 查找和替换(最右侧) -&gt; 在下拉框中选择 替换 -&gt; 在调出的替换对话框中选项，进行替换内容限定（内容、单元格格式）、范围限定（工作簿、工作表）、方式限定（按行、按列）等 -&gt; 在查找内容 和 替换为 的输入框中输入需要查找替换的内容 -&gt; 点击全部替换或替换，可以提前选择需要替换的范围，则只会在选定范围内进行替换；<strong>快捷键操作</strong>：Ctrl + H -&gt; 进行替换限定 -&gt; 点击全部替换或替换；默认会保留上一次替换限定<br><strong>注</strong>：查找、替换支持通配符：? 代表1个字符，* 代表多个字符（包括 0 个）</li>
+<li><strong>定位</strong>：先选择需要定位的范围，点击 开始菜单栏 -&gt; 点击 查找和替换(最右侧) -&gt; 在下拉框中选择 定位条件 -&gt; 在调出的定位对话框中选择合适的定位条件 -&gt; 点击确定，完成数据定位；此时可对所有选中的单元格进行操作(快捷键正常操作、<strong>完成输入操作后按 Ctrl + Enter 实现将内容填充至所有定位位置</strong>)；<strong>快捷键操作</strong>：Ctrl + G -&gt; 选择定位区域 -&gt; 选择定位条件 -&gt; 点击确认</li>
+</ul>
+<h1 id="4-插入"><a href="#4-插入" class="headerlink" title="4. 插入"></a>4. 插入</h1><h2 id="4-1-数据透视"><a href="#4-1-数据透视" class="headerlink" title="4.1 数据透视"></a>4.1 数据透视</h2><p><strong>数据透视表</strong>：更多操作查看 <a href="https://qizhongyi.gitee.io/202209/0749777.html"><font face = "微软雅黑" color = 1E90FF size = 5><strong>Excel进阶-数据透视表</strong></font></a></p>
+<h2 id="4-3-图表"><a href="#4-3-图表" class="headerlink" title="4. 3 图表"></a>4. 3 图表</h2><p><strong>图表</strong>：包括图表区、绘图区、图表标题、数据标签、数据系列、坐标轴、网格线、分类名称、图例、图表数据系列名称</p>
+<ul>
+<li><strong>柱状图</strong>：在竖直方向比较不同类型的数据；适用于二维数据集，对于不同类型的数据进行对比，也可用于同一类型的数据在不同的时间维度的数据对比，通过柱子的高度来反应数据的差异</li>
+<li><strong>条形图</strong>：水平方向比较不同类型的数据，更直观；类别名称很长，可以选择条形图</li>
+<li><strong>折线图</strong>：按类别显示一段时间内数据的变化趋势，主要用于时间序列的数据；折线图适合二维的大数据集，还适合多个二维数据集的比较</li>
+<li><strong>散点图</strong>：展示二维数据之间的相关关系；主要是展示两类数据之间的线性关系，前提是二者之间有很强的关联性</li>
+<li><strong>气泡图</strong>：展示三维数据之间的关系；通过横纵坐标展示二维数据的关系，然后通过气泡大小来展示与第三个数据类型的关系</li>
+<li><strong>饼图</strong>：也叫扇形图，主要描述的部分与整体的关系；描述一个整体的各个组成部分之间的占比情况</li>
+<li><strong>雷达图</strong>：用于多维数据，多维度的综合对比；主要用于对比两种类型在多个维度的数据</li>
+<li><strong>面积图</strong>：使用面积大小来展示数据对比情况；通过面积大小来对比不同类型的数据</li>
+<li><strong>组合图</strong>：用多种不同的统计图形进行展示；当两种类型的数据在数值上差异很大的话，一种图表类型无法正常展示，可采用组合图</li>
+</ul>
+<h1 id="7-数据"><a href="#7-数据" class="headerlink" title="7. 数据"></a>7. 数据</h1><h2 id="7-4-数据工具"><a href="#7-4-数据工具" class="headerlink" title="7.4 数据工具"></a>7.4 数据工具</h2><ul>
+<li><p><strong>分列</strong>：选中需要分列的单元格，点击 数据菜单栏 -&gt; 点击 分列(中部) ，调出 分列对话框 -&gt; 在 分列对话框 中选择分列方式（特殊符号：分号、逗号、空格等，支持自定义符号；固定长度），点击 特殊符号 / 设置固定长度，点击下一步，支持在分列对话框下方进行预览 -&gt; 选择数据输出格式（常规、文本、日期等）和输出位置，点击下一步 -&gt; 点击确认，完成 <strong>将一个单元格内的数据拆分成多列</strong><br>  <strong>拼接</strong>：=A1&amp;”-“&amp;B1 , 将A1、B1单元格的内容通过 - 拼接至公式输入的单元格</p>
+</li>
+<li><p><strong>删除重复值</strong>：点击 数据菜单栏 -&gt; 点击 删除重复值(中部) ，调出 删除重复值对话框 -&gt; 选择 重复值判定的列（即选定的列组合后重复，才判断为重复值；默认为全部列） -&gt; 点击 删除重复项 -&gt; 点击确定</p>
+</li>
+</ul>
+<h1 id="9-视图"><a href="#9-视图" class="headerlink" title="9. 视图"></a>9. 视图</h1><h2 id="9-4-窗口"><a href="#9-4-窗口" class="headerlink" title="9.4 窗口"></a>9.4 窗口</h2><p><strong>冻结窗口</strong>：</p>
+<p>冻结多行多列：先拆分，再冻结</p>
+<h1 id="12-快捷键"><a href="#12-快捷键" class="headerlink" title="12. 快捷键"></a>12. 快捷键</h1><h2 id="12-1-菜单栏操作"><a href="#12-1-菜单栏操作" class="headerlink" title="12.1 菜单栏操作"></a>12.1 菜单栏操作</h2><p>收缩 / 展开菜单栏：双击即可实现</p>
+<p>Ctrl + PgUp / PgDn：向右 / 左 切换 Sheet(工作表)</p>
+<p>Ctrl + N：新建工作簿；Ctrl + W：不保存关闭当前工作簿</p>
+<h2 id="12-2-区域选择"><a href="#12-2-区域选择" class="headerlink" title="12.2 区域选择"></a>12.2 区域选择</h2><p>home键：移动至当前行开头；Ctrl + home：回到 A1 单元格；Ctrl + Shift + home：选择当前单元格到 A1 单元格的矩形区域(要求是连续区域)</p>
+<p>Ctrl  + 上 / 下 / 左 / 右 箭头：向上 / 下 / 左 / 右定位至空白单元格；如果没有空白单元格，则连续定位至 当前列的 首行 / 末行 或者当前行的 首列 / 末列</p>
+<p>Ctrl + Shift + 上 / 下 / 左 / 右 箭头：向上 / 下 / 左 / 右选择当前单元格至空白单元格的连续区域；如果没有空白单元格，则连续选择至 首行 / 末行 / 首列 / 末列 区域</p>
+<h2 id="12-3-F键相关"><a href="#12-3-F键相关" class="headerlink" title="12.3 F键相关"></a>12.3 F键相关</h2><p>F2：在选中的单元格末尾进行编辑</p>
+<p>F4：重复上次一次的操作；添加地址引用固定</p>
+<p>F5：定位</p>
+<p>F12：调出 另存为 对话框</p>
+<h2 id="12-4-函数"><a href="#12-4-函数" class="headerlink" title="12.4 函数"></a>12.4 函数</h2><p>Alt + = ：求和</p>
+<h2 id="12-其他"><a href="#12-其他" class="headerlink" title="12. 其他"></a>12. 其他</h2><p>Ctrl + 1 ：调出 设置单元格格式 对话框</p>
+<p>Ctrl + G：调出 定位 对话框</p>
+<p>Ctrl + O：调出 打开 对话框，打开文件</p>
+<p>Ctrl + P：调出 打印 对话框</p>
+<p>Ctrl + R ：类似“复制+粘贴”功能，选择单元格和右方连续的需要填充的单元格，然后 Ctrl + R ，实现将单元格的内容填充至右方选中的所有单元格中（Ctrl + D：向下填充）</p>
+<p>Ctrl + ; ：填充当前日期</p>
+<p>Ctrl + 9 / 0：隐藏当前 行 / 列</p>
+<p>Ctrl + ~ ：显示函数</p>
+<p>Ctrl + M：合并单元格</p>
+<p><del>Ctrl + E</del></p>
+<h1 id="13-案例操作"><a href="#13-案例操作" class="headerlink" title="13. 案例操作"></a>13. 案例操作</h1><p><strong>案例1</strong>：将用科学计数法显示的过长数字显示出全部数字</p>
+<ul>
+<li><strong>解决</strong>：通过分列实现</li>
+<li><strong>操作</strong>：选择需要转换的列 -&gt; 点击 数据菜单栏 -&gt; 点击 分列(中部) ，调出 分列对话框 -&gt; 在 分列对话框 中选择分列方式为 <strong>固定长度</strong> -&gt; 通过鼠标指定分列宽度（<strong>仅分一列</strong>） ，点击下一步-&gt; 选择数据输出格式为 <strong>文本</strong>，点击下一步 -&gt; 点击确认</li>
+</ul>
+<p><strong>案例2</strong>：拆分合并单元格并填充</p>
+<ul>
+<li><strong>解决</strong>：全选拆分，公式填充，选择性粘贴</li>
+<li><strong>操作</strong>：选择需要拆分的单元格 -&gt; 拆分单元格(点击开始菜单栏，点击合并单元格) -&gt; 定位空值(Ctrl + G，定位条件为空值) -&gt; 公式填充(=A1(填充位置正上方的单元格)，Ctrl + Enter) -&gt; 选择性粘贴为数值</li>
+</ul>
+<p><strong>案例3</strong>：标注两列存在差异的数据</p>
+<ul>
+<li><strong>解决</strong>：定位（行内容差异单元格）、条件格式</li>
+<li><strong>操作</strong>：<ol>
+<li><strong>定位</strong>：先选中需要标注的内容 -&gt; Ctrl + G -&gt; 选择 行内容差异单元格，点击确定，完成定位 -&gt; 添加合适的内容格式</li>
+<li><strong>条件格式</strong>：先选中需要标注的内容 -&gt; 选择 开始选项卡 -&gt; 点击 条件格式下拉框 -&gt; 选择 突出显示单元格规则，选择 其他规则 -&gt; 选择 使用公式确定要设置格式的单元格 -&gt; 在单元格内部输入公式：=excat($A1, $B1) = False(判断A1、B1是否相等；仅返回 False-不相等的单元格) -&gt; 点击格式，选择合适的标注格式 -&gt; 点击确认</li>
+</ol>
+</li>
+</ul>
+<p>更多操作查看 <a href="https://qizhongyi.gitee.io/202209/063347.html"><font face = "微软雅黑" color = 1E90FF size = 5><strong>Excel进阶-公式与函数</strong></font></a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202208/1634439.html">https://qizhongyi.gitee.io/202208/1634439.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Tools/">
+                                    <span class="chip bg-color">Tools</span>
+                                </a>
+                            
+                                <a href="/tags/office/">
+                                    <span class="chip bg-color">office</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202208/2429729.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="数据资产管理-基础">
+                        
+                        <span class="card-title">数据资产管理-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录 数据资产管理 的相关基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86/">
+                        <span class="chip bg-color">数据治理</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/">
+                        <span class="chip bg-color">数据质量</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202208/0441820.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Python模块-math">
+                        
+                        <span class="card-title">Python模块-math</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录Python模块-math-的基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A8%A1%E5%9D%97/" class="post-category">
+                                    模块
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

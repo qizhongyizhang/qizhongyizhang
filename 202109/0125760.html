@@ -1,0 +1,1508 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="大数据实践-01阿里-数据技术, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录大数据实践-01阿里-数据技术的相关内容
+
+
+1. 数据采集1.1 日志数据采集1.1.1 浏览器页画日志Web端日志采集技术方案：Aplus.JS
+
+页面浏览日志：页面被浏览器加载呈现时的日志，统计指标包括：页面浏览">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>大数据实践-01阿里-数据技术 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大数据实践-01阿里-数据技术</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                <span class="chip bg-color">大数据</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%AE%9E%E8%B7%B5/" class="post-category">
+                                实践
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-09-01
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-01
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    14.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    49 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录大数据实践-01阿里-数据技术的相关内容</p>
+<span id="more"></span>
+
+<h1 id="1-数据采集"><a href="#1-数据采集" class="headerlink" title="1. 数据采集"></a>1. 数据采集</h1><h2 id="1-1-日志数据采集"><a href="#1-1-日志数据采集" class="headerlink" title="1.1 日志数据采集"></a>1.1 日志数据采集</h2><h3 id="1-1-1-浏览器页画日志"><a href="#1-1-1-浏览器页画日志" class="headerlink" title="1.1.1 浏览器页画日志"></a>1.1.1 浏览器页画日志</h3><p>Web端日志采集技术方案：Aplus.JS</p>
+<blockquote>
+<p>页面浏览日志：页面被浏览器加载呈现时的日志，统计指标包括：页面浏览量（ Page View, PV）和访客数（ Unique Visitors, UV ）<br>页面交互日志：用户在页面上直性各种操作的日志</p>
+</blockquote>
+<h4 id="1-1-1-1-页面浏览日志采集"><a href="#1-1-1-1-页面浏览日志采集" class="headerlink" title="1.1.1.1 页面浏览日志采集"></a>1.1.1.1 页面浏览日志采集</h4><p><strong>网页访问过程</strong>：浏览器请求、服务器响应并返回所请求内容（ HTML 文档的形式），整个过程遵守HTTP 协议（超文本传输协议）<br><strong>采集原理</strong>：在返回的 HTML文档 内增加一个日志采集节点，当浏览器解析到这个节点时，将自动触发特定的HTTP请求 到日志采集服务器，根据日志采集服务器接是否收到请求判断浏览器是否成功地接收和打开了页面<br><strong>采集过程</strong></p>
+<blockquote>
+<p>客户端日志采集：由一小段被植入 HTML文档 内的 JavaScript脚本 自动执行，采集当前页面参数、浏览行为的上下文信息（如用户访问当前页面的上一步页面等）以及运行环境信息（如当前的浏览器和分辨率等），日志采集脚本的可以由业务服务器在响应业务请求时动态执行，也可以在开发页面时由开发人员手动植入<br>客户端日志发送：采集脚本执行时，会向日志服务器发起请求，将采集到的数据发送到日志服务器，采集完成后执行发送<br>服务器端日志采集：日志服务器接收到客户端发来的日志请求，回复浏览器客户端请求成功的响应，将日志请求的内容写入日志缓冲区，完成收集<br>服务器端日志解析存档：浏览日志进入缓冲区后，通过日志处理程序顺序读出并按照约定的日志处理逻辑解析</p>
+</blockquote>
+<h4 id="1-1-1-2-页面交互日志采集"><a href="#1-1-1-2-页面交互日志采集" class="headerlink" title="1.1.1.2 页面交互日志采集"></a>1.1.1.2 页面交互日志采集</h4><p><strong>采集难点</strong>：终端类型、页面内容、交互方式和用户实际行为不可预估，无法规定统一的采集内容<br><strong>采集过程</strong></p>
+<blockquote>
+<p>业务方在“黄金令箭”的元数据管理界面依次注册需要菜机交互的业务、具体的业务场景以及场景下的具体交互采集点，系统生成对应的交互日志采集代码模板<br>业务方将交互日志采集模板植入目标页面，并将采集代码与需要监测的交互行为绑定<br>当用户在页面上产生指定动作时，采集代码和正常的业务互动响应代码一起被处罚和执行<br>采集代码在采集动作完成后将对应的日志通过 HTTP协议 发送到日志服务器，日志服务器进行简单转储，不做解析处理</p>
+</blockquote>
+<h4 id="1-1-1-3-页画日志数据预处理"><a href="#1-1-1-3-页画日志数据预处理" class="headerlink" title="1.1.1.3 页画日志数据预处理"></a>1.1.1.3 页画日志数据预处理</h4><blockquote>
+<p>识别流量攻击、网络爬虫和流量作弊（虚假流量），避免统计发生偏差或明显谬误，根据过滤规则集进行滤除<br>数据缺项补正，保证基本的数据统计口径一致，如取值归一、标准化处理或反向补正（根据新日志对稍早收集的日志数据项进行回补或修订）<br>无效数据剔除，消除因业务变更或配置不当采集到的无意义、失效或冗余的数据，节约存储空间和运算能力<br>日志隔离分发，隔离处理需要进入公共数据环境的日志数据</p>
+</blockquote>
+<h3 id="1-1-2-无线客户端页画日志"><a href="#1-1-2-无线客户端页画日志" class="headerlink" title="1.1.2 无线客户端页画日志"></a>1.1.2 无线客户端页画日志</h3><p>APP端日志采集技术方案：采集SDK（UserTrack），根据不同的用户行为分成无线客户端日志行为的最小单位—事件，分为页面事件（页面浏览）和控件点击事件（页面交互）</p>
+<h4 id="1-1-2-1-页面事件日志采集"><a href="#1-1-2-1-页面事件日志采集" class="headerlink" title="1.1.2.1 页面事件日志采集"></a>1.1.2.1 页面事件日志采集</h4><p><strong>采集内容</strong></p>
+<blockquote>
+<p>设备及用户基础信息<br>被访问的页面信息：如商品详情页的商品ID、所属店铺等<br>访问基本路径：如页面来源、来源的来源等</p>
+</blockquote>
+<p><strong>采集方式</strong></p>
+<blockquote>
+<p>无痕埋点：无需开发者进行任何编码即可实现，UserTrack（UT）提供页面展现接口、页面退出接口和页面扩展信息接口；进入页面时调用页面展现接口，记录页面进入的一些状态；页面扩展信息接口记录页面信息；离开页面时触发页面退出接口，发送日志；页面展现和页面退出必须成对使用，记录页面停留时间<br>透传参数：将当前页面的某些信息传递到下游页面中，利用SPM（Super Position Model，超级位置模型）追踪来源去向</p>
+</blockquote>
+<h4 id="1-1-2-2-控件点击事件日志采集"><a href="#1-1-2-2-控件点击事件日志采集" class="headerlink" title="1.1.2.2 控件点击事件日志采集"></a>1.1.2.2 控件点击事件日志采集</h4><p><strong>采集内容</strong></p>
+<blockquote>
+<p>设备及用户基础信息<br>被访问的页面信息：如控件所在页面名称、控件名称、控件业务参数等</p>
+</blockquote>
+<h3 id="1-2-3-Hybrid-APP"><a href="#1-2-3-Hybrid-APP" class="headerlink" title="1.2.3 Hybrid APP"></a>1.2.3 Hybrid APP</h3><p><strong>H5页面</strong>：基于浏览器进行日志采集<br><strong>Native</strong>：采集SDK进行日志采集</p>
+<h4 id="1-2-3-1-H5和Native日志统一"><a href="#1-2-3-1-H5和Native日志统一" class="headerlink" title="1.2.3.1 H5和Native日志统一"></a>1.2.3.1 H5和Native日志统一</h4><p><strong>采集方式</strong>：将 HS 日志归到 Native 日志</p>
+<blockquote>
+<p>采集SDK可以得到更多与设备相关的数据<br>采集SDK会先在本地缓存，之后借机上传，保证数据不丢失</p>
+</blockquote>
+<p><strong>采集流程</strong></p>
+<blockquote>
+<p>通过页面开发时手动植入日志采集的 JavaScript脚本，采集页面浏览的页面交互数据，包括上下文信息和运行环境信息<br>JavaScript脚本 将采集到的数据包装到一个对象中，调用 WebView框架的 JSBridge接口，调用移动客户端对应的接口方法，将埋点数据对象当作参数传人<br>移动客户端日志采集 SDK ，封装提供接口将传入的内容转换成移动客户端日志格式，根据日志类别来识别事件类型，调用内部相应的接口进行处理，将埋点数据转换成移动客户端日志的统一格式；先将数据记录到本地日志缓存中，择机上传；通过日志类别的识别来做不同的日志格式转换</p>
+</blockquote>
+<h3 id="1-2-4-案例场景"><a href="#1-2-4-案例场景" class="headerlink" title="1.2.4 案例场景"></a>1.2.4 案例场景</h3><ul>
+<li><strong>日志分流与定制处理</strong>：日志规模高速增长，短时间流量热点爆发，考虑业务分流、日志优先级控制、业务定制处理，尽可能靠前的布置路由差异、进行分流，降低日志处理过程中的分值判断消耗，支持后续的计算资源调配，提高资源利用效率</li>
+<li><strong>采集与计算一体化设计</strong>：基于 URL规则集 进行日志归类汇总的维护和使用成本快速增长，通过 SPM规范 和 SPM元数据中心 进行注册和简单部署，可将任意页面流量进行聚类，得到流量、转化漏斗、引导交易数据和页面元素点击数据等</li>
+</ul>
+<h1 id="2-数据同步传输"><a href="#2-数据同步传输" class="headerlink" title="2. 数据同步传输"></a>2. 数据同步传输</h1><h2 id="2-1-常见数据同步方式"><a href="#2-1-常见数据同步方式" class="headerlink" title="2.1 常见数据同步方式"></a>2.1 常见数据同步方式</h2><p><strong>直连同步</strong>：通过定义好的规范接口和基于动态链接库的方式直接连接业务库，如 JDBC、ODBC等，支持完全相同的函数调用和 SQL 实现<br><strong>数据文件同步</strong>：通过约定好的文件编码、大小、格式等，直接从源系统生成的文本文件由专门的文件服务器（FTP服务器）传输到目标系统，加载到目标数据库系统中，可通过校验文件避免上传下载过程中的丢包或错误<br><strong>数据库日志解析同步</strong>：通过解析日志文件获取发生变更的数据，满足数据同步的要求，性能好、效率高</p>
+<blockquote>
+<p>数据延迟：业务系统做批量补录可能会使数据更新量超出系统处理峰值，导致数据延迟<br>投入较大：需要在源数据库与目标数据库之间部署一个实时抽取系统<br>数据漂移和遗漏：一张表的同一个业务日期包含前后凌晨的数据或丢失当天的变更数据</p>
+</blockquote>
+<h2 id="2-2-阿里数据仓库同步方式"><a href="#2-2-阿里数据仓库同步方式" class="headerlink" title="2.2 阿里数据仓库同步方式"></a>2.2 阿里数据仓库同步方式</h2><ul>
+<li><strong>批量数据同步</strong>：离线型数据需要将不同的数据源批量同步到数据仓库，DataX通过插件形式提供服务，将数据从数据源读出并转换为中间状态，然后将中间状态的数据转换为目标数据系统数据格式</li>
+</ul>
+<blockquote>
+<p>DataX 采用 Framework + Plugin 的开放式框架实现，Framework 处理缓冲、流程控制、并发、上下文加载，提供简单的接口与插件接入；插件需实现对数据处理系统的访问，编写方便；数据传输在单进程（单机模式）／多进程（分布式模式）下完成，传输过程全内存操作，不读写磁盘，也没有进程间通信，实现了在异构数据库或文件系统之间的高速数据交换</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">Job：数据同步作业
+Splitter：作业切分模块，将大任务切分成并行的小任务
+Sub-Job：切分后的小任务，也称Task
+Reader：数据读入模块，运行切分后的小任务，将数据装载到 DataX
+Channel： Reader Writer 通过 Channel 交换数据
+Writer ：数据写出模块，负责将数据从 DataX 导入目标数据系统<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>实时数据同步</strong>：建立日志数据交换中心，通过服务器读取日志数据，或者解析数据库系统的 binlog 或归档日志，将增量数据以数据流的方式同步到日志交换中心，通知订阅数据仓库自动获取，通过 TimeTunnel（TT，实时数据传输平台）实现，是一种基于生产者、消费者和 Topic 消息标识的消息中间件，将消息数据持久化到 HBase 的高可用、分布式数据交互系统</li>
+</ul>
+<blockquote>
+<p>生产者：消息数据的产生端，向 TimeTunnel 集群发送消息数据<br>消费者：消息数据的接收端，从 TimeTunnel 集群中获取数据进行业务处理<br>Topic ：消息类型的标识，生产 Client 和消费 Client 需要知道对应的Topic 字<br>Broker 模块：负责责处理客户端收发消息数据的请求，然后往 HBase 取发数据</p>
+</blockquote>
+<p><strong>TimeTunnel</strong>：TT，实时数据传输平台，高性能、高可靠性的数据传输协议</p>
+<blockquote>
+<p>既包括数据库的增量数据传输，也包括日志数据的传输<br>既支持实时流式计算，也支持各种时间窗口的批量计算<br>通过数据同步工具（ DataX和同步中心，同步中心基于 DataX 易用性封装）直连异构数据库来抽取各种时间窗口的数据</p>
+</blockquote>
+<h2 id="2-3-数据同步问题与解决万案"><a href="#2-3-数据同步问题与解决万案" class="headerlink" title="2.3 数据同步问题与解决万案"></a>2.3 数据同步问题与解决万案</h2><ul>
+<li><strong>分库分表的处理</strong>：分布式数据库访问引擎 TDDL ( Taobao Distributed Data ayer ）通过建立中间状态的逻辑表来整合统一分库分表的访问</li>
+</ul>
+<blockquote>
+<p>TDDL 是位于持久层框架之下、 JDBC 驱动之上的中间件，与 JDBC 规范保持一致，有效解决了分库分表的规则引擎问题，实现了 SQL解析、规则计算、表名替换、选择执行单元并合并结果集的功能，同时解决了数据库表的读写分离、高性能主备切换的问题，实现了数据库配置信息的统一管理</p>
+</blockquote>
+<ul>
+<li><strong>高效同步和批量同步</strong>：通过 OneClick 产品，实现数据的一键化和批量化同步，一键完成 DDL、DML 生成；通过库名和表名进行唯一定位，通过 IDB 接口获取元数据信息自动生成配置信息，实现不同数据源的数据同步配置透明化</li>
+<li><strong>增量全量同步合并</strong>：推荐全外连接（full outer join）和全量覆盖（insert overwrite）代替传统 merge方式（insert + insert），当天增量和前一天全量进行全外连接，重新加载最新的全量数据，通过保留一段时间内每天的全量数据解决数据更新错误问题；物理删除数据时，数据仓库内永久存储最新全量数据的快照</li>
+<li><strong>数据同步性能处理</strong>：通过目标数据库的元数据估算同步任务的线程数，通过数据同步任务的业务优先级决定同步线程的优先级，提升同步任务的执行效率和稳定性</li>
+</ul>
+<blockquote>
+<ol>
+<li>用户创建并提交同步任务</li>
+<li>根据系统提前获知及设定的数据，估算该同步任务的数据量、平均同步速度、首轮期望线程、总线程数</li>
+<li>根据同步的总线程数将数据拆分成相等数量的数据块，一个线程处理一个数据块，并将该任务所有线程提交至同步控制器</li>
+<li>同步控制器采用多级多线程的数据同步模式，准备该任务第一轮县城的调度，优先发送等待时间最长、优先级最高且同一任务的线程</li>
+<li>同步控制器准备一定数据量的虚拟线程，采用单机多线程的数据同步模式，准备该任务相应实体线程和虚拟线程调度，优先发送等待时间最长、优先级最高且单机 CPU 剩余资源可以支持首轮所有线程数且同一任务的线程，若没有满足条件的机器，则选择 CPU 剩余资源最多的及其进行首轮发送</li>
+<li>数据任务开始同步</li>
+<li>数据任务同步结束</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>数据漂移问题处理</strong></li>
+</ul>
+<blockquote>
+<p><strong>问题</strong></p>
+<blockquote>
+<p>数据库表中用来标识数据记录更新时间的时间戳字段（modified_time）：会因为不更新 modified_time 而导致数据遗漏，或者凌晨时间产生的数据记录漂移到后一天<br>数据库日志中用来标识数据记录更新时间的时间戳字段（log_time）：由于网络或者系统压力问题， log_time 会晚于proc_time ，从而导致凌晨时间产生的数据记录漂移到后一天<br>数据库表中用来记录具体业务过程发生时间的时间戳字段（proc_time）：仅根据 proc_time 限制，只能获取包含一个业务过程所产生的记录，会遗漏其他过程的变化记录<br>标识数据记录被抽取到时间的时间戳字段（extract_time）</p>
+</blockquote>
+<p><strong>解决</strong></p>
+<blockquote>
+<p>多获取后一天的数据：保障数据只多不少<br>通过多个时间戳字段限制时间：</p>
+<blockquote>
+<p>首先根据 log_time 冗余前一天最后 15分钟和后一天凌晨开始 15 分钟的数据，并用 modified_timee 过滤非当天数据<br>然后根据 log_time 获取后一天凌晨开始 15 分钟的数据，按照主键根据 log_time 做升序排列去重<br>最后将前两步的结果数据做全外连接，通过限制业务时间proc_time 来获取所需要的数据</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="3-数据计算"><a href="#3-数据计算" class="headerlink" title="3. 数据计算"></a>3. 数据计算</h1><p>阿里离线数据仓库的存储和计算都在阿里云大数据计算服务 MaxCompute 上完成</p>
+<h2 id="3-1-离线数据开发"><a href="#3-1-离线数据开发" class="headerlink" title="3.1 离线数据开发"></a>3.1 离线数据开发</h2><h3 id="3-1-1-离线计算平台-MaxCompute"><a href="#3-1-1-离线计算平台-MaxCompute" class="headerlink" title="3.1.1 离线计算平台 MaxCompute"></a>3.1.1 离线计算平台 MaxCompute</h3><p><strong>MaxCompute</strong>：采用抽象的作业处理框架 ，将不同场景的各种计算任务统一在同一个平台之上，共享安全、存储 、数据管理和资源调度，为来自不同用户需求的各种数据处理任务提供统一的编程接口和界面；提供数据上传／下载通道、SQL、MapReduce 、机器学习算法、图编程模型和流式计算模型多种计算分析服务，提供完善的安全解决方案</p>
+<ul>
+<li><strong>MaxCompute体系架构</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0101_MaxCompute%E6%9E%B6%E6%9E%84.png" alt="0101_MaxCompute架构"></li>
+</ul>
+<blockquote>
+<p><strong>客户端</strong></p>
+<blockquote>
+<p>Web：以 RESTful API 的方式提供离线数据处理服务<br>SDK ：通过 Java 实现对 RESTful API 的封装<br>CLT ：Command Line Tool，运行在 Windows/Linux 下的客户端工具，通过 CLT 提交命令完成 Project 管理、 DDL DML等操作<br>IDE ：上层可视化 ETL/BI 工具， 阿里内部名称是在云端（D2 ) ，用户可以基于在云端完成数据同步、任务调度、报表生成等常见操作</p>
+</blockquote>
+<p><strong>接入层</strong>：提供 HTTP 服务、 Cache 、负载均衡，实现用户认证和服务层面的访问控制<br><strong>逻辑层</strong>：又称作控制层，是 MaxCompute 的核心部分；实现用户空间和对象管理、命令解析与执行逻辑、数据对象的访问控制与授权等功能；有 Worker、Scheduler、Executor 三个角色</p>
+<blockquote>
+<p>Worker：处理所有的 RESTful 请求，包括用户空间（Project）管理操作、资源（Resource）管理操作、作业管理等，对于 SQL DML、MR 等需要启动 MapReduce 的作业，会生成 MaxCompute Instance （类似于 Hive 中的 Job），提交给 Scheduler 进一步处理<br>Scheduler：负责 MaxCompute Instance 的调度和拆解，并向计算层的计算集群询问资源占用情况以进行流控<br>Executor：负责 MaxCompute Instance 的执行，向计算层的计算集群提交真正的计算任务</p>
+</blockquote>
+<p><strong>存储计算层</strong>：飞天内核（ Apsara Core ），运行在和控制层相互独立的计算集群上 ，包括 Pangu（分布式文件系统）、Fuxi （资源调度系统）、Nuwa/ZK（ Jamespace 服务） 、Shennong （监控模块）等；MaxCompute 中的元数据存储在阿里云计算的另一个开放服务 OTS（Open Table Service ，开放结构化数据服务）中，元数据内容主要包括用户空间元数<br>据、Table/Partition Schema、ACL、 Job 元数据、安全体系等</p>
+</blockquote>
+<ul>
+<li><strong>MaxCompute特点</strong></li>
+</ul>
+<blockquote>
+<p>计算性能高且更加普惠<br>集群规模大且稳定性高<br>功能组件非常强大</p>
+<blockquote>
+<p>MaxCompute SQL ：标准 SQL 的语法，提供各类操作和函数来处理数据<br>MaxCompute MapReduce ：提供 Java MapReduce 编程模型，通过接口编写 MR 程序处理 MaxCompute 中的数据；提供基于MapReduce 的扩展模型 MR2 ，Map 函数后可以接入连续多个 Reduce 函数，执行效率比普通的 MapReduce 型高<br>MaxCompute Graph ：面向迭代的图计算处理框架，典型应用有PageRank 、单源最短距离算法、K-均值聚类算法<br>Spark ：使用 Spark 接口编程处理存储在 Max Compute 中的数据<br>RMaxCompute ：使用 R 处理 MaxCompute 中的数据<br>Volume：MaxCompute 以 Volume 形式支持文件，管理非二维表数据</p>
+</blockquote>
+<p>安全性高</p>
+</blockquote>
+<h3 id="3-1-2-统一开发平台"><a href="#3-1-2-统一开发平台" class="headerlink" title="3.1.2 统一开发平台"></a>3.1.2 统一开发平台</h3><ul>
+<li><strong>在云端（D2）</strong>：集成了任务开发、调试及发布，生产任务调度及大数据运维，数据权限申请及管理功能的一站式数据开发平台，支持数据分析</li>
+</ul>
+<blockquote>
+<ol>
+<li>使用 IDE 创建计算节点，如 SQL/MR 任务、Shell任务、数据同步任务等，编写节点代码、设置节点属性和输入输出关联节点间依赖</li>
+<li>用户提交进入开发环境中，成为某个工作流的节点，通过人工或系统自动触发，下发到调度系统执行引擎 ALisa 中，完成资源分配和执行的整个过程</li>
+<li>如在开发环境中运行无误后，发布到生产环境中使用</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>SQL-SCAN</strong>：将任务开发中遇到的各种问题，如质量差、性能低、不遵守规范中的SQL，总结后形成规则，通过系统及研发流程保障，事前解决故障隐患，避免事后处理</li>
+</ul>
+<blockquote>
+<p><strong>执行过程</strong></p>
+<blockquote>
+<p>用户在 D2 中编写代码，将代码、调度信息传入 SQL-SCAN<br>SQL-SCAN 根据所配置的规则进行校验，将检查成功或者失败的信息传回 D2<br>D2 的 IDE 显示 OK （成功）、 WARNNING （警告）、 FAILE（失败，禁止用户提交）等消息</p>
+</blockquote>
+<p><strong>校验规则</strong></p>
+<blockquote>
+<p>代码规范类规则：如表命名规范、生命周期设置、表注释等<br>代码质量类规则：如调度参数使用检查、分母为0提醒、 NULL值参与计算提醒、插入字段顺序错误等<br>代码性能类规则：如分区裁剪失效、扫描大表提醒、重复计算检测等<br>SQL-SCAN 规则有强规则和弱规则两类；触发强规则，任务提交会被阻断，必须修复代码后才能再次提交；触发弱规则，只会显示违反规则的提示，用户可以继续提交任务</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>DQC</strong>：Data Quality Center ，数据质量中心，通过配置数据质量校验规则，自动在数据处理任务过程中进行数据质量监控；主要有数据监控和数据清洗两大功能，数据监控规则和SQL-SCAN 规则一样有强弱之分；数据清洗采用非侵人式的清洗策略，避免影响数据同步的效率，数据进入ODS 层之后执行数据清洗，在 DQC 置清洗规则，将符合清洗规则的数据清洗掉，并保存至DIRTY 表归档</li>
+<li><strong>在彼岸</strong>：解决新增业务需求、数据迁移、重构和修改而开发的大数据系统的自动化测试平台，将通用的、重复性的操作沉淀在测试平台中，提高测试效率</li>
+</ul>
+<blockquote>
+<p><strong>数据对比</strong>：支持不同集群、异构数据库的表做数据对比；表级对比规则主要包括数据量和全文对比；字段级对比规则主要包括字段的统计值（如 SUM、AVG、MAX、MIN 等）、枚举值、空值、去重数、长度值<br><strong>数据分布</strong>：提取表和字段的一些特征值 ，与预期值进行比对；表级数据特征提取主要包括数据量、主键等；字段级数据特征提取主要包括字段枚举值分布、空值分布、统计值（如 SUM、AVG、MAX、MIN 等）、去重数、长度值等<br><strong>数据脱敏</strong>：将敏感数据模糊化；在数据安全的大前提下，实现线上数据脱敏，在保证数据安全的同时又保持数据形态的分布，以便业务联调、数据调研和数据交换</p>
+</blockquote>
+<h2 id="3-2-实时数据开发"><a href="#3-2-实时数据开发" class="headerlink" title="3.2 实时数据开发"></a>3.2 实时数据开发</h2><h3 id="3-2-1-实时数据处理特征"><a href="#3-2-1-实时数据处理特征" class="headerlink" title="3.2.1 实时数据处理特征"></a>3.2.1 实时数据处理特征</h3><blockquote>
+<p><strong>时效性高</strong>：数据实时采集、实时处理，延时粒度在秒级甚至毫秒级<br><strong>常驻任务</strong>：属于常驻进程任务， 一旦启动后就会一直运行，直到人为地终止；计算成本会相对比较高<br><strong>性能要求高</strong>：处理吞吐量要和采集吞吐量相匹配<br><strong>应用局限性</strong>：在数据具有上下文关系的情况下，数据到达时间的不确定性导致实时处理结果的不确定性；也无法支持双流关联或者需要数据回滚的情况</p>
+</blockquote>
+<h3 id="3-2-2-实时计算平台-Strea-Compute"><a href="#3-2-2-实时计算平台-Strea-Compute" class="headerlink" title="3.2.2 实时计算平台 Strea Compute"></a>3.2.2 实时计算平台 Strea Compute</h3><p><strong>实时计算平台</strong>：也称流式大数据平台</p>
+<h4 id="3-2-2-1-流式技术架构"><a href="#3-2-2-1-流式技术架构" class="headerlink" title="3.2.2.1 流式技术架构"></a>3.2.2.1 流式技术架构</h4><ul>
+<li><p><strong>数据采集</strong>：数据的源头，一般来自于各个业务的日志服务器（例如网站的浏览行为日志、订单的修改日志等）</p>
+<blockquote>
+<p><strong>数据库变更日志</strong>：如 MySQL 的 binlog 志、 HBase 的 hlog日志、 OceanBase 的变更日志、Oracle 的变更日志等<br><strong>引擎访问日志</strong>：如用户访问网站产生的 Apache 擎日志、搜索引擎的接口查询日志等</p>
+</blockquote>
+<p><strong>采集原则</strong>：数据库变更日志、引擎访问日志，都会在业务服务器上落地成文件，出于吞吐量以及系统压力上的考虑，基于数据大小限制和时间阈值限制原则，监控文件的内容发生变化，采集工具采集最新的数据下来</p>
+<blockquote>
+<p><strong>数据大小限制</strong>：当文件变化大小达到限制条件时，把目前采集到的新数据作为一批采集，如 512KB写一批<br><strong>时间阈值限制</strong>：当时间长度达到限制条件时，把目前采集到的新数据作为一批采集，如 30  秒写一批</p>
+</blockquote>
+<p><strong>数据分发</strong>：将采集到的数据通过数据交换平台（数据中间件系统）分发给下游如开源的系统 Kafka ，阿里巴巴集团的是 TimeTunnel （原理同 Kafka），还有 MetaQ、Notify 等消息系统</p>
+</li>
+<li><p><strong>数据处理</strong>：数据被采集到中间件中后，需要下游实时订阅数据，并拉取到流式计算系统的任务中进行加工处理，常见的流计算引擎有 Twitter 开源的 Storm 系统、雅虎开源的 S4 系统、 Apache park 的Streaming ，最近兴起的 Flink ，阿里巴巴的 StreamCompute<br><strong>典型问题</strong></p>
+</li>
+</ul>
+<blockquote>
+<p><strong>去重指标</strong></p>
+<blockquote>
+<p>精确去重：去重的明细数据必须要保存下来的，可以通过数据倾斜来进行处理，把一个节点的内存压力分到多个节点上<br>模糊去重：在去重的明细数据量非常大，而业务的精度要求不高的情况下，可以使用去重算法，把内存的使用量，提高内存的利用率</p>
+<blockquote>
+<p><strong>布隆过滤器</strong>：不保存真实的明细数据，只保存明细数据对应哈希值的标记位；会出现误差率可以控制的哈希值碰撞，计算出来的去重值比真实值小，存储1亿条数据只需要 100 多MB 空间；适用统计精度要求不高，统计维度值非常多的情况；如统计全网各个商家的 UV 数据，结果记录数达到上千万条，各个维度之间共用布隆过滤器<br><strong>基数估计</strong>：利用哈希的原理，按照数据的分散程度来估算现有数集的边界，从而得出大概的去重值总和，存储 亿条数据只需要几 KB内存；适用场景：统计精度要求不高，统计维度非常粗的情况，如整个大盘的 UV 数据，每天的结果只有一条记录；基数估计在各个维度值之间不能共用</p>
+</blockquote>
+</blockquote>
+<p><strong>数据倾斜</strong>：单个节点的计算数据量超出处理能力，需要对数据进行分桶处理</p>
+<blockquote>
+<p>去重指标分桶：对去重值进行分桶 Hash ，相同的值被放在同一个桶去重，最后再把每个桶里面的值进行加和得到总值，利用了每个桶的 CPU 和内存资源<br>非去重指标分桶：数据随机分发到每个桶中，最后再把每个桶的值汇总，主要利用的是各个桶的 CPU 能力</p>
+</blockquote>
+<p><strong>事务处理</strong>：提供数据自动 ACK 、失败重发以及事务信息等机制，解决系统的不稳定性导致数据处理失败的情况；如网络的抖动导致数据发送不成功、机器重启导致数据丢失等</p>
+<blockquote>
+<p>超时时间：数据处理按批次进行，当一批数据处理超时，会从拓扑的 spout 端重发数据，批次处理的数据量不宜过大，可以通过限流的功能（限定一批数据的记录数或者容量），避免数据处理超时<br>事务信息：每批数据都会附带一个事务 ID 信息，重发时开发者自己根据事务信息判断数据第一次到达和重发时不同的处理逻辑<br>备份机制：开发人员需要保证内存数据可以通过外部存储恢复，按需将计算中用到的中间结果数据需要备份到外部存储中</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>数据存储</strong>：数据被实时加工处理（比如聚合、清洗等）后，会不断增量写入在线服务的存储系统中，供下游调用方使用；在实践中一般使用 HBase、 Tair、 MongoDB 等列式存储系统，先写内存再落磁盘</li>
+</ul>
+<blockquote>
+<p>中间结果：保存状态数据（如去重指标的明细数据），用于发生故障时，使用数据库数据恢复内存现场<br>最终结果：指的是通过 ETL 处理后的实时结果数据，数据实时更新，高频写，可以被下游直接使用<br>维表数据：供实时任务来关联实时流数据</p>
+</blockquote>
+<ul>
+<li><strong>数据服务</strong>：在存储系统上架设一层统一的数据服务层（比如提供 HSF 接口、HTTP 服务 ），用于获取实时计算结果，使用方就可以通过统一的数据服务获取到实时数据</li>
+</ul>
+<blockquote>
+<p>不需要直连数据库，数据源等信息在数据服务层维护，存储迁移时，对下游透明<br>调用方只使用服务层暴露的接口，不需要关心底层取数逻辑实现<br>屏蔽存储系统间的差异，统一的调用日志输出，便于分析和监控下游使用情况</p>
+</blockquote>
+<h4 id="3-2-2-2-流式数据模型"><a href="#3-2-2-2-流式数据模型" class="headerlink" title="3.2.2.2 流式数据模型"></a>3.2.2.2 流式数据模型</h4><p><strong>数据模型</strong>：整体上分为五层（ ODS、 DWD、 DWS、 ADS、 DIM ），在每一层中，按照重要性划分为 P0、 P1、 P2、 P3 等级， P0 属于最高优先级保障；根据不同的优先级给实时任务分配不同的计算和存储资源</p>
+<blockquote>
+<p>ODS：属于操作数据层，直接从业务系统采集过来的最原始数据，包含所有业务的变更过程，数据粒度最细；和离线计算的数据源、统计指标口径基本统一，方便进行实时和离线间数据比对<br>DWD：是在 ODS 层基础上，根据业务过程建模出来的实时事实明细层<br>DWS：汇集订阅明细层的数据；计算各个垂直业务线通用的各个维度的汇总指标，形成大宽表<br>ADS：个性化维度汇总层，统计个性化的统计维度数据，计算只有自身业务才会关注的维度和指标，常用于垂直创新业务中<br>DIM：实时维表层的数据从离线维表层导出来，抽取到在线系统中供实时应用调用</p>
+</blockquote>
+<h4 id="3-2-2-3-案例—大促"><a href="#3-2-2-3-案例—大促" class="headerlink" title="3.2.2.3 案例—大促"></a>3.2.2.3 案例—大促</h4><p><strong>大促</strong>：大促是一场对数据计算的高吞吐量、低延时、高保障性、高准确性的挑战</p>
+<ul>
+<li><strong>特征</strong></li>
+</ul>
+<blockquote>
+<p>毫秒级时延<br>洪峰明显：售时的峰值陡峰一般是日常峰值的几十倍<br>高保障性：要做多链路冗余（从采集、处理到数据服务整个数据链路都需要做物理隔离），透明切换到备链路<br>公关特性</p>
+</blockquote>
+<ul>
+<li><strong>实时任务优化</strong></li>
+</ul>
+<blockquote>
+<p>独占资源和共享资源的策略：避免抢不到 资源导致吞吐量急剧下降<br>合理选择缓存机制，尽量降低读写库次数：让最热和最可能使用的数据留在内存中，降低读写库次数<br>计算单元合并，降低拓扑层级：拓扑结构层级越深 性能越差<br>内存对象共享，避免字符拷贝：注意不合理使用带来的内存溢出问题<br>在高吞吐量和低延时间取平衡</p>
+</blockquote>
+<ul>
+<li><strong>数据链路保障</strong>：数据同步→数据计算→数据存储→数据服务；需要对整条计算链路都进行多链路搭建，做到多机房容灾、异地容灾</li>
+<li><strong>压力测试</strong></li>
+</ul>
+<blockquote>
+<p>数据压测：主要是蓄洪压测<br>产品本身压测<br>前端页面稳定性测试</p>
+</blockquote>
+<h2 id="3-3-任务调度系统"><a href="#3-3-任务调度系统" class="headerlink" title="3.3 任务调度系统"></a>3.3 任务调度系统</h2><p><strong>任务调度系统</strong>：整个调度系统共有两个核心模块：调度引擎（ Phoenix Engine ）和<br>执行引擎 Alisa ）；调度引擎的作用是根据任务节点属性及依赖关系进行实例化， 生成各类参数的实值，并生成调度树；执行引擎的作用是根据调度引擎生成的具体任务实例和配置信息，分配 CPU、内存、运行节点等资源 在任务对应的执行环境中运行节点代码</p>
+<ul>
+<li><strong>调度引擎</strong>：基于任务状态机模型、工作流状态机模型原理，以事件驱动的方式运行，为数据任务节点生成实例，并在调度树中生成具体执行的工作流；任务节点实例在工作流状态机、任务状态机和事件处理器之间转换，其中调度引擎只涉及任务状态机的未运行和 待运行两种状态，其他5种状态存在于执行引擎中<br><strong>调度引擎工作原理</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0102_Schedule_%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="0102_Schedule_调度引擎工作原理"></li>
+</ul>
+<blockquote>
+<p>Async Dispatcher ：异步处理任务调度<br>Sync Dispatcher ：同步处理任务调度<br>Task 事件处理器：任务事件处理器，与任务状态机交互<br>DAG 事件处理器：工作流事件处理器，与工作流状态机交互，一个DAG 事件处理器包含若干个 Task 件处理器</p>
+</blockquote>
+<p><strong>任务状态机模型</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0103_Schedule_%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E6%9C%BA%E6%A8%A1%E5%9E%8B.png" alt="0103_Schedule_任务状态机模型"><br><strong>工作流状态机模型</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0104_Schedule_%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%8A%B6%E6%80%81%E6%9C%BA%E6%A8%A1%E5%9E%8B.png" alt="0104_Schedule_工作流状态机模型"></p>
+<ul>
+<li><strong>执行引擎</strong><br><strong>执行引擎逻辑架构</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0105_Schedule_%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84.png" alt="0105_Schedule_执行引擎逻辑架构"></li>
+</ul>
+<blockquote>
+<p><strong>任务管理接口</strong>：供用户系统向 Alisa 中提交、查询和操作离线任务，并获得异步通知<br><strong>系统管理接口</strong>：供系统管理员进行后台管理，包括为集群增加新机器、划分资源组、查看集群资源和负载、追踪任务状态<br><strong>Driver</strong>：Alisa 的调度器，实现了任务管理接口和系统管理接口；负责任务的调度策略、集群容灾和伸缩、任务失效备援、负载均衡实现；采用可插拔替换的任务调度策略，满足不同的使用场景；使用 Resource manager 管理整个集群的负载；类似于 Hadoop 的 Job Tracker<br><strong>Task pool</strong>：Driver 将提交的各状态全部任务放入 Task pool 管理，包括等待资源、数据质量检测、运行中、运行成功和失败的所有任务；当用户获取到任务运行完成（成功或失败）的状态通知， Driver 将任务从 Task pool 中移除；Driver 和 Node 通过 Task pool 提供的事件机制进行可靠的通信；整个系统全部状态（除与运行无关的部分管理信息外）都保存在 Task pool 中，实现系统其他部分的高可用性和伸缩性；Task pool 采用 Zookeeper实现，本身也具备高可用能力<br><strong>Resource manager</strong>：专注于集群整体资源的管理<br><strong>Task container</strong>：为 Task 提供运行的容器，类似于 Web Server（Web Server 为 Action 提供运行的容器）；负责处理Task 的公共逻辑，如文件下载，任务级 Session 、流程级 Session的维护等；同时 Task container 负责收集机器的实际负载并上报给 Resource manager<br><strong>Session manager</strong>：对 Task session 进行管理<br><strong>Node</strong>：代表 Alisa 集群中的一个节点；负责提供任务运行所需的物理资源；Node 是逻辑概念，一台物理机器上可部署一个或者多个 Node（类似于 Hadoop 的 TaskTracker）</p>
+</blockquote>
+<h3 id="3-3-1-任务调度系统功能"><a href="#3-3-1-任务调度系统功能" class="headerlink" title="3.3.1 任务调度系统功能"></a>3.3.1 任务调度系统功能</h3><ul>
+<li><strong>调度配置</strong>：输入输出配置和自动识别相结合的方式；任务提交时，SQL 解析引擎自动识别此任务的输入表和输出表，输入输出表自动关联产出此表的任务；可以自动调整任务依赖，避免依赖配置错误</li>
+<li><strong>定时调度</strong>：根据实际需要，设定任务的运行时间，共有5种时间类型：分钟、小时、日、周、月，具体可精确到秒</li>
+<li><strong>周期调度</strong>：可按照小时、日等时间周期运行任务，如离线数据处理的大多数日任务</li>
+<li><strong>手动运行</strong>：在开发环境（ IDE ）中写好脚本后发布到生产环境，再通过手动触发运行；常用于生产环境需要做一些数据修复或其他一次性的临时数据操作</li>
+<li><strong>补数据</strong>：设定需要补的时间区间，并圈定需要运行的任务节点，生成一个补数据的工作流，支持并行的运行方式以节约时间；补齐历史数据</li>
+<li><strong>基线管理</strong>：按优先级进行分层分类统一管理，充分利用计算资源，保证重点业务数据优先产出，合理安排各类优先级任务的运行</li>
+<li><strong>监控报警</strong>：针对出错的节点、运行超时未完成的节点，以及可能超时的基线等，设置电话、短信、邮件等不同的告警方式，实现日常数据运维的自动化</li>
+</ul>
+<h1 id="4-数据服务"><a href="#4-数据服务" class="headerlink" title="4. 数据服务"></a>4. 数据服务</h1><h2 id="4-1-数据服务架构"><a href="#4-1-数据服务架构" class="headerlink" title="4.1 数据服务架构"></a>4.1 数据服务架构</h2><p><strong>数据服务架构</strong>：阿里数据服务架构演进过程为 DWSOA、 OpenAPI、 SmartDQ 和OneService 的四个阶段</p>
+<ul>
+<li><strong>DWSOA架构</strong>：将业务方对数据的需求通过 SOA 服务的方式发布；由需求驱动，一个需求开发一个或者几个接口，编写接口文档，开放给业务方调用<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0106_DataService_DWSOA%E6%9E%B6%E6%9E%84.png" alt="0106_DataService_DWSOA架构"></li>
+</ul>
+<blockquote>
+<p>接口粒度比较粗，灵活性不高，扩展性差，复用率低<br>开发效率不高，无法快速响应业务</p>
+</blockquote>
+<ul>
+<li><strong>OpenAPI</strong>：将数据按照统计粒度进行聚合，同样维度的数据，形成一张逻辑表，采用同样的接口描述；有效地收敛接口数量<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0107_DataService_OpenAPI%E6%9E%B6%E6%9E%84.png" alt="0107_DataService_OpenAPI架构"></li>
+<li><strong>SmartDQ架构</strong>：在OpenAPI 的基础上抽象一层，用 DSL (Domain Specific Language ，领域专用语言）来描述取数需求；采用标准的 SQL 语法，做限制和特殊增强；封装标准 DataSource ，可以使用ORM (Object Relation Mapping ，对象关系映射）框架来解决对象关系映射问题，如Hibernate、 MyBatis；开放给业务方通过写 SQL 的方式对外提供服务；封装了跨异构数据源和分布式查询功能<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0108_DataService_SmartDQ%E6%9E%B6%E6%9E%84.png" alt="0108_DataService_SmartDQ架构"></li>
+<li><strong>OneService架构</strong>：提供OneService-SmartDQ、OneService-Lego、 OneService-iPush、 OneService-uTiming等多种服务类型来满足用户需求<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0109_DataService_OneService%E6%9E%B6%E6%9E%84.png" alt="0109_DataService_OneService架构"></li>
+</ul>
+<blockquote>
+<p>OneService-Lego：采用插件化方式开发服务， 一类需求开发一个插件，目前共生产5个插件；可以将插件做成微服务、用 Docker 做隔离避免插件之间相互影响<br>OneService-iPush：要提供 Web Socket 和 long polling 两种方式，主要用于商家端实时直播<br>OneService-uTiming：提供即时任务和定时任务两种模式，满足用户运行大数据量任务的需求</p>
+</blockquote>
+<h2 id="4-2-数据服务技术架构"><a href="#4-2-数据服务技术架构" class="headerlink" title="4.2 数据服务技术架构"></a>4.2 数据服务技术架构</h2><ul>
+<li><strong>SmartDQ应用架构</strong><br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0110_DataService_OneService-SmartDQ%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="0110_DataService_OneService-SmartDQ应用架构"></li>
+</ul>
+<blockquote>
+<p>查询数据库：SmartDQ 底层支持多种数据源，可以通过实时公共层的计算作业直接将计算结果写入 HBase ；或通过同步作业将公共层的离线数据同步到对应的查询库<br>服务层</p>
+<blockquote>
+<p><strong>元数据配置</strong>：数据发布者到元数据中心进行元数据配置，建立物理表与逻辑表的映射关系，服务层会将元数据加载到本地缓存中，以便进行后续的模型解析<br><strong>主处理模块</strong></p>
+<blockquote>
+<p>DSL 解析：对用户的查询 DSL 进行语法解析，构建完整的查询树<br>逻辑 Query 构建：遍历查询树，通过查找元数据模型，转变为逻辑 Query<br>物理 Query 构建：通过查找元数据模型中的逻辑表与物理表的映射关系，将逻辑 Query 转变为物理 Query<br>Query 拆分：如果该次查询涉及多张物理表，并且在该查询场景下允许拆分，则将 Query 拆分为多个 SubQuery<br>SQL 执行：将拆分后的 SubQuery 组装成 SQL 语句，交给对应DB 执行<br>结果合并：将 DB 执行的返回结果进行合井，返回给调用者</p>
+</blockquote>
+<p><strong>其他模块</strong>：专门用于性能及稳定性方面的优化</p>
+</blockquote>
+</blockquote>
+<p>  <strong>OneService-SmartDQ元数据模型架构</strong>：逻辑表到物理表的映射<br>  <img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0111_DataService_OneService-SmartDQ%E5%85%83%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84.png" alt="0111_DataService_OneService-SmartDQ元数据模型架构"></p>
+<blockquote>
+<p>数据源：支持跨数据源查询，底层支持接人多种数据源，如MySQL、HBase、OpenSearch<br>物理表：是具体某个数据源中的一张表，每张物理表都需要指明主键列，明确统计粒度<br>逻辑表：可以理解为数据库中的视图、一张虚拟表；或由若干主键相同的物理表构成的大宽表<br>主题：逻辑表 般会挂载在某个主题下，以便进行管理与查找</p>
+</blockquote>
+<ul>
+<li><p><strong>iPush应用架构</strong>：面向 TT、MetaQ 等不同消息源，通过定制滤规则，向 Web 、无线等终端推送消息的中间件平台；核心服务器端基于高性能异步事件驱动模型的网络通信框架 Netty4 实现，结合使用 Guava 缓存实现本地注册信息存储， Filter 和 Server 之间的通信采用 Thrift 异步调用高效服务实现，消息基于 Disruptor 高性能的异步处理框架（最快的消息框架）的消息队列，在服务器运行中Zookeeper 实时监控服务器状态，通过 Diamond 作为统一的控制触发中心<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0112_DataService_OneService-iPush%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="0112_DataService_OneService-iPush应用架构"></p>
+</li>
+<li><p><strong>Lego应用架构</strong>：面向中度和高度定制化数据查询需求、支持插件机制的服务容器；本身提供日志 、服务注册、 Diamond 配置监听、鉴权、数据源管理等一系列基础设施，数据服务由服务插件提供；采用轻量级的 Node.JS 技术核实现，适合处理高并发、低延迟的 IO 密集型场景 ，目前主要支撑用户识别发码、用户识别、用户画像、人群透视和人群圈选等在线服务；底层根据需求选用 Tair、HBase、ADS 存储数据<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0113_DataService_OneService-Lego%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="0113_DataService_OneService-Lego应用架构"></p>
+</li>
+<li><p><strong>uTiming应用架构</strong>：是基于在云端的任务调度应用，提供批量数据处理服务，支撑用户识别、用户画像、人群圈选三类服务的离线计算，以及用户识别、用户画像、人群透视的服务数据预处理、人库；uTiming-scheduler 负责调度执行 SQL 或特定配置的离线任务，用户使用数据超市工具或 Lego API 建立任务，保证任务调度接口透明<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0114_DataService_OneService-uTiming%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png" alt="0114_DataService_OneService-uTiming应用架构"></p>
+</li>
+</ul>
+<h2 id="4-3-实践"><a href="#4-3-实践" class="headerlink" title="4.3 实践"></a>4.3 实践</h2><h3 id="4-3-1-性能"><a href="#4-3-1-性能" class="headerlink" title="4.3.1 性能"></a>4.3.1 性能</h3><ul>
+<li><strong>资源分配</strong>：资源利用最大化</li>
+</ul>
+<blockquote>
+<p>剥离计算资源：剥离复杂的计算统计逻辑，将其全部交由底层的数据公共层进行处理，只保留核心的业务处理逻辑<br>查询资源分配：分为Get 接口（只返回一条数据）和 List 接口（返回多条数据）；Get 查询基本都转换为 K-V查询，响应时间较短，查询代价较小，但队列等待时间长； List 查询的响应时间相对较长，且返回记录数比较多，增加了序列化以及网络传输的成本，查询代价会更高；设计两个独立的线程池： Get 线程池和 List 线程池，分别处理 Get 请求和 List 请求，提升系统的 QPS<br>执行计划优化</p>
+<blockquote>
+<p>查询拆分：对于复杂指标，可以将调用者的请求拆分成多个独立的查询，并发执行，引擎层会将多个查询的结果汇总返回给调用者<br>查询优化：分析用户请求中的 SQL 语句，将符合条件的 List 查询转换为 Get 查询</p>
+<blockquote>
+<p>解析 SQL 语句中的 WHERE 子句，提取出筛选字段以及筛选条件<br>假如筛选字段中包含该逻辑表的所有主键，且筛选条件都为equal ，说明主键都已经确定为固定值，返回记录数肯定为1条，可以将 List 查询就转换为 Get 查询</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>缓存优化</strong></li>
+</ul>
+<blockquote>
+<p>元数据缓存：查询引擎需要频繁地调用元数据信息，在服务启动时将全量数据加载到本地缓存；后台对数据生产者的发布信息进行监听，一旦更新，就增量加载</p>
+<blockquote>
+<p>查询解析：需要从元数据中得出逻辑表与物理表的映射关系，从而将逻辑 Query 解析为物理 Query<br>SQL 安全检查：需要根据元数据中的逻辑表配置信息来检查调用者的调用参数是否合法；比如 LIMIT 是否超过上限、必传字段是否遗漏等<br>字段权限检查：需要通过权限元数据来判断调用者是否有权限进行本次访问</p>
+</blockquote>
+<p>模型缓存：是将 DSL 解析后的模型（包括逻辑模型、物理模型）缓存在本地，遇到相似的 SQL 时，直接从缓存中得到解析结果，省略生成 逻辑Query、物理Query、Query拆分的过程，直接执行SQL</p>
+<blockquote>
+<p>对 DSL 进行语法、词法分析，并替换 WHERE 中的常量<br>以替换后的语句做 key ，去本地缓存中进行查找；如果命中，则提取出缓存中的模型，直接将 SQL 提交给 DB 查询；如果没有命中， 则进行正常的解析处理，并缓存解析后的结果</p>
+</blockquote>
+<p>结果缓存</p>
+<blockquote>
+<p>某些查询可能比较复杂，直接查询 DB 响应时间较长的结果<br>如获取某件物品所属类目的统计指标， 一个类目下有超大量物品，这些物品请求的结果完全一致，都是同一类目</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>查询能力</strong></li>
+</ul>
+<blockquote>
+<p>合并查询：将离线数据和实时数据合并查询，优先取离线数据，没有再去取实时数据；实现离线数据替换实时数据，不需要考虑离线数据未产出等问题<br>推送服务：监听数据提供者，新数据产生时及时推送给用户；代替轮询请求</p>
+<blockquote>
+<p>对消息生产者进行监听：如监听消息源 TT，进行消息过滤<br>考虑将符合条件的消息放置在采用无锁的队列 Disruptor中<br>采用基于高性能异步事件的网络通信框架 Netty 实现消息基于 Socket 的推送<br>采用多线程解决IO 集型系统的性能问题，采用协程方式减少采用多线程带来的上下文切换问题<br>适当地控制线程数以及流量，为重要的业务消息节约服务器资源<br>对注册的在线用户信息做本地缓存，可以极大地提高读性能</p>
+</blockquote>
+</blockquote>
+<h3 id="4-3-2-稳定性"><a href="#4-3-2-稳定性" class="headerlink" title="4.3.2 稳定性"></a>4.3.2 稳定性</h3><ul>
+<li><strong>发布系统</strong></li>
+</ul>
+<blockquote>
+<p>元数据隔离：设计三套元数据 ：日常元数据、预发元数据和线上元数据；日常环境用于线下开发测试；预发环境隔离外部用户访问，用于在正式发布前校验即将上线的代码，会定期将预发元数据同步到日常环境</p>
+<blockquote>
+<p>用户在元数据管理平台上进行操作，修改元数据；改变预发元数据，未落地缓存<br>用户点击预发，在预发环境中就可以看到用户的最新修改了，以验证用户的修改是否会影响线上已有的功能<br>验证通过，用户点击式发布，预发元数据会将变更同步到线上元数据，并加载到引擎的本地缓存中，可以在线上环境中看到用户变更</p>
+</blockquote>
+<p>隔离发布：不同用户的发布不会相互影响</p>
+<blockquote>
+<p>资源划分：根据需求确定隔离的最小单元；如，将隔离的粒度控制在逻辑表层面上<br>资源独占：用户开始修改时，系统会锁定其正在修改的逻辑表及其下挂的物理表等资源，禁止其他用户修改；正式发布变更后，释放锁定的资源<br>增量更新：增量更新用户修改的逻辑表信息</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>隔离</strong>：将系统划分为若干个独立模块，当某个模块出现问题时不影响整体功能的使用</li>
+</ul>
+<blockquote>
+<p>机房隔离：将服务器部署在两个机房中，每个机房独立部署一个集群，且机器数量尽量保持均衡，实现双机房容灾<br>分组隔离：根据业务条件将调用者进行分层 ，然后将服务端的机器划分为若干个分组，每个分组都有明确的服务对象和保障等级；可以动态地调整分组规则；当某个分组出现性能较差的查询，或者有突发大流量涌入，不会影响其他分组的正常使用</p>
+</blockquote>
+<ul>
+<li><strong>安全限制</strong></li>
+</ul>
+<blockquote>
+<p>最大返回记录数：数据库的查询强制带上 LIMIT 限制，具体数值以用户配置为准<br>必传字段：每张逻辑表都会配置主键，并标识调用者必须传入的字段，防止全表扫描<br>超时时间：设置合适的超时时间，以使得超时的查询能及时终止并释放资源，保障系统不会被偶发的超时拖垮</p>
+</blockquote>
+<ul>
+<li><strong>监控</strong></li>
+</ul>
+<blockquote>
+<p>调用日志采集：保证调用日志的完整性</p>
+<blockquote>
+<p>基础信息：包括调用时间、接口名、 方法名、返回记录数等<br>调用者信息：包括调用者应用名、来源 IP 地址等<br>调用信息：包括调用指标、查询筛选条件等<br>性能指标：包括响应时间、是否走缓存等<br>错误信息：包括出错原因、错误类型、数据源、错误堆械等</p>
+</blockquote>
+<p>调用监控：监控系统的健康状况，及时发现问题</p>
+<blockquote>
+<p>性能趋势：总体 QPS 趋势图、 RT 趋势图、响应时长区间分布、分组性能统计、单机 QPS 统计，以对当前系统容量做评估<br>零调用统计：找出最近一段时间无调用的表，进行下线处理，节约成本<br>慢 SQL 查找：找出响应时间较长的 SQL ，及时进行优化<br>错误排查：当系统的调用错误数突增时，能从错误日志中及时发现出错原因、出错的数据源等</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><strong>限流降级</strong></li>
+</ul>
+<blockquote>
+<p>限流：采用应用内的 QPS 保护，对调用者、数据源等关键角色进行 QPS 阔值控制<br>降级</p>
+<blockquote>
+<p>通过限流措施，将 QPS 置为 0，使对应的所有访问全部立即失败，防止故障扩散<br>通过修改元数据，将存在问题的资源置为失效状态，重新加载元数据后，对应的访问就全部失败，不再消耗系统资源</p>
+</blockquote>
+</blockquote>
+<p>云数据库 ApsaraDB for RDS （简称“ RDS ”）和表格存储（Table Store ）</p>
+<h1 id="5-数据挖掘"><a href="#5-数据挖掘" class="headerlink" title="5. 数据挖掘"></a>5. 数据挖掘</h1><p><strong>数据挖掘</strong>：包含特征数据与结果数据两类数据</p>
+<h2 id="5-1-阿里巴巴数据挖掘算法平台"><a href="#5-1-阿里巴巴数据挖掘算法平台" class="headerlink" title="5.1 阿里巴巴数据挖掘算法平台"></a>5.1 阿里巴巴数据挖掘算法平台</h2><p><strong>阿里巴巴数据挖掘算法平台</strong>：支持海量样本的高维特征训练，是基于阿里云 MaxCompute 的MPI 实现<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0115_MaxComputeMPI_%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png" alt="0115_MaxComputeMPI_处理流程"><br>伏羲为阿里云飞天系统的分布式调度系统，女娲为阿里云飞天系统的分布式一致性协同服务系统，盘古为阿里云飞天系统的分布式文件存储系统</p>
+<h3 id="5-3-1-挖掘数据中台"><a href="#5-3-1-挖掘数据中台" class="headerlink" title="5.3.1 挖掘数据中台"></a>5.3.1 挖掘数据中台</h3><p><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0116_%E6%8C%96%E6%8E%98%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0.png" alt="0116_挖掘数据中台"></p>
+<ul>
+<li><strong>FDM 层</strong>：用于存储在模型训练前常用的特征指标，并进行统一的清洗和去噪处理，提升机器学习特征工程环节的效率</li>
+<li><strong>IDM 层</strong>：个体挖掘指标中间层，面向个体挖掘场景，用于存储通用性强的结果数据，主要包含商品、卖家、买家、行业等维度的个体数据挖掘的相关指标</li>
+<li><strong>RDM 层</strong>：关系挖掘指标中间层，面向关系挖掘场景，用于存储通用性强的结果数据，主要包含商品间的相似关系、竞争关系，店铺间的相似关系、竞争关系等</li>
+<li><strong>ADM 层</strong>：用来沉淀比较个性偏应用的数据挖掘指标，用偏好的类目、品牌等，数据经过深度的加工处理，满足某一特点业务或产品的使用</li>
+</ul>
+<h3 id="5-3-2-挖掘算法中台"><a href="#5-3-2-挖掘算法中台" class="headerlink" title="5.3.2 挖掘算法中台"></a>5.3.2 挖掘算法中台</h3><p><strong>数据挖掘应用</strong>：可以分为个体挖掘应用与关系挖掘应用：个体挖掘应用指对单个实体的行为特征进行预测与分析，如预测某商品的销量、划分某行业的价格区间等； 关系挖掘应用指研究多个实体间的关系特征，如商品的相似关系、竞争关系等<br><strong>机器学习算法</strong></p>
+<blockquote>
+<p>分类算法：LogisticRegression、kNN、GBDT、DTC5.0、Randomforest、linearSVM、nonlinearSVM、NavieBayes、Bayes、Fisher 判别、马氏距离判别、标签传播分裂等<br>聚类算法：K-Means、Canopy、PSC 普聚类、标签传播聚类、 EM 聚类等<br>回归算法：LinearRegression、GBDT、LASSO、RidgeRegression、Factorization Machines、XGBoost等<br>推荐算法：etrec 协同过滤、 SVD 协同过滤、 ALS 协同过滤等<br>深度学习：Word2Vec、Doc2Vec、CNN、DBN、DeepMatchModel等<br>其他算法：PageRank、LOA、pLSA 、关联规则、 NMF、SVD、 RankSVM、PCA、kcore、sssp、Modularity计算等</p>
+</blockquote>
+<h3 id="5-3-3-数据挖掘案例"><a href="#5-3-3-数据挖掘案例" class="headerlink" title="5.3.3 数据挖掘案例"></a>5.3.3 数据挖掘案例</h3><ul>
+<li><strong>用户画像</strong>：基于用户网购、搜索和娱乐影音等行为的数据洞察，利用数据分析辅以算法的视角对用户进行 360 全方位的特征刻画，为用户打上各种各样的标签，如年龄、性别、职业、商品牌偏好、商品类别偏好等</li>
+</ul>
+<blockquote>
+<p>提取女装行业下的商品标题文本，对其进行分词，得到庞大的女装描绘词库<br>根据词语权重去除无效的停用词，如计算 TF-IDF 值<br>利用无监督机器学习，如 LDA ，计算一种风格所包含的词汇及重要性<br>针对每种行为赋予不同的行为强度（比如浏览行为强度弱于交易行为），再考虑该商品的风格元素组成，通过合理的方式获知买家对该风格的偏好程度</p>
+</blockquote>
+<ul>
+<li><strong>互联网反作弊</strong><br><strong>反作弊内容</strong></li>
+</ul>
+<blockquote>
+<p>账户／资金安全与网络欺诈防控<br>非人行为和账户识别<br>虚假订单与信用炒作识别<br>广告推广与 APP 安装反作弊<br>UGC 恶意信息检测</p>
+</blockquote>
+<p><strong>反作弊方法</strong></p>
+<blockquote>
+<p>基于业务规则的方法：根据实际的业务场景，不断地发现总结作弊和获利手法，通过反作弊规则的不断拓展或产品设计的完善来识别、缓解甚至消除作弊现象<br>基于有监督学习的方法：按照有监督分类算法的流程来建模，通过正负样本标记、特征提取、模型训练及预测等过程来识别作弊行为<br>基于无监督学习的方法：通过假设检验、统计分析、聚类分析等手段进行异常检测</p>
+</blockquote>
+<h1 id="6-数据应用"><a href="#6-数据应用" class="headerlink" title="6. 数据应用"></a>6. 数据应用</h1><h2 id="6-1-生意参谋"><a href="#6-1-生意参谋" class="headerlink" title="6.1 生意参谋"></a>6.1 生意参谋</h2><ul>
+<li><strong>首页</strong>：专属用户的个性化首页，可定制，常用功能模块聚合入口</li>
+<li><strong>实时直播</strong>：以店铺实时动态数据为切人点，提供实时数据的查询与分析；如数据作战室</li>
+<li><strong>经营分析</strong>：结合大环境，对经营全链路的各个环节进行分析、诊断等；如装修分析</li>
+<li><strong>市场行情</strong>：以行业分析、竞争情况为切入点，对市场动态进行分析</li>
+<li><strong>自助取数</strong>：提供数据定制、查询、导出等离端数据服务、灵活可配置，周期可定制</li>
+<li><strong>专题工具</strong>：着重专细分析和一站式优化工具，含竞争情报、流量纵横等</li>
+<li><strong>数据学院</strong>：教学相长，可帮助商家快速提升数据化运营能力<br><img src="https://qizhongyi.gitee.io/images/Data/DataManage/Ali_Practice/0117_%E7%94%9F%E6%84%8F%E5%8F%82%E8%B0%8B%E6%9E%B6%E6%9E%84.png" alt="0117_生意参谋架构"><br><strong>看我情</strong>：优先关注自身店铺<br><strong>看行情</strong>：关注行业动态<br><strong>看敌情</strong>：在保障商家隐私和数据安全的前提下提供竞争分析</li>
+</ul>
+<h2 id="6-2-阿里数据产品平台"><a href="#6-2-阿里数据产品平台" class="headerlink" title="6.2 阿里数据产品平台"></a>6.2 阿里数据产品平台</h2><p><strong>数据产品</strong></p>
+<blockquote>
+<p>报表：如静态报表、 Dashboard 等简单统计分析<br>多维分析：如 OLAP 、即席查询分析等工具型数据产品<br>专题分析型数据产品：面向某一类业务场景，沉淀分析思路<br>智能型数据应用产品 ：如个性化搜索、推荐、广告定向推送、精准营销等</p>
+</blockquote>
+<p><strong>阿里数据产品</strong></p>
+<ul>
+<li><strong>数据监控</strong>：提供最基础的报表工具—孔明灯，供用户自助取数、多维分析、 DIY个性化数据门户</li>
+<li><strong>专题分析</strong>：实时直播分析产品，根据实时数据调整资源及流量分配；行业一体化分析产品，从行业视角提供行业数据，沉淀行业分析思路；流量分析产品，从流量角度提供流量数据，包括对站点、页面、区块、位置的浏览，曝光、点击分布，以及获得资源位的活动技放等</li>
+<li><strong>应用分析</strong>：能够通过条件筛选出目标数据，支持自助分析，条件满足需求对接前台应用系统，实现个性化、精准营销、选品选商、搭建专场的需求</li>
+<li><strong>数据决策</strong>：需要宏观的业务数据和可下沉的数据，还需要丰富的趋势数据来辅助决策，了解业务进展、当前进展是否合理、业务方向等，为高管提供宏观决策分析支撑平台 ，分析历史数据规律，预测未来发展趋势，洞察全行业动态</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202109/0125760.html">https://qizhongyi.gitee.io/202109/0125760.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                    <span class="chip bg-color">大数据</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202109/0227125.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="大数据实践-01阿里-数据模型">
+                        
+                        <span class="card-title">大数据实践-01阿里-数据模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录大数据实践-01阿里-数据模型的相关内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9E%E8%B7%B5/" class="post-category">
+                                    实践
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202108/3157880.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="数据中台-基础">
+                        
+                        <span class="card-title">数据中台-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录 数据中台使用 的相关基础内容
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">
+                        <span class="chip bg-color">数据管理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

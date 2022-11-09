@@ -1,0 +1,1673 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java-基础, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录 Java基础语法 的相关基础知识
+
+
+1. 保留关键字保留关键字：被Java语言赋予了特殊含义，用作专门用途的字符串(单词)，所有字母都小写
+
+访问控制/权限控制：
+
+private：私有
+protected：受保护">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Java-基础 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Java-基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-06
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-10-17
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录 Java基础语法 的相关基础知识</p>
+<span id="more"></span>
+
+<h1 id="1-保留关键字"><a href="#1-保留关键字" class="headerlink" title="1. 保留关键字"></a>1. 保留关键字</h1><p><strong>保留关键字</strong>：被Java语言赋予了特殊含义，用作专门用途的字符串(单词)，所有字母都小写</p>
+<ul>
+<li><p><strong>访问控制/权限控制</strong>：</p>
+<ul>
+<li>private：私有</li>
+<li>protected：受保护的</li>
+<li>public：公开</li>
+</ul>
+</li>
+<li><p><strong>类、方法和变量修饰符</strong>：</p>
+<ul>
+<li>abstract</li>
+<li>class</li>
+<li>extends</li>
+<li>final</li>
+<li>implements</li>
+<li>interface</li>
+<li>native</li>
+<li>new</li>
+<li>static</li>
+<li>strictfp</li>
+<li>synchronized</li>
+<li>transient</li>
+<li>volatile</li>
+</ul>
+</li>
+<li><p><strong>程序控制</strong>：</p>
+<ul>
+<li>if</li>
+<li>else</li>
+<li>do</li>
+<li>while</li>
+<li>for</li>
+<li>switch</li>
+<li>case</li>
+<li>default</li>
+<li>break：主要用在循环语句或者 switch 语句中，用来 跳出最里层的循环，并且继续执行该循环下面的语句</li>
+<li>continue：用于任何循环控制结构中，用于让程序立刻跳转到下一次循环的迭代：在 for 循环中，continue 语句使程序立即跳转到更新语句；在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句</li>
+<li>return</li>
+<li>instanceof：判断其左边对象是否为其右边类的实例，返回boolean类型的数据</li>
+</ul>
+</li>
+<li><p><strong>错误处理</strong>：</p>
+<ul>
+<li>try</li>
+<li>catch</li>
+<li>throw</li>
+<li>throws</li>
+<li>finally</li>
+</ul>
+</li>
+<li><p><strong>包相关</strong>：</p>
+<ul>
+<li>import：导入相关包（包括Java预定义的包和用户自定义的包）</li>
+<li>package</li>
+</ul>
+</li>
+<li><p><strong>基本类型/原始类型</strong>：</p>
+<ul>
+<li>boolean</li>
+<li>byte</li>
+<li>char</li>
+<li>double</li>
+<li>float</li>
+<li>int</li>
+<li>long</li>
+<li>short</li>
+<li>null</li>
+<li>true</li>
+<li>false</li>
+</ul>
+</li>
+<li><p><strong>变量引用</strong>：</p>
+<ul>
+<li>super</li>
+<li>this</li>
+<li>void</li>
+</ul>
+</li>
+<li><p><strong>保留字</strong>：现在未使用，以后的版本可能会作为关键字使用，命名时应尽量避免</p>
+<ul>
+<li>goto</li>
+<li>const</li>
+<li>byValue</li>
+<li>cast</li>
+<li>future</li>
+<li>generic</li>
+<li>inner</li>
+<li>operator</li>
+<li>outer</li>
+<li>rest</li>
+<li>var</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h1><h2 id="2-1-基本数据类型"><a href="#2-1-基本数据类型" class="headerlink" title="2.1 基本数据类型"></a>2.1 基本数据类型</h2><p><strong>数值型</strong></p>
+<ul>
+<li><strong>整数</strong>：存放整数<ul>
+<li>byte[1]：字节</li>
+<li>short[2]：短整型</li>
+<li>int[4]：整数型(默认)</li>
+<li>long[8]：长整型，申明时需要加上“i”或者“L”</li>
+</ul>
+</li>
+<li><strong>浮点数</strong>：存放小数，由符号位、指数位和尾数位构成，尾数位可能丢失，存在精度问题，有十进制计数法和科学计数法两种表现形式<ul>
+<li>float[4]：单精度浮点数，申明时需要加上“f”或“F”</li>
+<li>double[8]：双精度浮点数(默认)<br>不要使用运算结果为小数进行相等判断，通常采用两数之差的绝对值小于某个精度范围就认为相等</li>
+</ul>
+</li>
+</ul>
+<p><strong>字符串类型</strong>：char[2]，存放单个字符，可用ASCLL码/Unicode码输出字符，输出的字符用单引号包裹，双引号包裹的是字符串，char字符都有Unicode码对应的整数，可以参与运算</p>
+<p><strong>布尔类型</strong> ：boolean[1]，存放ture，false，常用于逻辑运算，进行流程控制，<strong>不能用0或非0的整数代替true或false</strong></p>
+<p><strong>数据类型转换</strong>：小容量数据类型可以自动转换为大容量类型<br><img src="https://qizhongyi.gitee.io/images/Java/Java_Type_Change.png" alt="Java_Type_Change"></p>
+<p><strong>自动类型转换</strong>：存在多种类型的数据混合运算时，先自动转换为容量最大的数据类型</p>
+<blockquote>
+<p>byte、short和char不能自动进行类型转换，byte、short和char进行运算(包括单类型运算和多类型运算)时先自动转换为int进行计算<br>boolean 不参与数据类型转换<br>当把整数赋值给byte时，先判断整数是否在byte范围内，在进行类型判断进行赋值，如果是变量进行赋值，则先进行类型判断</p>
+</blockquote>
+<p><strong>强制类型转换</strong>：用强制类型转换符()包裹要转换成的数据类型，后面接上要转换的数据，可能引起数据精度丢失和数据溢出的问题</p>
+<blockquote>
+<p>强制类型转换符只针对最近的操作数有效，可以使用()提高运算优先级<br>char可以保存int值，不能保存int的变量，需要进行强制类型转换符</p>
+</blockquote>
+<p><strong>String类型转换</strong>：仅能转换整数字符串为基本数据，不能转换字符字符串为基本数据</p>
+<blockquote>
+<p>基本类型转换为String数据类型：只需要在基本数据类型后面加上’ + “” ‘即可<br>String类型转换为基本数据类型：需要用到基本数据类型包装类的parseXxx方法，String转换为char类型是使用charAt()方法取字符串的第一个字符给char</p>
+</blockquote>
+<h2 id="2-2-引用数据类型"><a href="#2-2-引用数据类型" class="headerlink" title="2.2 引用数据类型"></a>2.2 引用数据类型</h2><ul>
+<li><strong>类</strong> class</li>
+<li><strong>接口</strong> interface</li>
+<li><strong>数组</strong></li>
+</ul>
+<h1 id="3-运算符"><a href="#3-运算符" class="headerlink" title="3. 运算符"></a>3. 运算符</h1><h2 id="3-1-算术运算符"><a href="#3-1-算术运算符" class="headerlink" title="3.1 算术运算符"></a>3.1 算术运算符</h2><p><strong>算术运算符</strong>：对数值数据的变量进行运算</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">运算</th>
+<th align="center">范例</th>
+<th align="center">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+</td>
+<td align="center">正号</td>
+<td align="center">+1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">负号</td>
+<td align="center">-1</td>
+<td align="center">-1</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">加</td>
+<td align="center">1 + 1</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">减</td>
+<td align="center">1 - 1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">乘</td>
+<td align="center">1 * 1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">除</td>
+<td align="center">1 / 1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">%</td>
+<td align="center">取余</td>
+<td align="center">1 % 1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">++</td>
+<td align="center">自增（在前）：先运算再赋值<br />自增（在后）：先赋值再运算</td>
+<td align="center">a = 2; b = ++ a<br />a = 2; b = a ++</td>
+<td align="center">a = 3; b = 3<br />a = 3; b = 2</td>
+</tr>
+<tr>
+<td align="center">–</td>
+<td align="center">自减（在前）：先运算再赋值<br />自减（在后）：先赋值再运算</td>
+<td align="center">a = 2; b = – a<br />a = 2; b = a –</td>
+<td align="center">a = 1; b = 1<br />a = 1; b = 2</td>
+</tr>
+</tbody></table>
+<p>**+**：拼接，当左右两边数据类型均为数值型时，进行加法运算；若一边为字符串类型，进行拼接运算，运算顺序为从左到右<br>**/**：除，当除号两边均为int时，结果会舍弃小数部分，仅保留整数部分<br>**%**：取模，本质是：a % b = a - a / b * b<br>**++**：独立使用时，前++与后++完全一致，作为表达式使用：</p>
+<pre class="line-numbers language-none"><code class="language-none">int i &#x3D; 1;
+i++;            &#x2F;&#x2F; 等价于：i &#x3D; i + 1;
+++i;            &#x2F;&#x2F; 等价于：i &#x3D; i + 1;
+
+int j &#x3D; ++i;    &#x2F;&#x2F; 等价于：i &#x3D; i + 1; j &#x3D; i;
+int j &#x3D; i++;    &#x2F;&#x2F; 等价于：j &#x3D; i; i &#x3D; i + 1;
+i &#x3D; i++;        &#x2F;&#x2F; 得i &#x3D; 1 ：(1)temp &#x3D; i; (2)i &#x3D; i + 1; (3)i &#x3D; temp
+i &#x3D; ++i;        &#x2F;&#x2F; 得i &#x3D; 2 ：(1)i &#x3D; i + 1; (2)temp &#x3D; i; (3)i &#x3D; temp
+注：--同理<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-2-关系运算符"><a href="#3-2-关系运算符" class="headerlink" title="3.2 关系运算符"></a>3.2 关系运算符</h2><p><strong>关系运算符</strong>：判断两数的大小关系，结果都是boolean类型；常用在 if 分支结构或 for / while 循环结构中，有关系运算符组成的表达式成为关系表达式</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">实例</th>
+<th align="center">描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==</td>
+<td align="center">等于</td>
+<td align="center">1 == 1</td>
+<td>true</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="center">不等于</td>
+<td align="center">1 != 1</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">大于</td>
+<td align="center">1 &gt; 1</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于</td>
+<td align="center">1 &lt; 1</td>
+<td>false</td>
+</tr>
+<tr>
+<td align="center">&gt;=</td>
+<td align="center">大于等于</td>
+<td align="center">1 &gt;= 1</td>
+<td>true</td>
+</tr>
+<tr>
+<td align="center">&lt;=</td>
+<td align="center">小于等于</td>
+<td align="center">1 &lt;= 1</td>
+<td>true</td>
+</tr>
+<tr>
+<td align="center">instanceof</td>
+<td align="center">检查是否为类的对象</td>
+<td align="center">“A” instanceof String</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-逻辑运算符"><a href="#3-3-逻辑运算符" class="headerlink" title="3.3 逻辑运算符"></a>3.3 逻辑运算符</h2><p><strong>逻辑运算符</strong>：用于连接多个条件(关系表达式)，最终结果也是一个boolean值</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>a&amp;b</th>
+<th>a&amp;&amp;b</th>
+<th>a|b</th>
+<th>a||b</th>
+<th>!a</th>
+<th>a^b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<ul>
+<li>**逻辑与 &amp;**（and）：当运算符两边的表达式的结果都为true时，整个运算结果才为true，只要有一边为false，则结果为false<ul>
+<li>&amp;：无论第一个判断条件是否成立，逻辑运算符前后两个条件都会进行判断</li>
+</ul>
+</li>
+<li>**短路与 &amp;&amp;**（and）：当运算符两边的表达式的结果都为true时，整个运算结果才为true，只要有一方为false，则结果为false<ul>
+<li>&amp;&amp;：第一个条件不成立，后面的条件均不进行判断，返回false，推荐使用，效率更高</li>
+</ul>
+</li>
+<li>**逻辑或 |**（or）：当运算符有一边为true时，整个运算结果为true<ul>
+<li>|：无论第一个判断条件是否成立，逻辑运算符前后两个条件都会进行判断</li>
+</ul>
+</li>
+<li>**短路或 ||**（or）：当运算符有一边为true时，整个运算结果为true<ul>
+<li>||：第一个条件成立，后面的条件均不进行判断，返回true，推荐使用，效率更高</li>
+</ul>
+</li>
+<li>**逻辑非 !**（not）：取本来值的相反值</li>
+<li><strong>逻辑异或 ^</strong>：符号两边不同时结果为true，否则为false</li>
+</ul>
+<h2 id="3-4-赋值运算符"><a href="#3-4-赋值运算符" class="headerlink" title="3.4 赋值运算符"></a>3.4 赋值运算符</h2><p><strong>赋值运算符</strong>：将数据赋值给变量，左边只能是变量，右边可以是常量、变量、表达式，进行复核赋值运算时会进行类型转换<br><strong>基本赋值运算符</strong>：=，例：int a = 10;<br><strong>复合赋值运算符</strong>：+=、-=、*=、/=、%=，例：a += b; 等价于 a = a + b;其他同理</p>
+<h2 id="3-5-三元运算符"><a href="#3-5-三元运算符" class="headerlink" title="3.5 三元运算符"></a>3.5 三元运算符</h2><p>条件表达式 ？ 表达式1 : 表达式2；若条件表达式为true，则运行表达式1；若条件表达式为false，则运行表达式2。通常可以转换为if ··· else ··· 语句<br>当条件表达式为true时，不会执行表达式2；当条件表达式为false时，不会执行表达式1</p>
+<h2 id="3-6-运算符优先级"><a href="#3-6-运算符优先级" class="headerlink" title="3.6 运算符优先级"></a>3.6 运算符优先级</h2><p>(), [], {}等 -&gt; 单目运算符 -&gt; 算术运算符 -&gt; 位移运算符 -&gt; 比较运算符 -&gt; 逻辑运算符 -&gt; 三元运算符 -&gt; 赋值运算符</p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算方向</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高</td>
+<td>L-&gt;R</td>
+<td>()  []  {}</td>
+</tr>
+<tr>
+<td></td>
+<td>R-&gt;L</td>
+<td>++   –   ~   !(data_type)：单目运算符，仅对一个数据进行计算</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>*  /  %  (算术运算)</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>+   -</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>&lt;&lt;   &gt;&gt;   &gt;&gt;&gt;  (位运算)</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>&lt;   &gt;   &lt;=   &gt;=   instanceof  (比较运算)</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>==   !=</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>&amp;  (逻辑运算)</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>^</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>|</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>&amp;&amp;</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>||</td>
+</tr>
+<tr>
+<td></td>
+<td>L-&gt;R</td>
+<td>expr ? value : value (三元运算符)</td>
+</tr>
+<tr>
+<td></td>
+<td>R-&gt;L</td>
+<td>=   *=   /=   %=</td>
+</tr>
+<tr>
+<td></td>
+<td>R-&gt;L</td>
+<td>+=   -=   &lt;&lt;=   &gt;&gt;=</td>
+</tr>
+<tr>
+<td>低</td>
+<td>R-&gt;L</td>
+<td>&gt;&gt;&gt;=   &amp;=   ^=</td>
+</tr>
+</tbody></table>
+<h1 id="4-控制语句"><a href="#4-控制语句" class="headerlink" title="4. 控制语句"></a>4. 控制语句</h1><h2 id="4-1-循环语句"><a href="#4-1-循环语句" class="headerlink" title="4.1 循环语句"></a>4.1 循环语句</h2><ul>
+<li><strong>for</strong>(初始化循环变量;  判断条件;  循环变量增幅){循环体}</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">for(int i &#x3D; 0; i &lt; n; i++)&#123;
+	System.out.print(&quot;i&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>增强for循环：for(声明循环变量; 数组名称){语句}，主要用于数组</p>
+<pre class="line-numbers language-none"><code class="language-none">String[] str&#x3D;&#123;&#39;xx&#39;,&#39;xxx&#39;&#125;
+for(String s:str)&#123;
+	System.out.println(i);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意：增强for的目标不能是null（使用前先做非空判断），声明局部变量的类型必须和数组元素的类型匹配</p>
+</blockquote>
+<ul>
+<li><strong>while</strong>(条件){语句}</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">while(条件)&#123;
+	System.out.print(&quot;i&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>do</strong> {语句}while(条件);</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">do&#123;
+	System.out.print(&quot;i&quot;);
+&#125;while(条件)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>比较：与while相比，do…while 循环至少会执行一次；for的循环次数提前已知</p>
+</blockquote>
+<h2 id="4-2-分支语句"><a href="#4-2-分支语句" class="headerlink" title="4.2 分支语句"></a>4.2 分支语句</h2><ul>
+<li><strong>if</strong>(条件){语句}[else if(条件){语句}else{语句}]</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">if()&#123;
+	System.out.print(&quot;i&quot;);
+&#125;
+else if(条件)&#123;
+	System.out.print(&quot;j&quot;);
+&#125;
+else&#123;
+	System.out.print(&quot;k&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>switch</strong>(变量) {case value:{语句;break;}[default:{语句}]}</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">switch(变量)&#123;
+	case value1:&#123;
+		System.out.print(&quot;i&quot;);
+		continue;
+	&#125;
+	case value2:&#123;
+		System.out.print(&quot;j&quot;);
+		break;
+	&#125;
+	default:&#123;
+		System.out.print(&quot;k&quot;);
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>switch的类型可以是int，short，byte和char，不能处理long，String类型；匹配之前不会执行，若匹配无break，则后续会继续执行</p>
+</blockquote>
+<p>比较：switch使用了Binary Tree算法，运行效率优于if（除非是if-else的第一个条件就为true），if的使用更加灵活，条件更为多样；编译器编译switch时，不管有多少case，都直接跳转，不需逐个比较查询，与if不同；分支较多时，优先考虑switch</p>
+<h1 id="5-I-O"><a href="#5-I-O" class="headerlink" title="5. I/O"></a>5. I/O</h1><h2 id="5-1-Input-输入"><a href="#5-1-Input-输入" class="headerlink" title="5.1 Input(输入)"></a>5.1 Input(输入)</h2><p>Scanner</p>
+<ul>
+<li>导包：import java.util.Scanner</li>
+<li>输入：Scanner sc = new Scanner(System.in);</li>
+</ul>
+<h2 id="5-2-Output-输出"><a href="#5-2-Output-输出" class="headerlink" title="5.2 Output(输出)"></a>5.2 Output(输出)</h2><p>Java的输出方法是在java.long包里的System类中的方法，有print、println、printf三种</p>
+<ul>
+<li>System.out.print()；是一般的标准输出，输出的信息不会换行</li>
+<li>System.out.println()；与print功能相似，输出的信息后会换行</li>
+<li>System.out.printf()；继承了C语言的printf的一些特性，可以进行格式化输出<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th>说明</th>
+<th align="left">适用范围</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">%d</td>
+<td>以十进制整数格式输出</td>
+<td align="left">byte、short、int、long、Byte、Short、Integer、Long、BigInteger</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="center">%f</td>
+<td>以十进制浮点数格式输出</td>
+<td align="left">float、double、Float、Double、BigDecimal</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="center">%e或%E</td>
+<td>以科学记号浮点数格式输出</td>
+<td align="left">float、double、Float、Double、BigDecimal</td>
+<td align="left">%e表示以小写字母e表示，%E表示以大写字母E表示</td>
+</tr>
+<tr>
+<td align="center">%o</td>
+<td>以八进制整数格式输出</td>
+<td align="left">byte、short、int、long、Byte、Short、Integer、Long、BigInteger</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="center">%x或%X</td>
+<td>以十六进制整数格式输出</td>
+<td align="left">byte、short、int、long、Byte、Short、Integer、Long、BigInteger</td>
+<td align="left">%x表示以小写字母x表示，%X表示以大写字母X表示</td>
+</tr>
+<tr>
+<td align="center">%c或%C</td>
+<td>以字符符号输出</td>
+<td align="left">byte、short、char、Byte、Short、Integer、Charcater</td>
+<td align="left">%c表示以小写字母表示，%X表示以大写字母表示</td>
+</tr>
+<tr>
+<td align="center">%b或%B</td>
+<td>输出boolean值</td>
+<td align="left">boolean、非null值为true、null值为false</td>
+<td align="left">%b表示输出结果会是true或false，%B表示输出结果会是TRUE或FALSE</td>
+</tr>
+<tr>
+<td align="center">%h或%H</td>
+<td>用Integer.toHexString (arg.hashCode())来得到输出结果</td>
+<td align="left">-</td>
+<td align="left">如果arg是null，则输出null，也常用于想得到十六进制格式输出</td>
+</tr>
+<tr>
+<td align="center">%n</td>
+<td>输出平台特定的换行符号</td>
+<td align="left">-</td>
+<td align="left">Windows下会置换为”\r\n”；Linux下会置换为’\n’；Mac OS下回置换为’\r’</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="6-简单函数"><a href="#6-简单函数" class="headerlink" title="6.  简单函数"></a>6.  简单函数</h1><p><strong>进制转换函数</strong>：</p>
+<pre class="line-numbers language-none"><code class="language-none">10进制的x转2进制:   Integer.toBinaryString(x);   # 返回一个二进制int型数据
+10进制的x转8进制:   Integer.toOctalString(x);    # 返回一个八进制int型数据
+10进制的x转16进制:  Integer.toHexString(x);      # 返回一个16进制int型数据
+10进制的x转n进制:   Integer.toString(x,n);       # 返回一个n进制int型数据
+n进制的x转10进制:   Integer.valueOf(x,n);        # 返回一个十进制int型数据；valueOf()：用于返回给定参数的原生Number对象值的静态方法，参数可以是原生数据类型, String等。该方法接收两个参数一个是需要转换字符串[，一个是转换基数(可选)]
+Number.valueOf(&quot;444&quot;&#x2F;444[,16]);     # 返回字符&quot;444&quot;&#x2F;数值444对应的十六进制Number(Integer&#x2F;Float&#x2F;Double&#x2F;String)型数据
+
+n进制的x转m进制(n-&gt;10-&gt;m)：（2进制的10001110转8进制）
+Integer.toOctalString(Integer.valueOf(10001110, 2));
+BigInteger.change(&quot;10001110&quot;, 2, 8);    # BigInteger.change(String number&#x2F;&quot;x&quot;, int from&#x2F;n, int to&#x2F;m);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>字符串相关函数</strong></p>
+<ul>
+<li>字符串截取：substring(start, stop);  (包头不包尾)</li>
+</ul>
+<p><strong>方法重载</strong>：方法名相同，可以改变参数类型、参数个数、参数顺序，仅改变参数名不构成方法重载，方法重载使用同一个方法名实现功能相同、主体不同的方法</p>
+<h1 id="7-其他"><a href="#7-其他" class="headerlink" title="7. 其他"></a>7. 其他</h1><h2 id="7-1-转义字符"><a href="#7-1-转义字符" class="headerlink" title="7.1 转义字符"></a>7.1 转义字符</h2><pre class="line-numbers language-none"><code class="language-none">\t：制表位
+\n：换行
+\\：输出\
+\&quot;：输出&quot;，常用在在字符串里面输出&quot;
+\r：回车，光标会移动到最前面，重新开始输出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202106/0653309.html">https://qizhongyi.gitee.io/202106/0653309.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202106/0751874.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="JVM-基础">
+                        
+                        <span class="card-title">JVM-基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要介绍-Java-JVM虚拟机-的相关基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202106/0530938.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java-安装使用">
+                        
+                        <span class="card-title">Java-安装使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录Java的发展历史、组成部分、安装下载、保留字和语言的特点
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="post-category">
+                                    安装使用
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

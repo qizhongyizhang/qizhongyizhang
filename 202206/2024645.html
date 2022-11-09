@@ -1,0 +1,1499 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Python基础-面向对象编程, 戚中一">
+    <meta name="description" content="写在前面：本文主要记录Python的面向对象编程基础知识
+
+
+1. 简介面向对象编程：Object Oriented Programming，简称OOP；把计算机程序视为一组对象的集合，一个对象包含数据和操作数据的函数，而每个对象都可以接收">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Python基础-面向对象编程 | 戚中一</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">戚中一</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">戚中一</div>
+        <div class="logo-desc">
+            
+            戚中一
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="ttps://github.com/qizhongyizhang" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="ttps://github.com/qizhongyizhang" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Python基础-面向对象编程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-08-11
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>写在前面：本文主要记录Python的面向对象编程基础知识</p>
+<span id="more"></span>
+
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><p><strong>面向对象编程</strong>：Object Oriented Programming，简称OOP；把计算机程序视为一组对象的集合，一个对象包含数据和操作数据的函数，而每个对象都可以接收其他对象发过来的消息，并处理这些消息，计算机程序的执行就是一系列消息在各个对象之间传递；自定义的对象数据类型就是面向对象中的 <strong>类（Class）</strong>的概念；给对象发消息实际上就是调用对象对应的关联函数，我们称之为对象的 <strong>方法（Method）</strong></p>
+<blockquote>
+<p>面向对象最重要的概念就是<strong>类（Class）</strong>和<strong>实例（Instance）</strong>：<br><strong>类</strong> 是抽象的模板，是一类具有相同特征和行为的事务，类拥有的属性（特征）和方法（行为）<br><strong>实例</strong> 是根据类创建出来具体存在，每个对象都拥有相同的属性和方法，但各自的属性值可能不同</p>
+</blockquote>
+<p><strong>面向过程编程</strong>：Procedure Oriented Programming，简称POP；把计算机程序视为一系列的命令集合，即一组函数的顺序执行；为简化程序设计，面向过程把函数继续切分为子函数，即把大块函数通过切割成小块函数来降低系统的复杂度</p>
+<h1 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h1><h2 id="2-1-自定义"><a href="#2-1-自定义" class="headerlink" title="2.1 自定义"></a>2.1 自定义</h2><pre class="line-numbers language-none"><code class="language-none"># 处理学生的成绩表
+class Student(object):                  # class关键字申明类，后面紧接着类名 c_name,类名通常是大写开头的单词；紧接着是(object)，表示该类是继承哪个类（如果没有合适的继承类，就使用object类，这是所有类最终都会继承的类），继承object的类成为新式类（旧式类不继承object，python3 解释器默认定义新式类）
+    def __init__(self, name, score):    # 重写父类的__init__方法把必须绑定的属性强制填写进去，第一个参数永远是self，表示创建的实例本身，把各种属性绑定到self；有了__init__方法，在创建实例的时候，就不能传入空的属性参数
+        self.name &#x3D; name                # Student类拥有name和score这两个类属性
+        self.score &#x3D; score
+
+    def print_score(self):        # 处理成绩的方法；类定义中的函数第一个参数永远是self：表示实例对象本身；调用时不用传递该参数，可以通过 self. 调用对象的属性和方法
+        print(&#39;%s: %s&#39; % (self.name, self.score))
+
+bart &#x3D; Student(&#39;Bart Simpson&#39;, 59)        # 创建实例：通过类名+()实现，有__init__方法，必须在创建实例对象时同时给类属性赋值
+
+# class Student(object):
+      def print_score(self):
+          print(&#39;%s: %s&#39; % (self.name, self.score))
+# bart &#x3D; Student()                        # 先创建实例，无__init__方法，可以随后再给实例对象新增实例属性并进行赋值
+# bart.name &#x3D; &#39;Bart Simpson&#39;
+# bart.score &#x3D; 59
+
+bart.print_score()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-1-1-封装"><a href="#2-1-1-封装" class="headerlink" title="2.1.1 封装"></a>2.1.1 封装</h3><p><strong>封装</strong>：将属性和方法封装到一个类中</p>
+<h4 id="2-1-1-1-实例属性与类属性"><a href="#2-1-1-1-实例属性与类属性" class="headerlink" title="2.1.1.1 实例属性与类属性"></a>2.1.1.1 实例属性与类属性</h4><p><strong>类属性</strong>：给类对象定义的属性，记录与类相关的属性，通过 c_name.attr_name 进行调用（建议），也可以通过 instance_name.attr_name 调用（向上查找机制，先找实例属性，在查找类属性）<br><strong>实例属性</strong>：直接在class中通过 __init__ 方法定义的属性，类的所有实例都可以访问到，对具体对象实例申明的属性，仅本实例可以使用</p>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    student_count &#x3D; 0               # 类属性，记录实例对象的数量
+    def __init__(self, name):       # 初始化方法，用来定义实例属性
+        self.name &#x3D; name            # 实例属性，所有由Student类进行实例化创建的对象都有 name属性
+        Student.student_count +&#x3D; 1  # 修改类属性的值
+
+s &#x3D; Student(&#39;Bob&#39;)
+s.score &#x3D; 90                     # 实例属性，仅Student类的实例化对象s有 score属性<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 实例属性优先级比类属性高，针对同一个属性，实例属性会屏蔽掉类属性
+class Student(object):
+    name &#x3D; &#39;Student&#39;
+
+s &#x3D; Student()
+print(s.name)             # 输出 Student，可以通过 print(Student.name) 打印类的name属性
+
+s.name &#x3D; &#39;Student_s&#39;
+print(s.name)             # 输出 Student_s，实例属性屏蔽覆盖掉类属性
+
+del s.name                # 删除实例的name属性
+print(s.name)             # 输出Student，再次调用s.name，由于实例的name属性没有找到，就显示类的name属性<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-1-2-绑定方法"><a href="#2-1-1-2-绑定方法" class="headerlink" title="2.1.1.2 绑定方法"></a>2.1.1.2 绑定方法</h4><p><strong>类方法</strong>：访问使用类属性，需要用 <strong>@classmethod</strong> 来标识，且第一个参数是 cls（习惯，表示类的引用），可以通过 cls. 访问类属性或调用类方法</p>
+<p><strong>实例方法</strong>：访问使用实例属性，第一个参数是 self</p>
+<p><strong>静态方法</strong>：既不需要访问实例属性，也不需要访问类属性的方法；需要使用 <strong>@staticmethod</strong> 来标识，不需要传递第一个参数（参数cls、self）</p>
+<pre class="line-numbers language-none"><code class="language-none">class Game(object):
+    top_score &#x3D; 0
+
+    def __init__(self, player_name):
+        self.player_name &#x3D; player_name
+
+    @classmethod                    # 定义类方法
+    def show_top_score(cls):
+        print(&quot;历史最高分: %d&quot; % Game.top_score)
+
+    @staticmethod                   # 定义静态方法
+    def show_help():
+        print(&#39;Show help.&#39;)
+
+    def play_game(self):
+        print(&#39;%s start play.&#39; % self.player_name)
+
+Game.show_help()
+Game.show_top_score()
+player_xm &#x3D; Game(&#39;xm&#39;)
+player_xm.play_game()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>实例绑定</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    pass
+
+def set_age(self, age):              # 定义一个函数作为实例方法
+    self.age &#x3D; age
+
+s &#x3D; Student()
+
+from types import MethodType
+s.set_age &#x3D; MethodType(set_age, s)    # 前后都相同实例，给s实例绑定方法set_age,仅对当前实例有用
+
+s.set_age(25)      # 调用实例方法
+print(s.age)       # 测试结果<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>类绑定</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">def set_score(self, score):
+    self.score &#x3D; score
+
+Student.set_score &#x3D; set_score     # 给类绑定方法
+
+s.set_score(100)
+s2 &#x3D; Student()
+s2.set_score(99)                  # 所有Student类的实例都可以调用
+
+print(s.score, s2.score)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>**_<em>slots</em><em>**：限制类允许添加的属性；仅对当前类实例起作用，对继承的子类不起作用，如果在子类中也定义 __slots__，则子类实例允许定义的属性就是自身的 __slots_</em> 加上父类的 _<em>slots</em>_</p>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    __slots__ &#x3D; (&#39;name&#39;, &#39;age&#39;)  # 用tuple定义允许绑定的属性名称，只允许对Student实例添加name和age属性<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-1-3-私有属性和私有方法"><a href="#2-1-1-3-私有属性和私有方法" class="headerlink" title="2.1.1.3 私有属性和私有方法"></a>2.1.1.3 私有属性和私有方法</h4><p><strong>私有属性</strong>：对象不希望公开的属性；<strong>私有方法</strong>：对象不希望公开的方法；通过 __ 表示，如：__name</p>
+<pre class="line-numbers language-none"><code class="language-none">class Women(object):
+    def __init__(self, name, age):
+        self.name &#x3D; name
+        self.__age &#x3D; age
+
+    def tell_age(self):         # 在类定义内部，可以使用私有方法
+        print(&#39;%s的年龄是%d&#39; % (self.name, self.__age))
+    
+    def __secret(self):
+        print(&#39;%s的年龄是%d&#39; % (self.name, self.__age))
+
+
+women_xf &#x3D; Women(&#39;xf&#39;, 18)
+# print(women_xf.__age)         # 私有属性不能在类定义外部使用
+women_xf.tell_age()
+women_xf.__secret()             # 私有方法也不能在类定义外部使用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 不要让内部属性不被外部访问，可以把属性的名称前加上两个下划线__，变成私有变量（private）
+class Student(object):
+    def __init__(self, name, score):
+        self.__name &#x3D; name          # 私有变量，不能在外部进行访问和修改
+        self.__score &#x3D; score        # 变量名类似__xxx__的，以双下划线开头，以双下划线结尾的变量是特殊变量，可以直接访问，不是private变量
+    
+    def get_name(self):             # 通过自定义get_name、get_score函数获取私有变量
+        return self.__name
+
+    def get_score(self):
+        return self.__score
+
+    def set_name(self, name):       # 通过自定义set_name、set_score函数修改私有变量
+        self.__name &#x3D; name
+
+    def set_score(self, score):
+        if 0 &lt;&#x3D; score &lt;&#x3D; 100:
+            self.__score &#x3D; score
+        else:
+            raise ValueError(&#39;error score!&#39;)
+
+bart &#x3D; Student(&#39;Bart Simpson&#39;, 59)
+bart.__name &#x3D; &#39;New Name&#39;            # 并没有修改内部的 __name，而是给 bart对象新增了一个 __name变量；内部__name变量被Python解释器自动改成 _Student__name, 可通过该变量进行修改(不建议、不同解释器会改成不同的变量名)
+print(bart.__name)       # 返回 New Name
+print(bart.get_name())   # 返回 Bart Simpson<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>python中不存在真正的私有，python解释器针对私有属性和私有方法进行处理：在属性和方法名前增加 _类名，可以通过 <strong>_类名__属性名</strong> 或者 <strong>_类名__方法名</strong> 进行调用，不建议使用</p>
+<pre class="line-numbers language-none"><code class="language-none">print(women_xf._Women__age)
+women_xf._Women__secret()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</blockquote>
+<h3 id="2-1-2-继承"><a href="#2-1-2-继承" class="headerlink" title="2.1.2 继承"></a>2.1.2 继承</h3><p><strong>继承</strong>：实现代码的复用，定义一个class时，可以从某个现有的class继承，新的class称为子类（Subclass）、派生类，被继承的class称为基类、父类或超类（Base class、Super class）；子类拥有父类所有的属性和方法，<strong>继承具有传递性</strong>：子类拥有父类所有的属性和方法，还拥有父类拥有父类所有的属性和方法</p>
+<pre class="line-numbers language-none"><code class="language-none">class Animal(object):
+    def __init__(self, name):
+        self.name &#x3D; name
+        # self.__name &#x3D; name      # 无法继承父类的私有属性和私有方法
+    
+    def run(self):
+        # print(&#39;%s is running.&#39; % self.__name)
+        return self.name + &#39; is running.&#39;
+
+class Cat(Animal):                # Dog类继承自Animal类，自动拥有 __name 属性和 run()方法
+    pass
+
+class Dog(Animal):
+    def run(self):                # 重写父类方法，优先查找子类，后查找父类
+        return &#39;Hello &#39; + self.name + &#39;! Keep running.&#39;
+
+dog_ani &#x3D; Animal(&#39;Wangwang&#39;)
+cat_c &#x3D; Cat(&#39;Mimi&#39;)
+dog_d &#x3D; Dog(&#39;Wangcai&#39;)
+
+print(dog_ani.run())
+print(cat_c.run())
+print(dog_d.run())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>多重继承</strong>：一个子类就可以同时获得多个父类的所有功能；在设计类的继承关系时，通常主线都通过单一继承下来；如果需要增加额外的功能，可以通过多重继承实现，通常称之为MixIn；MixIn的目的就是给一个类增加多个功能；<strong>优先考虑通过多重继承来组合多个MixIn的功能，而不是设计多层次的复杂的继承关系</strong>；多重继承时，如果多个父类含有重名的方法，则子类调用最左边父类的方法，可调用 <strong>son_c.__mro__</strong> 内置类属性查看</p>
+<pre class="line-numbers language-none"><code class="language-none">class Land_Animals(object):
+    def land_breathe(self):
+        print(&#39;Breathe on land.&#39;)
+
+class Aquatic_Animals(object):
+    def water_breathe(self):
+        print(&#39;Breathe in water.&#39;)
+
+class Frog(Land_Animals, Aquatic_Animals):
+    pass
+
+frog_f &#x3D; Frog()
+frog_f.land_breathe()
+frog_f.water_breathe()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-2-1-继承方法重写"><a href="#2-1-2-1-继承方法重写" class="headerlink" title="2.1.2.1 继承方法重写"></a>2.1.2.1 继承方法重写</h4><p><strong>方法重写</strong>：父类的方法实现不能满足子类的需求，可以在子类中重新编写父类的方法实现，在子类中定义一个和父类同名的方法，并实现</p>
+<p><strong>super</strong>：是一个特殊的类，使用 super() 调用 super类创建的对象，<strong>super().fa_fun()</strong> 用来调用父类的方法；通常在子类重写父类方式时进行调用，实现父类的方法实现，同时在其他位置增加子类的特有的方法实现，也可以通过 <strong>fa_c.fa_fun(self)</strong> 在子类中调用父类的方法，在早期版本不支持 super</p>
+<pre class="line-numbers language-none"><code class="language-none">class Animal(object):
+    def eat(self):
+        print(&#39;Animal can eat.&#39;)
+
+class Dog(Animal):
+    def bark(self):
+        print(&#39;Dog can bark.&#39;)
+
+class XiaoTianQuan(Dog):
+    def fly(self):
+        print(&#39;XiaoTianQuan can fly&#39;)
+
+    def bark(self):             # 对父类的bark进行重写
+        print(&#39;I can speak.&#39;)
+
+    def eat(self):
+        super().eat()           # 通过super对父类方法进行扩展
+        print(&#39;XiaoTianQuan can eat monster.&#39;)
+
+xiaotian &#x3D; XiaoTianQuan()
+xiaotian.eat()
+xiaotian.bark()
+xiaotian.fly()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过来说，子类不能继承父类的私有属性和私有方法；子类可以调用父类的共有属性和公有方法，父类的公有方法可以调用父类的私有属性和私有方法；通过在子类中调用父类的公有方法实现访问父类的私有属性和私有方法</p>
+<h3 id="2-1-3-多态"><a href="#2-1-3-多态" class="headerlink" title="2.1.3 多态"></a>2.1.3 多态</h3><p><strong>多态</strong>：不同子类对象调用相同的父类方法，产生不同的结果；可以增加代码的灵活度</p>
+<h3 id="2-1-4-获取对象信息"><a href="#2-1-4-获取对象信息" class="headerlink" title="2.1.4 获取对象信息"></a>2.1.4 获取对象信息</h3><p>**dir(value)**：获得一个对象的所有属性和方法，返回一个包含字符串的list；可配合 getattr()、setattr()、hasattr()，直接操作一个对象</p>
+<pre class="line-numbers language-none"><code class="language-none">class MyObject(object):
+    def __init__(self):
+        self.x &#x3D; 9
+    
+    def power(self):
+        return self.x * self.x
+
+obj &#x3D; MyObject()
+print(hasattr(obj, &#39;x&#39;))  # 判断 obj对象 是否有 x 属性
+setattr(obj, &#39;y&#39;, 19)     # 新增一个属性&#39;y&#39;，值为 19
+print(dir(obj))           # 返回 obj对象 的所有属性和方法
+print(getattr(obj, &#39;y&#39;))  # 获取不存在的属性，会抛出AttributeError的错误; 可以设置默认值:getattr(obj, &#39;z&#39;, 404):获取属性&#39;z&#39;，如果不存在，返回默认值404; fn &#x3D; getattr(obj, &#39;power&#39;):获取属性&#39;power&#39;并赋值到变量fn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-1-5-类内置属性和方法"><a href="#2-1-5-类内置属性和方法" class="headerlink" title="2.1.5 类内置属性和方法"></a>2.1.5 类内置属性和方法</h3><ul>
+<li>**__new__**：方法，创建对象时，自动调用；为对象分配内存空间</li>
+<li>**__init__**：方法，对象初始化时，自动调用；用来定义一个类具有的属性</li>
+<li>**__del__**：方法，对象从内存中销毁时，自动调用<blockquote>
+<p>注：更多内容查看下文定制类</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-1-6-property"><a href="#2-1-6-property" class="headerlink" title="2.1.6 @property"></a>2.1.6 @property</h3><p><strong>@property</strong>：把一个方法变成属性调用；把一个getter方法变成属性，只需要加上 @property 就可以；此时，@property 又创建了一个装饰器 xxx.setter ，负责把setter方法变成属性赋值</p>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    @property
+    def score(self):
+        return self._score
+
+    @score.setter
+    def score(self, value):
+        if not isinstance(value, int):
+            raise ValueError(&#39;score must be an integer!&#39;)
+        if value &lt; 0 or value &gt; 100:
+            raise ValueError(&#39;score must between 0 ~ 100!&#39;)
+        self._score &#x3D; value
+
+s &#x3D; Student()
+s.score &#x3D; 60            # OK，实际转化为s.set_score(60)
+print(s.score)          # OK，实际转化为s.get_score()
+
+# s.score &#x3D; 9999        # 报ValueError<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-2-定制类"><a href="#2-2-定制类" class="headerlink" title="2.2 定制类"></a>2.2 定制类</h2><p><strong>定制类</strong>：通过有特殊用途的函数，帮助我们完成类的定制，实现某些特定功能</p>
+<ul>
+<li>**__new__()**：为对象分配内存空间；重写 __new__ 方法一定要返回 **super().__new__(cls)**，__new__ 是一个静态方法，在调用时一定要传递 cls 参数</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class MusicPlayer(object):
+    def __new__(cls, *args, **kwargs):
+        instance &#x3D; super().__new__(cls)
+        return instance
+
+    def __init__(self):
+        print(&#39;Initialization.&#39;)
+
+wangyi &#x3D; MusicPlayer()
+print(wangyi)
+
+# 单例类：只生成一个实例，即对同一个类的不同实例对象只返回一个内存地址
+class MusicPlayer(object):
+    instance &#x3D; None      # 记录第一个对象的引用
+
+    def __new__(cls, *args, **kwargs):
+        if MusicPlayer.instance is None:
+            MusicPlayer.instance &#x3D; super().__new__(cls)
+        return MusicPlayer.instance
+
+    def __init__(self):
+        print(&#39;Initialization.&#39;)
+
+wangyi &#x3D; MusicPlayer()
+qq &#x3D; MusicPlayer()
+print(wangyi)
+print(qq)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>**__str__()<strong>：定义类实例打印模块，返回对象的描述信息（必须返回字符串），与 print函数配合使用，面向用户；</strong>__repr__()**：面向程序开发者，二者代码都是一样的</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    def __init__(self, name):
+        self.name &#x3D; name
+    
+    def __str__(self):
+        return &#39;Student object (name: %s)&#39; % self.name     # 必须返回字符串
+    
+    __repr__ &#x3D; __str__        # 简单写法，也可重新定义一个 __repr__
+
+print(Student(&#39;Michael&#39;))     # 输出 Student object (name: Michael)；如果不定义__str__()，则print会输出 &lt;__main__.Student object at 0x000001F6EC352370&gt;：表示有一个Student类，且Student类的内存地址为0x000001F6EC352370<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>**__iter__()**：返回一个可迭代对象类，被用于 for … in 循环；调用 <strong>__next__()</strong> 方法拿到循环的下一个值</p>
+<pre class="line-numbers language-none"><code class="language-none">class Fib(object):
+    def __init__(self):
+        self.a, self.b &#x3D; 0, 1                       # 初始化两个计数器a，b
+
+    def __iter__(self):
+        return self                                 # 实例本身就是迭代对象，故返回自己
+
+    def __next__(self):
+        self.a, self.b &#x3D; self.b, self.a + self.b    # 计算下一个值
+        if self.a &gt; 100000:                         # 退出循环的条件
+            raise StopIteration()
+        return self.a                               # 返回下一个值
+
+for n in Fib():
+    print(n)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>**__getitem__()**：Fib实例虽然能作用于for循环，但还是不能把它当成list来使用，无法直接获取某个元素，也无法进行切片操作</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class Fib(object):
+    def __getitem__(self, n):
+        if isinstance(n, int):      # n是索引，获取指定值
+            a, b &#x3D; 1, 1
+            for x in range(n):
+                a, b &#x3D; b, a + b
+            return a
+        if isinstance(n, slice):    # n是切片，进行切片
+            start &#x3D; n.start
+            stop &#x3D; n.stop
+            if start is None:
+                start &#x3D; 0
+            a, b &#x3D; 1, 1
+            L &#x3D; []
+            for x in range(stop):
+                if x &gt;&#x3D; start:
+                    L.append(a)
+                a, b &#x3D; b, a + b
+            return L
+
+f &#x3D; Fib()
+print(f[2])
+print(f[0:5])
+# 仍然存在缺陷，没有对step参数和负数作处理；对应的还有__setitem__()方法：把对象视作list或dict来对集合赋值；__delitem__()方法：删除某个元素<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>**__getattr__()**：返回动态类的一个属性，属性不存在于 <strong>__init__()</strong> 时调用</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    def __init__(self):
+        self.name &#x3D; &#39;Michael&#39;
+
+    def __getattr__(self, attr):
+        if attr&#x3D;&#x3D;&#39;score&#39;:
+            return 99
+        if attr&#x3D;&#x3D;&#39;age&#39;:               # 也可以返回函数，调用方式要变为函数调用
+            return lambda: 25
+        raise AttributeError(&#39;\&#39;Student\&#39; object has no attribute \&#39;%s\&#39;&#39; % attr)    # 只对定义的属性响应，定义外的属性仍然抛出 AttributeError；未定义就返回 __getattr__() 的默认返回值 None
+
+s &#x3D; Student()
+print(s.name)
+print(s.score)
+print(s.age())
+print(s.abc)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>**__call__()**：通常调用实例方法时，通过 <strong>instance.method()</strong> 来调用；可以通过定义一个 __call__()方法，直接对实例进行调用</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">class Student(object):
+    def __init__(self, name):
+        self.name &#x3D; name
+
+    def __call__(self):      # 还可以定义参数。直接调用实例进行与函数调用一样，传入参数
+        print(&#39;My name is %s.&#39; % self.name)
+
+s &#x3D; Student(&#39;Michael&#39;)
+s()            # self参数不需要传入<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/reference/datamodel.html#special-method-names"><font face = "微软雅黑" color = 1E90FF size = 5>定制类官方文档</font></a></p>
+<h2 id="2-3-枚举类"><a href="#2-3-枚举类" class="headerlink" title="2.3 枚举类"></a>2.3 枚举类</h2><p><strong>枚举类</strong>：存储枚举的常量的类，有特殊用途的函数，可以帮助我们定制类</p>
+<pre class="line-numbers language-none"><code class="language-none">from enum import Enum
+
+Month &#x3D; Enum(&#39;Month&#39;, (&#39;Jan&#39;, &#39;Feb&#39;, &#39;Mar&#39;, &#39;Apr&#39;, &#39;May&#39;, &#39;Jun&#39;, &#39;Jul&#39;, &#39;Aug&#39;, &#39;Sep&#39;, &#39;Oct&#39;, &#39;Nov&#39;, &#39;Dec&#39;))    # 创建Month类型的枚举类
+
+print(Month)                           # 打印实例
+print(Month.__members__)               # 打印元素
+print(Month.__members__.items())       # 打印元素，字典形式
+print(Month.__members__.keys())        # 打印属性，字典形式
+print(Month.__members__.values())      # 打印属性值，字典形式；value属性则是自动赋给成员的int常量，默认从1开始计数
+
+for name, member in Month.__members__.items():
+    print(name, &#39;&#x3D;&gt;&#39;, member, &#39;,&#39;, member.value)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">from enum import Enum, unique
+
+@unique                 # @unique装饰器可以保证没有重复值
+class Weekday(Enum):
+    Sun &#x3D; 0             # Sun的value被设定为0
+    Mon &#x3D; 1
+    Tue &#x3D; 2
+    Wed &#x3D; 3
+    Thu &#x3D; 4
+    Fri &#x3D; 5
+    Sat &#x3D; 6
+
+print(Weekday.Tue)            # 根据属性取值，返回 Weekday.Tue
+print(Weekday[&#39;Tue&#39;])         # 根据key取值，返回 Weekday.Tue
+print(Weekday.Tue.value)      # 获取属性对应值，返回 2
+print(Weekday(1))             # 根据值获取属性，返回 Weekday.Mon；Weekday(7)，值不在定义内，会报 ValueError
+
+day1 &#x3D; Weekday.Mon
+print(day1)                   # 可以给其他变量赋值，返回 Weekday.Mon
+print(day1 &#x3D;&#x3D; Weekday(1))     # 可以进行比较，返回 True<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">戚中一</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://qizhongyi.gitee.io/202206/2024645.html">https://qizhongyi.gitee.io/202206/2024645.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">戚中一</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">熬夜撸码，来杯咖啡！</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/202206/2351064.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Python基础-IO编程">
+                        
+                        <span class="card-title">Python基础-IO编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录Python的IO编程的相关知识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/202204/2424494.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Python模块-re">
+                        
+                        <span class="card-title">Python模块-re</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            写在前面：本文主要记录Python模块-re-的基础知识
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%A8%A1%E5%9D%97/" class="post-category">
+                                    模块
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 戚中一<br />'
+            + '文章作者: 戚中一<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('10'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">戚中一</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qizhongyizhang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:18371879651@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
