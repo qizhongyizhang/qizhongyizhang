@@ -358,14 +358,14 @@ dir /ah：只显示隐藏文件">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-21
+                    2022-12-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    515
+                    637
                 </div>
                 
 
@@ -431,18 +431,24 @@ dir /ah：只显示隐藏文件">
 <li>cls：清屏</li>
 <li>exit：退出dos窗口</li>
 </ul>
-<h1 id="2-常见问题"><a href="#2-常见问题" class="headerlink" title="2. 常见问题"></a>2. 常见问题</h1><p><strong>问题1</strong>：命令行中文乱码</p>
+<h1 id="2-常见操作"><a href="#2-常见操作" class="headerlink" title="2. 常见操作"></a>2. 常见操作</h1><p><strong>案例1</strong>：在当前文件夹打开cmd命令行</p>
 <ul>
-<li>解决：在 cmd 命令行窗口下通过 chcp 命令改变代码页：chcp 65001（65001为UTF-8的代码页）</li>
+<li><strong>解决1</strong>：在文件路径框里直接输入 cmd，然后按 Enter 即可</li>
+<li><strong>解决2</strong>：按住 shift ，然后单击鼠标右键，在弹出的对话框中选择 在此处打开 Powershell 窗口；然后即可进入 Powershell 对话框；功能上 Powershell是cmd的超集，包含 cmd 的所有功能</li>
+</ul>
+<p><strong>注</strong>：CMD命令生成BAT脚本，面向过程；PowerShell是基于.NET实现，面向对象</p>
+<h1 id="3-常见问题"><a href="#3-常见问题" class="headerlink" title="3. 常见问题"></a>3. 常见问题</h1><p><strong>问题1</strong>：命令行中文乱码</p>
+<ul>
+<li><strong>解决</strong>：在 cmd 命令行窗口下通过 chcp 命令改变代码页：chcp 65001（65001为UTF-8的代码页）</li>
 </ul>
 <p><strong>问题2</strong>：在 cmd 命令行窗口无法Tab自动补全</p>
 <ul>
-<li>解决：进入注册表，修改配置；<strong>操作</strong>：同时按住 win + r，输入regedit，回车进入注册表，找到目录\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Command Processor，右键右侧的CompletionChar，修改数值数据为9，基数为十进制，最后点击确定</li>
+<li><strong>解决</strong>：进入注册表，修改配置；<strong>操作</strong>：同时按住 win + r，输入regedit，回车进入注册表，找到目录\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Command Processor，右键右侧的CompletionChar，修改数值数据为9，基数为十进制，最后点击确定</li>
 </ul>
 <p><img src="https://qizhongyi.gitee.io/images/System/Windows/CMD_Tab.png" alt="CMD_Tab"></p>
 <p><strong>问题3</strong>：在 cmd 命令行窗口实现复制粘贴</p>
 <ul>
-<li>解决：打开 cmd命令行窗口，鼠标移动至在标题栏上点击鼠标右键，点击属性；在弹出的属性对话框中，切换至 选项选项卡，勾选编辑选项的全部选项；以后在 cmd 命令行窗口中使用 <strong>Ctrl + Shift + C/V</strong> 实现复制粘贴</li>
+<li><strong>解决</strong>：打开 cmd命令行窗口，鼠标移动至在标题栏上点击鼠标右键，点击属性；在弹出的属性对话框中，切换至 选项选项卡，勾选编辑选项的全部选项；以后在 cmd 命令行窗口中使用 <strong>Ctrl + Shift + C/V</strong> 实现复制粘贴</li>
 </ul>
 <p><img src="https://qizhongyi.gitee.io/images/System/Windows/CMD_Copy.png" alt="CMD_Copy"></p>
 
@@ -863,7 +869,7 @@ dir /ah：只显示隐藏文件">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">273.8k</span>
+                        class="white-color">274.7k</span>
             
             
             
