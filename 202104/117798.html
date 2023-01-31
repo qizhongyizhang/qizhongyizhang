@@ -358,14 +358,14 @@ dir /ah：只显示隐藏文件">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-07
+                    2023-01-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    637
+                    716
                 </div>
                 
 
@@ -437,20 +437,26 @@ dir /ah：只显示隐藏文件">
 <li><strong>解决2</strong>：按住 shift ，然后单击鼠标右键，在弹出的对话框中选择 在此处打开 Powershell 窗口；然后即可进入 Powershell 对话框；功能上 Powershell是cmd的超集，包含 cmd 的所有功能</li>
 </ul>
 <p><strong>注</strong>：CMD命令生成BAT脚本，面向过程；PowerShell是基于.NET实现，面向对象</p>
-<h1 id="3-常见问题"><a href="#3-常见问题" class="headerlink" title="3. 常见问题"></a>3. 常见问题</h1><p><strong>问题1</strong>：命令行中文乱码</p>
+<h1 id="3-常见问题"><a href="#3-常见问题" class="headerlink" title="3. 常见问题"></a>3. 常见问题</h1><h2 id="3-1-注册表问题"><a href="#3-1-注册表问题" class="headerlink" title="3.1 注册表问题"></a>3.1 注册表问题</h2><p><strong>进入注册表</strong>：同时按住 win + r，输入regedit，回车进入注册表</p>
+<p><strong>问题1</strong>：非正常卸载，无法重新安装</p>
+<ul>
+<li><strong>解决</strong>：删除注册表内信息即可</li>
+</ul>
+<p>例：百度云：删除注册表下的 HKEY_CURRENT_USER\SOFTWARE\Baidu\BaiduYunGuanjia 文件夹</p>
+<h2 id="3-2-命令行问题"><a href="#3-2-命令行问题" class="headerlink" title="3.2 命令行问题"></a>3.2 命令行问题</h2><p><strong>问题1</strong>：命令行中文乱码</p>
 <ul>
 <li><strong>解决</strong>：在 cmd 命令行窗口下通过 chcp 命令改变代码页：chcp 65001（65001为UTF-8的代码页）</li>
 </ul>
-<p><strong>问题2</strong>：在 cmd 命令行窗口无法Tab自动补全</p>
-<ul>
-<li><strong>解决</strong>：进入注册表，修改配置；<strong>操作</strong>：同时按住 win + r，输入regedit，回车进入注册表，找到目录\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Command Processor，右键右侧的CompletionChar，修改数值数据为9，基数为十进制，最后点击确定</li>
-</ul>
-<p><img src="https://qizhongyi.gitee.io/images/System/Windows/CMD_Tab.png" alt="CMD_Tab"></p>
-<p><strong>问题3</strong>：在 cmd 命令行窗口实现复制粘贴</p>
+<p><strong>问题2</strong>：在 cmd 命令行窗口实现复制粘贴</p>
 <ul>
 <li><strong>解决</strong>：打开 cmd命令行窗口，鼠标移动至在标题栏上点击鼠标右键，点击属性；在弹出的属性对话框中，切换至 选项选项卡，勾选编辑选项的全部选项；以后在 cmd 命令行窗口中使用 <strong>Ctrl + Shift + C/V</strong> 实现复制粘贴</li>
 </ul>
 <p><img src="https://qizhongyi.gitee.io/images/System/Windows/CMD_Copy.png" alt="CMD_Copy"></p>
+<p><strong>问题3</strong>：在 cmd 命令行窗口无法Tab自动补全</p>
+<ul>
+<li><strong>解决</strong>：进入注册表修改配置；<strong>操作</strong>：同时按住 win + r，输入regedit，回车进入注册表，找到目录\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Command Processor，右键右侧的CompletionChar，修改数值数据为9，基数为十进制，最后点击确定</li>
+</ul>
+<p><img src="https://qizhongyi.gitee.io/images/System/Windows/CMD_Tab.png" alt="CMD_Tab"></p>
 
                 
             </div>
@@ -861,7 +867,7 @@ dir /ah：只显示隐藏文件">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021-2022</span>
+                <span id="year">2021-2023</span>
             
             <a href="/about" target="_blank">戚中一</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
@@ -869,7 +875,7 @@ dir /ah：只显示隐藏文件">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">274.7k</span>
+                        class="white-color">275.6k</span>
             
             
             
